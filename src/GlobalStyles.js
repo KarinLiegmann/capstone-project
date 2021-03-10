@@ -24,19 +24,18 @@ export const GlobalStyles = createGlobalStyle`
 
     --ff-primary: 'Nunito Sans', sans-serif;
 
-    --ff-extralight: 200;
-    --ff-light: 300;
-    --ff-regular: 400;
-    --ff-semibold: 600;
-    --ff-bold: 700;
-    --ff-extrabold: 800;
-    --ff-black: 900;
-
     --fs-body: 1rem;
     --fs-h1: 3rem;
     --fs-h2: 1.5 rem;
     --fs-h3: 1.2rem;
-        
+
+    --fw-extralight: 200;
+    --fw-light: 300;
+    --fw-regular: 400;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+    --fw-black: 900;        
 }
 
 body {
