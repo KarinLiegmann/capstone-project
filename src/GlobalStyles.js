@@ -25,8 +25,8 @@ export const GlobalStyles = createGlobalStyle`
     --ff-primary: 'Nunito Sans', sans-serif;
 
     --fs-body: 1rem;
-    --fs-h1: 3rem;
-    --fs-h2: 1.5 rem;
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
     --fs-h3: 1.2rem;
 
     --fw-extralight: 200;
@@ -39,6 +39,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {
+    color: var(--clr-dark);
     font-family: var(--ff-primary);
     font-size: var(--fs-body);
     line-height: 1.5;
