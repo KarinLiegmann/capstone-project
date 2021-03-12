@@ -65,3 +65,6 @@ jspm_packages/
 .env
 .env.test
 .env.development.local
+
+# misc
+.DS_Store
