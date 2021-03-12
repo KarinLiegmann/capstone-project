@@ -21,6 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     --clr-accent2: rgb(252, 136, 139, 1);
     --clr-accent2-light: rgb(254, 216, 217, 1);
     --clr-dark: rgb(112, 112, 112, 1);
+    --clr-light: rgb(255, 255, 255);
 
     --ff-primary: 'Nunito Sans', sans-serif;
 
@@ -38,11 +39,7 @@ export const GlobalStyles = createGlobalStyle`
     --fw-black: 900;        
 }
 
-body {
-    color: var(--clr-dark);
-    font-family: var(--ff-primary);
-    font-size: var(--fs-body);
-    line-height: 1.5;
+body {    
     margin: 0;
 }
 
@@ -58,5 +55,17 @@ h1 { font-size: var(--fs-h1) }
 h2 { font-size: var(--fs-h2) }
 h3 { font-size: var(--fs-h3) }
 
+.App {
+    align-items: center;
+    background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
+    color: var(--clr-dark);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ff-primary);
+    font-size: var(--fs-body);
+    height: 100vh;
+    line-height: 1.5;
+    text-align: center;
+}
 `
 
