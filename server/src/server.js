@@ -7,8 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const API_KEY = process.env.API_KEY
-const DB_USER = process.env.DB_USER
-const DB_PW = process.env.DB_PW
+const DB_PATH = process.env.DB_PATH
 
 
 const server = express();
@@ -16,7 +15,7 @@ server.use(cors());
 server.use(express.json());
 server.use(bodyParser.json())
 
-const connectionString = `mongodb+srv://${DB_USER}:${DB_PW}@capstone-project.wvg8c.mongodb.net/`;
+const connectionString = `${DB_PATH}`;
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
