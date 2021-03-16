@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import axios from 'axios';
@@ -10,10 +9,10 @@ const API_KEY = process.env.API_KEY
 const DB_PATH = process.env.DB_PATH
 
 
-const server = express();
-server.use(cors());
-server.use(express.json());
-server.use(bodyParser.json())
+const app = express();
+app.use(cors());
+app.use(express.json());
+
 
 const connectionString = `${DB_PATH}`;
 mongoose.connect(connectionString, {
@@ -21,17 +20,25 @@ mongoose.connect(connectionString, {
     useUnifiedTopology: true,
 });
 
-server.get('/', (req, res) =>
+app.get('/', (req, res) =>
     res.json({ status: 'Server is up and running.' })
 );
 
-server.get('/ingredients', (req, res) => {
-    axios.get(`https://api.spoonacular.com/food/ingredients/search?apiKey=${API_KEY}&addChildren=true&sortDirection=desc&number=5&query=cheese`)
+
+app.get('recipe/ingredients', (req, res) => {
+    const queryParams = req.query
+
+    axios.get(`https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${API_KEY}`, {
+        params: {
+            number: queryParams.number,
+            query: queryParams.query
+        },
+    })
         .then(res => res.data)
-        .then(ingredients => res.send(ingredients))
+        .then(ingredients => res.status(200).send(ingredients))
         .catch(error => res.json(error))
 })
 
 
 const port = 4000;
-server.listen(port, () => console.log(`Server listens on port ${port}.`));
+app.listen(port, () => console.log(`Server listens on port ${port}.`));
