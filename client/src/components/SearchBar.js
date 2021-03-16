@@ -6,13 +6,14 @@ import axios from 'axios'
 
 export default function SearchBar({ placeholderText }) {
 
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState([])
     const [isError, setIsError] = useState(false)
     const [autocompleteOptions, setAutocompleteOptions] = useState([])
     const [ingredient, setIngredient] = useState('')
 
     const getValue = event => setSearchQuery(event.target.value)
 
+    console.log(searchQuery)
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -59,9 +60,11 @@ export default function SearchBar({ placeholderText }) {
                     onChange={getValue}
                     value={searchQuery}
                 />
-                <ul>
-                    {autocompleteOptions.map(item => <li>{item}</li>)}
-                </ul>
+                {autocompleteOptions.length > 0 &&
+                    <ul>
+                        {autocompleteOptions.map(item => <li>{item}</li>)}
+                    </ul>
+                }
 
 
             </StyledForm>
