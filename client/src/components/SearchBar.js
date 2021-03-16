@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { getAutofillIngredients } from '../services/getAutofillIngredients'
+import axios from 'axios'
+
 
 export default function SearchBar({ placeholderText }) {
 
@@ -23,12 +24,27 @@ export default function SearchBar({ placeholderText }) {
         }
     }
 
+    const getAutofillIngredients = async () => {
+        const value = searchQuery
+        try {
+            const searchResults =
+                await axios.get(`http://localhost:4000/ingredients`, {
+                    params: {
+                        number: 2,
+                        query: value
+                    },
+                })
+            const ingredientNames = searchResults.data.map(item => item.name)
+            setAutocompleteOptions(ingredientNames)
+            console.log(autocompleteOptions)
+        } catch (error) {
+            console.error(error.message)
+        }
+    }
+
     useEffect(() => {
-        let value = searchQuery
         if (searchQuery.length >= 5) {
-            getAutofillIngredients(value).then(data =>
-                console.log(typeof data)
-            )
+            getAutofillIngredients();
         }
     }, [searchQuery])
 
