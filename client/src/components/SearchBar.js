@@ -7,6 +7,7 @@ export default function SearchBar({ placeholderText }) {
 
     const [searchQuery, setSearchQuery] = useState('')
     const [isError, setIsError] = useState(false)
+    const [autocompleteOptions, setAutocompleteOptions] = useState([])
     const [ingredient, setIngredient] = useState('')
 
     const getValue = event => setSearchQuery(event.target.value)
@@ -14,7 +15,7 @@ export default function SearchBar({ placeholderText }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3) {
+        if (searchQuery.length >= 3 && searchQuery.PropTypes === 'string') {
             setIngredient(searchQuery)
             setSearchQuery('')
         } else {
@@ -25,8 +26,9 @@ export default function SearchBar({ placeholderText }) {
     useEffect(() => {
         let value = searchQuery
         if (searchQuery.length >= 5) {
-            getAutofillIngredients(value)
-            console.log(value)
+            getAutofillIngredients(value).then(data =>
+                console.log(typeof data)
+            )
         }
     }, [searchQuery])
 
@@ -45,7 +47,7 @@ export default function SearchBar({ placeholderText }) {
 
             </StyledForm>
             {isError &&
-                <ErrorMessage>Ingredients must have at least 3 characters!</ErrorMessage>
+                <ErrorMessage>Ingredients must have at least 3 characters and musn't contain numbers!</ErrorMessage>
             }
         </>
     )
