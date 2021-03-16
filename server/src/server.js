@@ -25,7 +25,7 @@ app.get('/', (req, res) =>
 );
 
 
-app.get('recipe/ingredients', (req, res) => {
+app.get('/ingredients', (req, res) => {
     const queryParams = req.query
 
     axios.get(`https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${API_KEY}`, {
