@@ -28,7 +28,7 @@ export default function SearchBar({ placeholderText }) {
             async function getAutofillIngredients(query) {
                 const value = searchQuery
                 try {
-                    await axios.get(`http://localhost:4000/ingredientsautocomplete`, {
+                    await axios.get(`http://localhost:4000/recipe/ingredients`, {
                         params: {
                             number: 2,
                             query: value
