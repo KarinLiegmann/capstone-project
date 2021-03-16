@@ -59,7 +59,10 @@ export default function SearchBar({ placeholderText }) {
                     onChange={getValue}
                     value={searchQuery}
                 />
-                <button>Add</button>
+                <ul>
+                    {autocompleteOptions.map(item => <li>{item}</li>)}
+                </ul>
+
 
             </StyledForm>
             {isError &&
@@ -71,6 +74,11 @@ export default function SearchBar({ placeholderText }) {
 
 const StyledForm = styled.form`
 display: flex;
+flex-direction: column;
+
+li {
+    list-style: none;
+}
 `
 
 const StyledSearchBar = styled.input`
