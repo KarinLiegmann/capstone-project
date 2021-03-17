@@ -14,7 +14,8 @@ export const GlobalStyles = createGlobalStyle`
     --bs-accent1: 2px 5px 10px rgb(52, 176, 95, .52);
     --bs-accent1-light: 2px 5px 10px rgb(52, 176, 95, .29);
     --bs-accent2: 2px 5px 10px rgb(252, 136, 139, .66);
-    --bs-accent2-light: 2px 5px 10px rgb(252, 136, 139, .9); 
+    --bs-accent2-light: 2px 5px 10px rgb(252, 136, 139, .9);
+    --bs-dark: 2px 5px 10px rgb(112, 112, 112, .5); 
 
     --clr-accent1: rgb(67, 206, 157, 1);
     --clr-accent1-light: rgb(238, 252, 245, 1);  

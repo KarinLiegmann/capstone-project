@@ -11,7 +11,7 @@ export default function SearchBar({ placeholderText }) {
     const [autocompleteOptions, setAutocompleteOptions] = useState([])
     const [ingredient, setIngredient] = useState('')
 
-    const getValue = event => setSearchQuery(event.target.value)
+    const getValue = (event) => setSearchQuery(event.target.value)
 
     console.log(searchQuery)
 
@@ -31,25 +31,38 @@ export default function SearchBar({ placeholderText }) {
             const searchResults =
                 await axios.get(`http://localhost:4000/ingredients`, {
                     params: {
+                        metaInformation: true,
                         number: 2,
                         query: value
                     },
                 })
-            const ingredientNames = searchResults.data.map(item => item.name)
-            setAutocompleteOptions(ingredientNames)
-            console.log(autocompleteOptions)
+            const ingredients = searchResults.data.map(ingredient => ({
+                id: ingredient.id,
+                name: ingredient.name,
+            }))
+            console.log(ingredients)
+            setAutocompleteOptions(ingredients)
         } catch (error) {
             console.error(error.message)
         }
     }
 
     useEffect(() => {
-        if (searchQuery.length >= 5) {
+        if (searchQuery.length === 5) {
             getAutofillIngredients();
+        } else if (searchQuery.length === 0) {
+            setAutocompleteOptions([])
         }
     }, [searchQuery])
 
-
+    const getAutofillValue = (idToFind) => {
+        const ingredientToReplace = autocompleteOptions.map((item) => {
+            if (item.id === idToFind) {
+                setSearchQuery(item.name)
+                setAutocompleteOptions([])
+            }
+        })
+    }
 
     return (
         <>
@@ -62,7 +75,13 @@ export default function SearchBar({ placeholderText }) {
                 />
                 {autocompleteOptions.length > 0 &&
                     <ul>
-                        {autocompleteOptions.map(item => <li>{item}</li>)}
+                        {autocompleteOptions.map(item =>
+                            <li
+                                key={item.id}
+                                name={item.name}
+                                onClick={() => getAutofillValue(item.id)}>
+                                {item.name}
+                            </li>)}
                     </ul>
                 }
 
@@ -76,19 +95,48 @@ export default function SearchBar({ placeholderText }) {
 }
 
 const StyledForm = styled.form`
+align-items: center;
+border: 1px solid var(--clr-dark);
+border-radius: 10px;
+box-shadow: var(--bs-dark);
 display: flex;
 flex-direction: column;
+width: 100%;
+
+ul {
+    border-top: 1px solid var(--clr-dark);    
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: .5rem;
+    text-align: left;
+    width: 100%;
+}
 
 li {
-    list-style: none;
+    cursor: pointer;
+    font-size: var(--fs-body);
+    padding-left: .5rem;
+
+    &:focus,
+    &:hover {
+        color: var(--clr-accent1);
+        text-decoration: underline;
+        text-decoration-color: var(--clr-accent1);
+    }    
 }
 `
 
 const StyledSearchBar = styled.input`
-border: 1px solid var(--clr-dark);
-border-radius: 10px;
+border-style: none;
+color: var(--clr-dark);
+font-size: var(--fs-body);
 padding: .5rem;
-width: 100%;
+width: 95%;
+
+&:focus {
+    outline: none;
+}
 `
 
 const ErrorMessage = styled.p`
