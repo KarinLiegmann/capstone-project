@@ -4,25 +4,24 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 
 
-export default function SearchBar({ placeholderText }) {
+export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
-    const [searchQuery, setSearchQuery] = useState([])
+    const [searchQuery, setSearchQuery] = useState('')
     const [isError, setIsError] = useState(false)
-    const [autocompleteOptions, setAutocompleteOptions] = useState([])
+    const [fetchedIngredients, setFetchedIngredients] = useState([])
     const [ingredient, setIngredient] = useState('')
 
-    const getValue = (event) => setSearchQuery(event.target.value)
-
-    console.log(searchQuery)
+    const getQueryValue = (event) => setSearchQuery(event.target.value)
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && searchQuery.PropTypes === 'string') {
+        if (searchQuery.length >= 3 && fetchedIngredients.length != 0) {
             setIngredient(searchQuery)
-            console.log(ingredient)
+            onCreateIngredient(ingredient)
             setSearchQuery('')
         } else {
             setIsError(true)
+            setSearchQuery('')
         }
     }
 
@@ -33,69 +32,84 @@ export default function SearchBar({ placeholderText }) {
                 await axios.get(`http://localhost:4000/ingredients`, {
                     params: {
                         metaInformation: true,
-                        number: 2,
+                        number: 3,
                         query: value
                     },
                 })
-            const ingredients = searchResults.data.map(ingredient => ({
+
+            const ingredientsData = searchResults.data.map(ingredient => ({
                 id: ingredient.id,
                 name: ingredient.name,
             }))
-            console.log(ingredients)
-            setAutocompleteOptions(ingredients)
+
+            if (ingredientsData.length === 0) {
+                console.log('Error')
+            } else {
+                console.log(ingredientsData)
+                setFetchedIngredients(ingredientsData)
+            }
+
         } catch (error) {
             console.error(error.message)
         }
     }
 
+
+
     useEffect(() => {
-        if (searchQuery.length === 5) {
+        if (searchQuery.length >= 3) {
             getAutofillIngredients();
         } else if (searchQuery.length === 0) {
-            setAutocompleteOptions([])
+            setFetchedIngredients([])
         }
     }, [searchQuery])
 
     const getAutofillValue = (idToFind) => {
-        const ingredientToReplace = autocompleteOptions.map((item) => {
+        const shownIngredients = fetchedIngredients.map((item) => {
             if (item.id === idToFind) {
-                setSearchQuery(item.name)
-                setAutocompleteOptions([])
+                const ingredientToReplace = item.name
+                setSearchQuery(ingredientToReplace)
+                setFetchedIngredients([])
             }
         })
     }
 
     return (
-        <FormWrapper>
-            <StyledForm onSubmit={handleSubmit}>
+        <>
+            <FormWrapper>
+                <StyledForm onSubmit={handleSubmit}>
 
-                <StyledSearchBar
-                    autocomplete="off"
-                    name="SearchBar"
-                    placeholder={placeholderText}
-                    onChange={getValue}
-                    value={searchQuery}
-                />
-                {autocompleteOptions.length > 0 &&
-                    <ul>
-                        {autocompleteOptions.map(item =>
-                            <li
-                                key={item.id}
-                                name={item.name}
-                                onClick={() => getAutofillValue(item.id)}>
-                                {item.name}
-                            </li>)}
-                    </ul>
-                }
-            </StyledForm>
-            {isError &&
-                <ErrorMessage>Ingredients must have at least 3 characters and musn't contain numbers!</ErrorMessage>
-            }
-            <AddButton
-                onClick={handleSubmit}>
-                &#43;
+                    <StyledSearchBar
+                        autocomplete="off"
+                        name="SearchBar"
+                        placeholder={placeholderText}
+                        onChange={getQueryValue}
+                        value={searchQuery}
+                    />
+                    {fetchedIngredients.length > 0 &&
+                        <ul>
+                            {fetchedIngredients.map(item =>
+                                <li
+                                    key={item.id}
+                                    name={item.name}
+                                    onClick={() => getAutofillValue(item.id)}>
+                                    {item.name}
+                                </li>)}
+                        </ul>
+                    }
+
+                </StyledForm>
+                <AddButton
+                    onClick={handleSubmit}>
+                    &#43;
             </AddButton>
-        </FormWrapper>
+
+
+            </FormWrapper>
+            {isError &&
+                <ErrorMessage>Sorry, we couldn't find the ingredient...</ErrorMessage>
+            }
+        </>
     )
 }
 
@@ -104,7 +118,6 @@ border: 1px solid var(--clr-dark);
 border-radius: 10px;
 box-shadow: var(--bs-dark);
 display: flex;
-justify-content: space-around;
 align-items: center;
 width: 100%;
 `
@@ -113,13 +126,19 @@ const AddButton = styled.span`
 color: var(--clr-accent1);
 font-size: var(--fs-h2);
 font-weight: var(--fw-black);
+align-self: flex-start;
+
+&:focus,
+&:hover {
+    transform: scale(1.3);
+}
 `
 
 const StyledForm = styled.form`
 align-items: center;
 display: flex;
 flex-direction: column;
-width: 80%;
+width: 90%;
 
 ul {
     border-top: 1px solid var(--clr-dark);    
@@ -139,7 +158,7 @@ li {
     &:focus,
     &:hover {
         color: var(--clr-accent1);
-        text-decoration: underline;
+        font-weight: var(--fw-bold);
         text-decoration-color: var(--clr-accent1);
     }    
 }
