@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 import { loadFromLocal, saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
-import Button from '../components/Button'
+
 import SearchBar from '../components/SearchBar'
+import IngredientTag from '../components/IngredientTag'
+import Button from '../components/Button'
 
 
 export default function RecipeSearch() {
@@ -31,6 +33,10 @@ export default function RecipeSearch() {
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={addIngredient}
             />
+            {ingredients.map(ingredient => {
+                <IngredientTag ingredientName={ingredients.ingredientName} />
+            })}
+
             <Button
                 text="Find Recipes" />
         </Wrapper>

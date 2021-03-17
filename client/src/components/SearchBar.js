@@ -65,7 +65,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     }, [searchQuery])
 
     const getAutofillValue = (idToFind) => {
-        const shownIngredients = fetchedIngredients.map((item) => {
+        fetchedIngredients.map((item) => {
             if (item.id === idToFind) {
                 const ingredientToReplace = item.name
                 setSearchQuery(ingredientToReplace)
