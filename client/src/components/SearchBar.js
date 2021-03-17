@@ -19,6 +19,7 @@ export default function SearchBar({ placeholderText }) {
         event.preventDefault();
         if (searchQuery.length >= 3 && searchQuery.PropTypes === 'string') {
             setIngredient(searchQuery)
+            console.log(ingredient)
             setSearchQuery('')
         } else {
             setIsError(true)
@@ -65,10 +66,12 @@ export default function SearchBar({ placeholderText }) {
     }
 
     return (
-        <>
+        <FormWrapper>
             <StyledForm onSubmit={handleSubmit}>
+
                 <StyledSearchBar
-                    name="searchBar"
+                    autocomplete="off"
+                    name="SearchBar"
                     placeholder={placeholderText}
                     onChange={getValue}
                     value={searchQuery}
@@ -84,24 +87,39 @@ export default function SearchBar({ placeholderText }) {
                             </li>)}
                     </ul>
                 }
-
-
             </StyledForm>
             {isError &&
                 <ErrorMessage>Ingredients must have at least 3 characters and musn't contain numbers!</ErrorMessage>
             }
-        </>
+            <AddButton
+                onClick={handleSubmit}>
+                &#43;
+            </AddButton>
+        </FormWrapper>
     )
 }
 
-const StyledForm = styled.form`
-align-items: center;
+const FormWrapper = styled.div`
 border: 1px solid var(--clr-dark);
 border-radius: 10px;
 box-shadow: var(--bs-dark);
 display: flex;
-flex-direction: column;
+justify-content: space-around;
+align-items: center;
 width: 100%;
+`
+
+const AddButton = styled.span`
+color: var(--clr-accent1);
+font-size: var(--fs-h2);
+font-weight: var(--fw-black);
+`
+
+const StyledForm = styled.form`
+align-items: center;
+display: flex;
+flex-direction: column;
+width: 80%;
 
 ul {
     border-top: 1px solid var(--clr-dark);    
@@ -110,7 +128,7 @@ ul {
     padding: 0;
     padding-left: .5rem;
     text-align: left;
-    width: 100%;
+    width: 100%;    
 }
 
 li {
@@ -138,6 +156,8 @@ width: 95%;
     outline: none;
 }
 `
+
+
 
 const ErrorMessage = styled.p`
 color: var(--clr-accent2);
