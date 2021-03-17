@@ -30,6 +30,7 @@ app.get('/ingredients', (req, res) => {
 
     axios.get(`https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${API_KEY}`, {
         params: {
+            metaInformation: true,
             number: queryParams.number,
             query: queryParams.query
         },
