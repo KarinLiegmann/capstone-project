@@ -7,18 +7,18 @@ import axios from 'axios'
 export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
     const [searchQuery, setSearchQuery] = useState('')
-    const [isError, setIsError] = useState(false)
     const [fetchedIngredients, setFetchedIngredients] = useState([])
-    const [ingredient, setIngredient] = useState('')
+    const [ingredient, setIngredient] = useState({})
+
+    const [isError, setIsError] = useState(false)
 
     const getQueryValue = (event) => setSearchQuery(event.target.value)
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && fetchedIngredients.length != 0) {
-            setIngredient(searchQuery)
+        if (searchQuery.length >= 3 && ingredient.length !== 0) {
+            console.log(fetchedIngredients)
             onCreateIngredient(ingredient)
-            setSearchQuery('')
         } else {
             setIsError(true)
             setSearchQuery('')
@@ -43,9 +43,9 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             }))
 
             if (ingredientsData.length === 0) {
-                console.log('Error')
+                setIsError(true)
             } else {
-                console.log(ingredientsData)
+                /*console.log(ingredientsData)*/
                 setFetchedIngredients(ingredientsData)
             }
 
@@ -53,8 +53,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             console.error(error.message)
         }
     }
-
-
 
     useEffect(() => {
         if (searchQuery.length >= 3) {
@@ -69,6 +67,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             if (item.id === idToFind) {
                 const ingredientToReplace = item.name
                 setSearchQuery(ingredientToReplace)
+                setIngredient(item)
                 setFetchedIngredients([])
             }
         })
@@ -86,7 +85,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         onChange={getQueryValue}
                         value={searchQuery}
                     />
-                    {fetchedIngredients.length > 0 &&
+                    {fetchedIngredients.length > 1 &&
                         <ul>
                             {fetchedIngredients.map(item =>
                                 <li
@@ -107,7 +106,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
             </FormWrapper>
             {isError &&
-                <ErrorMessage>Sorry, we couldn't find the ingredient...</ErrorMessage>
+                <ErrorMessage>Sorry, no matching results...</ErrorMessage>
             }
         </>
     )

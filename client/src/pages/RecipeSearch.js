@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { loadFromLocal, saveToLocal } from '../library/localStorage'
+import { saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
 import Button from '../components/Button'
@@ -7,18 +7,20 @@ import SearchBar from '../components/SearchBar'
 
 
 export default function RecipeSearch() {
-    const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
-
-    console.log(ingredients)
+    const [ingredients, setIngredients] = useState([])
 
     function addIngredient(ingredient) {
         const newIngredient =
         {
-            ingredientName: ingredient.toLowerCase(),
+            ingredientName: ingredient.name,
             isActive: true
         }
+
         setIngredients([...ingredients, newIngredient])
+        console.log(ingredients)
     }
+
+
 
     useEffect(() => {
         saveToLocal('ingredients', ingredients)
