@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react'
 import { saveToLocal, loadFromLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
-
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
 import Button from '../components/Button'
 
 
 export default function RecipeSearch() {
-    /*const [ingredients, setIngredients] = useState([])*/
+
     const [ingredients, setIngredients] = useState([{
         ingredientName: "mozzarella sticks",
         id: 1234,
@@ -37,13 +36,18 @@ export default function RecipeSearch() {
     }
 
     const toggleActiveState = (idToToggle) => {
-        const inactiveIngredient = ingredients.map(ingredient => {
+        const updatedIngredients = ingredients.map(ingredient => {
             if (ingredient.id === idToToggle) {
                 ingredient.isActive = !ingredient.isActive
                 console.log(ingredient)
             }
+            return ingredient;
         })
+        setIngredients(updatedIngredients)
     }
+
+
+
 
 
 
