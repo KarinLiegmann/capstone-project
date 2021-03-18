@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 
 import SearchBar from '../components/SearchBar'
-import IngredientTag from '../components/IngredientTag'
+import IngredientTags from '../components/IngredientTags'
 import Button from '../components/Button'
 
 
@@ -21,6 +21,9 @@ export default function RecipeSearch() {
         isActive: true
     }])
 
+    const [activeIngredients, setActiveIngredients] = useState([])
+    const [inactiveIngredients, setInactiveIngredients] = useState([])
+
     function addIngredient(ingredient) {
         const newIngredient =
         {
@@ -32,6 +35,19 @@ export default function RecipeSearch() {
         setIngredients([...ingredients, newIngredient])
         console.log(ingredients)
     }
+
+    const toggleActiveState = (idToToggle) => {
+        const inactiveIngredient = ingredients.map(ingredient => {
+            if (ingredient.id === idToToggle) {
+                ingredient.isActive = !ingredient.isActive
+                console.log(ingredient)
+            }
+        })
+    }
+
+
+
+
 
 
 
@@ -46,16 +62,10 @@ export default function RecipeSearch() {
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={addIngredient}
             />
-            {ingredients.map(
-                ({
-                    ingredientName,
-                    id
-                }) => (
-                    <IngredientTag
-                        key={id}
-                        text={ingredientName}
-                    />)
-            )}
+            <IngredientTags
+                ingredients={ingredients}
+                onToggleStatus={toggleActiveState}
+            />
 
             <Button
                 text="Find Recipes" />
