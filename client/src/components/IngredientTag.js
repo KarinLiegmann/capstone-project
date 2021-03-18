@@ -1,13 +1,11 @@
 import styled from 'styled-components'
-import { ReactComponent as CheckmarkIcon } from '../assets/checkmark-icon.svg'
-import { ReactComponent as TrashIcon } from '../assets/trash-icon.svg'
+import { FaCheck } from 'react-icons/fa'
 
 export default function IngredientTag({ text }) {
     return (
         <IngredientsWrapper>
             <StyledIngredientTag>
-                {text}
-                <IconWrapper><CheckmarkIcon /></IconWrapper></StyledIngredientTag>
+                {text}<Checkmark /></StyledIngredientTag>
         </IngredientsWrapper>
     )
 }
@@ -20,6 +18,7 @@ flex-direction: column;
 margin-left: 1.5rem;
 `
 const StyledIngredientTag = styled.div`
+align-items: center;
 background: var(--clr-accent2);
 border-radius: 5px;
 box-shadow: var(--bs-accent2);
@@ -29,16 +28,7 @@ font-size: var(--fs-body);
 font-weight: var(--fw-bold);
 padding: .2rem .8rem;
 `
-const ToggleSign = styled.span`
+const Checkmark = styled(FaCheck)`
+color: var(--clr-light);
 margin-left: 1rem;
-`
-
-const IconWrapper = styled.span`
-outline: green;
-
-svg {
-    path {
-        fill: red;
-    }
-}
 `
