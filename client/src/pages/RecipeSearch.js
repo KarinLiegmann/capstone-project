@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { saveToLocal } from '../library/localStorage'
+import { saveToLocal, loadFromLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
 
@@ -9,7 +9,17 @@ import Button from '../components/Button'
 
 
 export default function RecipeSearch() {
-    const [ingredients, setIngredients] = useState([])
+    /*const [ingredients, setIngredients] = useState([])*/
+    const [ingredients, setIngredients] = useState([{
+        ingredientName: "mozzarella sticks",
+        id: 1234,
+        isActive: true
+    },
+    {
+        ingredientName: "chicken",
+        id: 2345,
+        isActive: true
+    }])
 
     function addIngredient(ingredient) {
         const newIngredient =

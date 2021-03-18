@@ -1,9 +1,13 @@
 import styled from 'styled-components'
+import { ReactComponent as CheckmarkIcon } from '../assets/checkmark-icon.svg'
+import { ReactComponent as TrashIcon } from '../assets/trash-icon.svg'
 
 export default function IngredientTag({ text }) {
     return (
         <IngredientsWrapper>
-            <StyledIngredientTag>{text}<ToggleSign>&#10003;</ToggleSign></StyledIngredientTag>
+            <StyledIngredientTag>
+                {text}
+                <IconWrapper><CheckmarkIcon /></IconWrapper></StyledIngredientTag>
         </IngredientsWrapper>
     )
 }
@@ -27,4 +31,14 @@ padding: .2rem .8rem;
 `
 const ToggleSign = styled.span`
 margin-left: 1rem;
+`
+
+const IconWrapper = styled.span`
+outline: green;
+
+svg {
+    path {
+        fill: red;
+    }
+}
 `
