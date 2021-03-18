@@ -9,7 +9,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     const [searchQuery, setSearchQuery] = useState('')
     const [fetchedIngredients, setFetchedIngredients] = useState([])
     const [ingredient, setIngredient] = useState({})
-
     const [isError, setIsError] = useState(false)
 
     const getQueryValue = (event) => setSearchQuery(event.target.value)
@@ -17,7 +16,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (searchQuery.length >= 3 && ingredient.length !== 0) {
-            console.log(fetchedIngredients)
             onCreateIngredient(ingredient)
         } else {
             setIsError(true)
@@ -36,19 +34,15 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         query: value
                     },
                 })
-
             const ingredientsData = searchResults.data.map(ingredient => ({
                 id: ingredient.id,
                 name: ingredient.name,
             }))
-
             if (ingredientsData.length === 0) {
                 setIsError(true)
             } else {
-                /*console.log(ingredientsData)*/
                 setFetchedIngredients(ingredientsData)
             }
-
         } catch (error) {
             console.error(error.message)
         }
@@ -77,7 +71,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         <>
             <FormWrapper>
                 <StyledForm onSubmit={handleSubmit}>
-
                     <StyledSearchBar
                         autocomplete="off"
                         name="SearchBar"
@@ -175,12 +168,9 @@ width: 95%;
 }
 `
 
-
-
 const ErrorMessage = styled.p`
 color: var(--clr-accent2);
 `
-
 
 
 SearchBar.propTypes = {

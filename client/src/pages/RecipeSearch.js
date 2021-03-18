@@ -15,6 +15,7 @@ export default function RecipeSearch() {
         const newIngredient =
         {
             ingredientName: ingredient.name,
+            id: ingredient.id,
             isActive: true
         }
 
@@ -35,9 +36,16 @@ export default function RecipeSearch() {
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={addIngredient}
             />
-            {ingredients.map(ingredient => {
-                <IngredientTag ingredientName={ingredients.ingredientName} />
-            })}
+            {ingredients.map(
+                ({
+                    ingredientName,
+                    id
+                }) => (
+                    <IngredientTag
+                        key={id}
+                        text={ingredientName}
+                    />)
+            )}
 
             <Button
                 text="Find Recipes" />

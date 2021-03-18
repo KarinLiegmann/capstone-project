@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 
-export default function IngredientTag({ ingredientName }) {
+export default function IngredientTag({ text }) {
     return (
-        <IngredientWrapper>
-            <StyledIngredientTag>{ingredientName}<ToggleSign>&#10003;</ToggleSign></StyledIngredientTag>
-        </IngredientWrapper>
+        <IngredientsWrapper>
+            <StyledIngredientTag>{text}<ToggleSign>&#10003;</ToggleSign></StyledIngredientTag>
+        </IngredientsWrapper>
     )
 }
 
 
-const IngredientWrapper = styled.section`
+const IngredientsWrapper = styled.section`
 align-items: flex-start;
 display: flex;
 flex-direction: column;
