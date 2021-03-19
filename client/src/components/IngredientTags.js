@@ -1,32 +1,23 @@
 import styled from 'styled-components'
-import { FaCheck } from 'react-icons/fa'
 import { FaMinus } from 'react-icons/fa'
 
-export default function IngredientTags({ ingredients, onToggleStatus }) {
+export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
     return (
         <Wrapper>
-
             {ingredients.map((ingredient, index) =>
-            (<TagWrapper>
-
+            (<TagWrapper
+                key={ingredient.id}
+            >
                 <StyledIngredientTag
-
-                    key={ingredient.id}
                     onClick={() => onToggleStatus(ingredient.id)}
                     isActive={ingredient.isActive}
                 >
                     {ingredient.ingredientName}
-                    <Checkmark />
-
                 </StyledIngredientTag>
-                <DeleteIcon />
+                <DeleteIcon
+                    onClick={() => onDeleteTag(ingredient.id)} />
             </TagWrapper>
-
-
             ))}
-
-
-
         </Wrapper>
     )
 }
@@ -56,10 +47,10 @@ font-weight: var(--fw-bold);
 justify-self: flex-start;
 margin: .5rem 0;
 padding: .2rem .8rem;
+text-decoration: ${({ isActive }) => isActive ? 'none' : 'line-through'};
+text-decoration-thickness: 2px;
 `
-const Checkmark = styled(FaCheck)`
-margin-left: 1rem;
-`
+
 const DeleteIcon = styled(FaMinus)`
 color: var(--clr-accent2);
 font-size: var(--fs-h2);

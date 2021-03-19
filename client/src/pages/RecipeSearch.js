@@ -35,6 +35,14 @@ export default function RecipeSearch() {
         console.log(ingredients)
     }
 
+    const deleteIngredient = (idToDelete) => {
+        const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
+
+        setIngredients(ingredientsToKeep)
+        setActiveIngredients(ingredientsToKeep)
+        setInactiveIngredients(ingredientsToKeep)
+    }
+
     const toggleActiveState = (idToToggle) => {
         const updatedIngredients = ingredients.map(ingredient => {
             if (ingredient.id === idToToggle) {
@@ -69,6 +77,7 @@ export default function RecipeSearch() {
             <IngredientTags
                 ingredients={ingredients}
                 onToggleStatus={toggleActiveState}
+                onDeleteTag={deleteIngredient}
             />
 
             <Button
