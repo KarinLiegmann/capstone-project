@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { saveToLocal, loadFromLocal } from '../library/localStorage'
+import { loadFromLocal, saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
 import SearchBar from '../components/SearchBar'
@@ -9,33 +9,15 @@ import Button from '../components/Button'
 
 export default function RecipeSearch() {
 
-    const [ingredients, setIngredients] = useState([{
-        ingredientName: "mozzarella sticks",
-        id: 1234,
+    const initialIngredient = [{
+        ingredientName: '',
+        id: '',
         isActive: true
-    },
-    {
-        ingredientName: "chicken",
-        id: 2345,
-        isActive: true
-    },
-    {
-        ingredientName: "tomatoes",
-        id: 3456,
-        isActive: true
-    },
-    {
-        ingredientName: "spaghetti",
-        id: 4567,
-        isActive: true
-    },
-    {
-        ingredientName: "miso",
-        id: 5678,
-        isActive: true
-    }])
+    }]
 
-    const [activeIngredients, setActiveIngredients] = useState([])
+    const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? initialIngredient)
+
+    const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
     function addIngredient(ingredient) {
         const newIngredient =
@@ -60,12 +42,10 @@ export default function RecipeSearch() {
         const updatedIngredients = ingredients.map(ingredient => {
             if (ingredient.id === idToToggle) {
                 ingredient.isActive = !ingredient.isActive
-                console.log(ingredient)
             }
             return ingredient;
         })
         setIngredients(updatedIngredients)
-        console.log(ingredients)
     }
 
     function filterActiveIngredients() {

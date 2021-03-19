@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import { FaMinus } from 'react-icons/fa'
 
 export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
@@ -56,3 +57,9 @@ color: var(--clr-accent2);
 font-size: var(--fs-h2);
 justify-self: flex-end;
 `
+
+IngredientTags.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDeleteTag: PropTypes.func.isRequired,
+    onToggleStatus: PropTypes.func.isRequired,
+}
