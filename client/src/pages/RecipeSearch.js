@@ -18,10 +18,24 @@ export default function RecipeSearch() {
         ingredientName: "chicken",
         id: 2345,
         isActive: true
+    },
+    {
+        ingredientName: "tomatoes",
+        id: 3456,
+        isActive: true
+    },
+    {
+        ingredientName: "spaghetti",
+        id: 4567,
+        isActive: true
+    },
+    {
+        ingredientName: "miso",
+        id: 5678,
+        isActive: true
     }])
 
     const [activeIngredients, setActiveIngredients] = useState([])
-    const [inactiveIngredients, setInactiveIngredients] = useState([])
 
     function addIngredient(ingredient) {
         const newIngredient =
@@ -40,7 +54,6 @@ export default function RecipeSearch() {
 
         setIngredients(ingredientsToKeep)
         setActiveIngredients(ingredientsToKeep)
-        setInactiveIngredients(ingredientsToKeep)
     }
 
     const toggleActiveState = (idToToggle) => {
@@ -52,19 +65,20 @@ export default function RecipeSearch() {
             return ingredient;
         })
         setIngredients(updatedIngredients)
+        console.log(ingredients)
+    }
+
+    function filterActiveIngredients() {
+        const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
+        setActiveIngredients(allActiveIngredients)
+        saveToLocal('ingredients', ingredients)
+        saveToLocal('activeIngredients', allActiveIngredients)
+        console.log(activeIngredients)
     }
 
 
-
-
-
-
-
-
-
-
     useEffect(() => {
-        saveToLocal('ingredients', ingredients)
+        filterActiveIngredients()
     }, [ingredients])
 
     return (
@@ -87,8 +101,8 @@ export default function RecipeSearch() {
 }
 
 const Wrapper = styled.section`
+
 Button {
-   align-self: flex-end;
     width: fit-content;
 }
 `
