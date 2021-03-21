@@ -11,7 +11,7 @@ export default function RecipeSearch() {
 
     const initialIngredient = [{
         ingredientName: '',
-        id: '',
+        id: 0,
         isActive: true
     }]
 
