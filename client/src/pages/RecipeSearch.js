@@ -7,71 +7,21 @@ import IngredientTags from '../components/IngredientTags'
 import Button from '../components/Button'
 
 
-export default function RecipeSearch() {
-
-    const initialIngredient = [{
-        ingredientName: '',
-        id: 0,
-        isActive: true
-    }]
-
-    const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? initialIngredient)
-
-    const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
-
-    function addIngredient(ingredient) {
-        const newIngredient =
-        {
-            ingredientName: ingredient.name,
-            id: ingredient.id,
-            isActive: true
-        }
-
-        setIngredients([...ingredients, newIngredient])
-        console.log(ingredients)
-    }
-
-    const deleteIngredient = (idToDelete) => {
-        const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
-
-        setIngredients(ingredientsToKeep)
-        setActiveIngredients(ingredientsToKeep)
-    }
-
-    const toggleActiveState = (idToToggle) => {
-        const updatedIngredients = ingredients.map(ingredient => {
-            if (ingredient.id === idToToggle) {
-                ingredient.isActive = !ingredient.isActive
-            }
-            return ingredient;
-        })
-        setIngredients(updatedIngredients)
-    }
-
-    function filterActiveIngredients() {
-        const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
-        setActiveIngredients(allActiveIngredients)
-        saveToLocal('ingredients', ingredients)
-        saveToLocal('activeIngredients', allActiveIngredients)
-        console.log(activeIngredients)
-    }
+export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onToggleStatus }) {
 
 
-    useEffect(() => {
-        filterActiveIngredients()
-    }, [ingredients])
 
     return (
         <Wrapper>
             <h2>Hi, what's in your fridge today?</h2>
             <SearchBar
                 placeholderText="Search and add ingredient..."
-                onCreateIngredient={addIngredient}
+                onCreateIngredient={onCreateIngredient}
             />
             <IngredientTags
                 ingredients={ingredients}
-                onToggleStatus={toggleActiveState}
-                onDeleteTag={deleteIngredient}
+                onToggleStatus={onToggleStatus}
+                onDeleteTag={onDeleteTag}
             />
 
             <Button
