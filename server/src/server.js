@@ -40,6 +40,20 @@ app.get('/ingredients', (req, res) => {
         .catch(error => res.json(error))
 })
 
+app.get('/recipes', (req, res) => {
+    const queryParams = req.query
+
+    axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=mozzarella%cheese%sticks`, {
+        params: {
+            number: queryParams.number,
+            ingredients: queryParams.query
+        },
+    })
+        .then(res => res.data)
+        .then(recipes => res.status(200).send(recipes))
+        .catch(error => res.json(error))
+})
+
 
 
 

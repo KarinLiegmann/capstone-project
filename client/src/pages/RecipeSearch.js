@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { loadFromLocal, saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
 import SearchBar from '../components/SearchBar'

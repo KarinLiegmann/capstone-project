@@ -28,9 +28,7 @@ function App() {
       id: ingredient.id,
       isActive: true
     }
-
     setIngredients([...ingredients, newIngredient])
-    console.log(ingredients)
   }
 
   const deleteIngredient = (idToDelete) => {
@@ -55,13 +53,13 @@ function App() {
     setActiveIngredients(allActiveIngredients)
     saveToLocal('ingredients', ingredients)
     saveToLocal('activeIngredients', allActiveIngredients)
-    console.log(activeIngredients)
   }
-
 
   useEffect(() => {
     filterActiveIngredients()
   }, [ingredients])
+
+
 
   return (
     <div className="App">
@@ -71,6 +69,7 @@ function App() {
 
       <main>
         <Switch>
+
           <Route exact path="/">
             <RecipeSearch
               ingredients={ingredients}
@@ -78,7 +77,11 @@ function App() {
               onDeleteTag={deleteIngredient}
               onToggleStatus={toggleActiveState} />
           </Route>
-          <Route exact path="/results" component={RecipeResults} />
+
+          <Route exact path="/results">
+            <RecipeResults />
+          </Route>
+
         </Switch>
       </main>
 
