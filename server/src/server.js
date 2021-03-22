@@ -43,16 +43,19 @@ app.get('/ingredients', (req, res) => {
 app.get('/recipes', (req, res) => {
     const queryParams = req.query
 
-    axios.get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=mozzarella%cheese%sticks`, {
+    axios.get(`https://api.spoonacular.com/recipes/findByIngredients?&apiKey=${API_KEY}`, {
         params: {
+            ranking: queryParams.ranking,
             number: queryParams.number,
-            ingredients: queryParams.query
+            ingredients: queryParams.ingredients
         },
     })
         .then(res => res.data)
         .then(recipes => res.status(200).send(recipes))
         .catch(error => res.json(error))
 })
+
+
 
 
 

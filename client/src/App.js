@@ -6,6 +6,8 @@ import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 
 import Header from './components/Header'
+import axios from 'axios'
+
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? initialIngredient)
 
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
+
+  const [recipes, setRecipes] = useState([])
 
   function addIngredient(ingredient) {
     const newIngredient =
@@ -55,9 +59,58 @@ function App() {
     saveToLocal('activeIngredients', allActiveIngredients)
   }
 
+  const getRecipeResults = async () => {
+    const ingredientNames = activeIngredients.map(ingredient => ingredient.ingredientName)
+
+    let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
+    console.log(queryString)
+
+    const value = activeIngredients[1].ingredientName
+    console.log(value)
+
+    try {
+      const searchResults =
+        await axios.get(`http://localhost:4000/recipes`, {
+          params: {
+            ranking: 2,
+            number: 2,
+            ingredients: queryString
+          },
+        })
+
+      const recipeData = searchResults.data.map(recipe => ({
+        id: recipe.id,
+        title: recipe.title,
+        image: recipe.image,
+        usedIngredientCount: recipe.usedIngredientCount,
+        missedIngredientCount: recipe.missedIngredientCount,
+        missedIngredients: recipe.missedIngredients,
+        usedIngredients: recipe.usedIngredients,
+        unusedIngredients: recipe.unusedIngredients,
+        likes: recipe.likes
+      }))
+      setRecipes(recipeData)
+      console.log(recipes)
+
+
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
   useEffect(() => {
-    filterActiveIngredients()
-  }, [ingredients])
+    getRecipeResults()
+    console.log(recipes)
+  }, [activeIngredients])
+
+
+
+
+
+
+
+
+
 
 
 
@@ -73,6 +126,7 @@ function App() {
           <Route exact path="/">
             <RecipeSearch
               ingredients={ingredients}
+              onGetRecipeResults={getRecipeResults}
               onCreateIngredient={addIngredient}
               onDeleteTag={deleteIngredient}
               onToggleStatus={toggleActiveState} />

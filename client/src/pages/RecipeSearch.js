@@ -5,7 +5,7 @@ import IngredientTags from '../components/IngredientTags'
 import Button from '../components/Button'
 
 
-export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onToggleStatus }) {
+export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus }) {
 
 
 
@@ -23,7 +23,8 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
             />
 
             <Button
-                text="Find Recipes" />
+                text="Find Recipes"
+                onHandleClick={onGetRecipeResults} />
         </Wrapper>
     )
 }
