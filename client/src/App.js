@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { loadFromLocal, saveToLocal } from './library/localStorage'
 
 import RecipeSearch from './pages/RecipeSearch'
@@ -65,9 +65,6 @@ function App() {
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
     console.log(queryString)
 
-    const value = activeIngredients[1].ingredientName
-    console.log(value)
-
     try {
       const searchResults =
         await axios.get(`http://localhost:4000/recipes`, {
@@ -103,15 +100,10 @@ function App() {
     console.log(recipes)
   }, [activeIngredients])
 
-
-
-
-
-
-
-
-
-
+  function HandleClick() {
+    let history = useHistory()
+    history.push("/results")
+  }
 
 
   return (
@@ -121,25 +113,30 @@ function App() {
         setOpen={setOpen} />
 
       <main>
-        <Switch>
+        <Router>
+          <Switch>
 
-          <Route exact path="/">
-            <RecipeSearch
-              ingredients={ingredients}
-              onGetRecipeResults={getRecipeResults}
-              onCreateIngredient={addIngredient}
-              onDeleteTag={deleteIngredient}
-              onToggleStatus={toggleActiveState} />
-          </Route>
+            <Route exact path="/">
+              <RecipeSearch
+                ingredients={ingredients}
+                onGetRecipeResults={getRecipeResults}
+                onCreateIngredient={addIngredient}
+                onDeleteTag={deleteIngredient}
+                onToggleStatus={toggleActiveState} />
+            </Route>
 
-          <Route exact path="/results">
-            <RecipeResults />
-          </Route>
+            <Route path="/results">
+              <RecipeResults />
+            </Route>
 
-        </Switch>
+
+
+
+          </Switch>
+        </Router>
       </main>
 
-    </div>
+    </div >
   );
 }
 
