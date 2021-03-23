@@ -3,7 +3,6 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { loadFromLocal, saveToLocal } from './library/localStorage'
 
 import RecipeSearch from './pages/RecipeSearch'
-import RecipeResults from './pages/RecipeResults'
 
 import Header from './components/Header'
 import axios from 'axios'
@@ -13,9 +12,7 @@ function App() {
 
   const [open, setOpen] = useState(false)
 
-
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
-
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
   const [recipes, setRecipes] = useState([])
@@ -116,9 +113,6 @@ function App() {
             <Route path="/results">
               <RecipeResults />
             </Route>
-
-
-
 
           </Switch>
         </Router>

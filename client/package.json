@@ -47,4 +47,8 @@
     "react-styleguidist": "^11.1.5"
   },
   "proxy": "http://localhost:4000"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ingredienttags

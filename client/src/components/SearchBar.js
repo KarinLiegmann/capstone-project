@@ -9,6 +9,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     const [searchQuery, setSearchQuery] = useState('')
     const [fetchedIngredients, setFetchedIngredients] = useState([])
     const [ingredient, setIngredient] = useState({})
+
     const [isError, setIsError] = useState(false)
 
     const getQueryValue = (event) => {

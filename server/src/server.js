@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import axios from 'axios';
-import * as fs from 'fs'
 import dotenv from 'dotenv';
 dotenv.config();
 
