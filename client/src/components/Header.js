@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 
 import Burger from './Burger'
 import Menu from './Menu'
@@ -6,16 +7,16 @@ import Menu from './Menu'
 
 export default function Header({ open, setOpen }) {
     return (
-
-        <div>
+        <StyledHeader>
             <Burger open={open} setOpen={setOpen} />
             <Menu open={open} setOpen={setOpen} />
-        </ div>
-
+        </ StyledHeader>
     )
 }
 
-
+const StyledHeader = styled.header`
+height: 10%;
+`
 
 
 

@@ -1,38 +1,21 @@
-import { useState, useEffect } from 'react'
-import { saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
-import Button from '../components/Button'
 import SearchBar from '../components/SearchBar'
+import Button from '../components/Button'
 
 
-export default function RecipeSearch() {
-    const [ingredients, setIngredients] = useState([])
-
-    function addIngredient(ingredient) {
-        const newIngredient =
-        {
-            ingredientName: ingredient.name,
-            isActive: true
-        }
-
-        setIngredients([...ingredients, newIngredient])
-        console.log(ingredients)
-    }
+export default function RecipeSearch({ onCreateIngredient }) {
 
 
-
-    useEffect(() => {
-        saveToLocal('ingredients', ingredients)
-    }, [ingredients])
 
     return (
         <Wrapper>
             <h2>Hi, what's in your fridge today?</h2>
             <SearchBar
                 placeholderText="Search and add ingredient..."
-                onCreateIngredient={addIngredient}
+                onCreateIngredient={onCreateIngredient}
             />
+
             <Button
                 text="Find Recipes" />
         </Wrapper>
@@ -40,8 +23,8 @@ export default function RecipeSearch() {
 }
 
 const Wrapper = styled.section`
+
 Button {
-   align-self: flex-end;
     width: fit-content;
 }
 `
