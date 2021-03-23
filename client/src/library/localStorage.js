@@ -6,7 +6,7 @@ function loadFromLocal(key) {
     try {
         return JSON.parse(localStorage.getItem(key))
     } catch (error) {
-        return (error) => console.error(error.message)
+        return (error) => console.error(error)
     }
 }
 

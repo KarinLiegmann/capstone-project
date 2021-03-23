@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { loadFromLocal, saveToLocal } from './library/localStorage'
 
 import RecipeSearch from './pages/RecipeSearch'
-import RecipeResults from './pages/RecipeResults'
 
 import Header from './components/Header'
 
@@ -11,14 +10,7 @@ function App() {
 
   const [open, setOpen] = useState(false)
 
-  const initialIngredient = [{
-    ingredientName: '',
-    id: 0,
-    isActive: true
-  }]
-
-  const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? initialIngredient)
-
+  const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
   function addIngredient(ingredient) {
@@ -29,7 +21,7 @@ function App() {
       isActive: true
     }
 
-    setIngredients([...ingredients, newIngredient])
+    setIngredients([newIngredient, ...ingredients])
     console.log(ingredients)
   }
 
@@ -55,9 +47,7 @@ function App() {
     setActiveIngredients(allActiveIngredients)
     saveToLocal('ingredients', ingredients)
     saveToLocal('activeIngredients', allActiveIngredients)
-    console.log(activeIngredients)
   }
-
 
   useEffect(() => {
     filterActiveIngredients()
