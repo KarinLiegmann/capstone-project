@@ -1,8 +1,11 @@
 import styled from 'styled-components'
 
-export default function Button({ text }) {
+export default function Button({ text, onHandleClick }) {
     return (
-        <StyledButton>{text}</StyledButton>
+        <StyledButton
+            onClick={onHandleClick}>
+            {text}
+        </StyledButton>
     )
 }
 

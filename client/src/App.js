@@ -1,17 +1,18 @@
 import { Route, Switch } from 'react-router-dom'
 
 import RecipeSearch from './pages/RecipeSearch'
+import { useState } from 'react'
+import Header from './components/Header'
 
 function App() {
 
+  const [open, setOpen] = useState(false)
+
   return (
     <div className="App">
-      <h1>Test</h1>
-      <main>
-        <Switch>
-          <Route exact path="/" component={RecipeSearch} />
-        </Switch>
-      </main>
+      <Header
+        open={open}
+        setOpen={setOpen} />
 
     </div>
   );

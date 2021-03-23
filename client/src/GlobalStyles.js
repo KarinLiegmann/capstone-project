@@ -10,6 +10,8 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
 }
 
+
+
 :root {   
     --bs-accent1: 2px 5px 10px rgb(52, 176, 95, .52);
     --bs-accent1-light: 2px 5px 10px rgb(52, 176, 95, .29);
@@ -41,7 +43,7 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {    
-    margin: 0;
+    margin: 0;   
 }
 
 /* Typography */
