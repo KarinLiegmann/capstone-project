@@ -93,13 +93,14 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header
-        open={open}
-        setOpen={setOpen} />
+    <Router>
+      <div className="App">
+        <Header
+          open={open}
+          setOpen={setOpen} />
 
-      <main>
-        <Router>
+        <main>
+
           <Switch>
 
             <Route exact path="/">
@@ -116,10 +117,11 @@ function App() {
             </Route>
 
           </Switch>
-        </Router>
-      </main>
 
-    </div >
+        </main>
+
+      </div >
+    </Router>
   );
 }
 

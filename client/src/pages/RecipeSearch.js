@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
@@ -21,10 +22,11 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
                 onToggleStatus={onToggleStatus}
                 onDeleteTag={onDeleteTag}
             />
-
-            <Button
-                text="Find Recipes"
-                onHandleClick={onGetRecipeResults} />
+            <Link to="/results">
+                <Button
+                    text="Find Recipes"
+                    onHandleClick={onGetRecipeResults} />
+            </Link>
         </Wrapper>
     )
 }
