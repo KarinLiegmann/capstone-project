@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import styled from 'styled-components'
-
 import Burger from './Burger'
 import Menu from './Menu'
 
@@ -19,7 +17,3 @@ export default function Header({ open, setOpen }) {
 const StyledHeader = styled.header`
 height: 10%;
 `
-
-
-
-

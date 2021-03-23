@@ -61,6 +61,7 @@ function App() {
 
       <main>
         <Switch>
+
           <Route exact path="/">
             <RecipeSearch
               ingredients={ingredients}
@@ -68,7 +69,7 @@ function App() {
               onDeleteTag={deleteIngredient}
               onToggleStatus={toggleActiveState} />
           </Route>
-          <Route exact path="/results" component={RecipeResults} />
+
         </Switch>
       </main>
 
