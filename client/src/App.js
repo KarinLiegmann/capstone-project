@@ -16,7 +16,7 @@ function App() {
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
-  const [recipes, setRecipes] = useState([])
+  const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
 
   function addIngredient(ingredient) {
     const newIngredient =
@@ -85,6 +85,7 @@ function App() {
       }))
       setRecipes(recipeData)
       console.log(recipeData)
+      saveToLocal('recipes', recipeData)
 
 
     } catch (error) {
@@ -113,7 +114,8 @@ function App() {
             </Route>
 
             <Route path="/results">
-              <RecipeResults />
+              <RecipeResults
+                recipes={recipes} />
             </Route>
 
           </Switch>
