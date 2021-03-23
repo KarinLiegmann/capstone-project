@@ -5,7 +5,7 @@ import { FaMinus } from 'react-icons/fa'
 export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
     return (
         <Wrapper>
-            {ingredients.map((ingredient) =>
+            {ingredients && ingredients.map((ingredient) =>
             (<TagWrapper
                 key={ingredient.id}
             >

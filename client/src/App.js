@@ -13,13 +13,8 @@ function App() {
 
   const [open, setOpen] = useState(false)
 
-  const initialIngredient = [{
-    ingredientName: '',
-    id: 0,
-    isActive: true
-  }]
 
-  const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? initialIngredient)
+  const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
 
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
@@ -32,7 +27,7 @@ function App() {
       id: ingredient.id,
       isActive: true
     }
-    setIngredients([...ingredients, newIngredient])
+    setIngredients([newIngredient, ...ingredients])
   }
 
   const deleteIngredient = (idToDelete) => {
@@ -58,6 +53,10 @@ function App() {
     saveToLocal('ingredients', ingredients)
     saveToLocal('activeIngredients', allActiveIngredients)
   }
+
+  useEffect(() => {
+    filterActiveIngredients()
+  }, [ingredients])
 
   const getRecipeResults = async () => {
     const ingredientNames = activeIngredients.map(ingredient => ingredient.ingredientName)
@@ -87,24 +86,13 @@ function App() {
         likes: recipe.likes
       }))
       setRecipes(recipeData)
-      console.log(recipes)
+      console.log(recipeData)
 
 
     } catch (error) {
       console.error(error.message)
     }
   }
-
-  useEffect(() => {
-    getRecipeResults()
-    console.log(recipes)
-  }, [activeIngredients])
-
-  function HandleClick() {
-    let history = useHistory()
-    history.push("/results")
-  }
-
 
   return (
     <div className="App">

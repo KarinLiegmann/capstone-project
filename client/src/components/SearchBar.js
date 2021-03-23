@@ -11,14 +11,25 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     const [ingredient, setIngredient] = useState({})
     const [isError, setIsError] = useState(false)
 
-    const getQueryValue = (event) => setSearchQuery(event.target.value)
+    const getQueryValue = (event) => {
+        const value = event.target.value
+        const query = value.toLowerCase()
+        setSearchQuery(query)
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && ingredient.length !== 0) {
+        if (searchQuery.length >= 3 && ingredient.length !== 0 && isError !== true) {
             onCreateIngredient(ingredient)
+            setIngredient({})
+            setSearchQuery('')
         } else {
             setIsError(true)
+            setIngredient({})
+        }
+
+        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name === searchQuery) {
+            onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
         }
     }
@@ -27,10 +38,10 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         const value = searchQuery
         try {
             const searchResults =
-                await axios.get(`http://localhost:4000/ingredients`, {
+                await axios.get('/ingredients', {
                     params: {
                         metaInformation: true,
-                        number: 3,
+                        number: 2,
                         query: value
                     },
                 })
@@ -39,10 +50,10 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 name: ingredient.name,
             }))
             if (ingredientsData.length === 0) {
-                setIsError(true)
-            } else {
-                setFetchedIngredients(ingredientsData)
+                setIsError(true);
+                setIngredient({})
             }
+            setFetchedIngredients(ingredientsData)
         } catch (error) {
             console.error(error.message)
         }
@@ -53,6 +64,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             getAutofillIngredients();
         } else if (searchQuery.length === 0) {
             setFetchedIngredients([])
+            setIsError(false)
         }
     }, [searchQuery])
 
@@ -60,9 +72,10 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         fetchedIngredients.map((item) => {
             if (item.id === idToFind) {
                 const ingredientToReplace = item.name
+                setFetchedIngredients([])
                 setSearchQuery(ingredientToReplace)
                 setIngredient(item)
-                setFetchedIngredients([])
+                setIsError(false)
             }
         })
     }
@@ -72,13 +85,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             <FormWrapper>
                 <StyledForm onSubmit={handleSubmit}>
                     <StyledSearchBar
-                        autocomplete="off"
+                        autoComplete="off"
                         name="SearchBar"
                         placeholder={placeholderText}
                         onChange={getQueryValue}
                         value={searchQuery}
                     />
-                    {fetchedIngredients.length > 1 &&
+                    {fetchedIngredients.length >= 1 &&
                         <ul>
                             {fetchedIngredients.map(item =>
                                 <li
@@ -175,4 +188,5 @@ color: var(--clr-accent2);
 
 SearchBar.propTypes = {
     placeholderText: PropTypes.string.isRequired,
+    onCreateIngredient: PropTypes.func.isRequired
 }
