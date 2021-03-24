@@ -16,7 +16,7 @@ function App() {
   function addIngredient(ingredient) {
     const newIngredient =
     {
-      ingredientName: ingredient.name,
+      name: ingredient.name,
       id: ingredient.id,
       isActive: true
     }
