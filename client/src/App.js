@@ -17,6 +17,7 @@ function App() {
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
 
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
+  const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
   function addIngredient(ingredient) {
     const newIngredient =
@@ -58,7 +59,6 @@ function App() {
 
   const getRecipeResults = async () => {
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
-
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
     console.log(queryString)
 
@@ -87,8 +87,6 @@ function App() {
       setRecipes(recipeData)
       console.log(recipeData)
       saveToLocal('recipes', recipeData)
-
-
     } catch (error) {
       console.error(error.message)
     }
@@ -102,13 +100,15 @@ function App() {
     })
   }
 
-  function likeRecipe(idToFind) {
-    const likedRecipe = recipes.find((recipe) => {
-      if (recipe.id === idToFind) {
+  function likeRecipe(recipeToFind) {
+    const updatedRecipes = recipes.find((recipe) => {
+      if (recipe.id === recipeToFind.id) {
         recipe.isLiked = true
-        console.log(recipe.isLiked)
       }
+      return recipe
     })
+    setLikedRecipes(updatedRecipes)
+    saveToLocal('likes', likedRecipes)
   }
 
   return (

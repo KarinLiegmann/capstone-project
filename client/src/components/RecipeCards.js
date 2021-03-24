@@ -17,14 +17,14 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                         <DislikeIcon
                             onClick={() => onDeleteRecipe(recipe.id)} />
                         <LikeIcon
-                            onClick={() => onLikeRecipe(recipe.id)} />
+                            onClick={() => onLikeRecipe(recipe)} />
                     </IconsWrapper>
                     <IngredientsWrapper>
                         {recipe.missedIngredients.length > 0 &&
                             <ul>
                                 <p>You need:</p>
                                 {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
-                                    <li>{missedIngredient.amount} {missedIngredient.name}</li>
+                                    <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name}</li>
                                 ))}
                             </ul>
                         }
@@ -32,7 +32,7 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                             <ul>
                                 <p>You have:</p>
                                 {recipe.usedIngredients.map((usedIngredient) => (
-                                    <li>{usedIngredient.amount} {usedIngredient.name}</li>
+                                    <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name}</li>
                                 ))}
                             </ul>
                         }
@@ -41,7 +41,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
             </CardWrapper >
             ))
             }
-
         </>
     )
 }
