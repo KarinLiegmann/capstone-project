@@ -20,7 +20,25 @@ function App() {
       id: ingredient.id,
       isActive: true
     }
+
     setIngredients([newIngredient, ...ingredients])
+  }
+
+  const deleteIngredient = (idToDelete) => {
+    const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
+
+    setIngredients(ingredientsToKeep)
+    setActiveIngredients(ingredientsToKeep)
+  }
+
+  const toggleActiveState = (idToToggle) => {
+    const updatedIngredients = ingredients.map(ingredient => {
+      if (ingredient.id === idToToggle) {
+        ingredient.isActive = !ingredient.isActive
+      }
+      return ingredient;
+    })
+    setIngredients(updatedIngredients)
   }
 
   function filterActiveIngredients() {
@@ -41,20 +59,18 @@ function App() {
         setOpen={setOpen} />
 
       <main>
-        <Router>
-          <Switch>
+        <Switch>
 
-            <Route exact path="/">
-              <RecipeSearch
-                ingredients={ingredients}
-                onCreateIngredient={addIngredient}
-              />
-            </Route>
+          <Route exact path="/">
+            <RecipeSearch
+              ingredients={ingredients}
+              onCreateIngredient={addIngredient}
+              onDeleteTag={deleteIngredient}
+              onToggleStatus={toggleActiveState} />
+          </Route>
 
-          </Switch>
-        </Router>
+        </Switch>
       </main>
-
 
     </div>
   );

@@ -1,10 +1,13 @@
+import { useState, useEffect } from 'react'
+import { loadFromLocal, saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
 
 import SearchBar from '../components/SearchBar'
+import IngredientTags from '../components/IngredientTags'
 import Button from '../components/Button'
 
 
-export default function RecipeSearch({ onCreateIngredient }) {
+export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onToggleStatus }) {
 
 
 
@@ -14,6 +17,11 @@ export default function RecipeSearch({ onCreateIngredient }) {
             <SearchBar
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={onCreateIngredient}
+            />
+            <IngredientTags
+                ingredients={ingredients}
+                onToggleStatus={onToggleStatus}
+                onDeleteTag={onDeleteTag}
             />
 
             <Button

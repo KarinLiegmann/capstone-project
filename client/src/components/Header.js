@@ -17,7 +17,3 @@ export default function Header({ open, setOpen }) {
 const StyledHeader = styled.header`
 height: 10%;
 `
-
-
-
-
