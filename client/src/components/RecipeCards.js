@@ -7,6 +7,7 @@ export default function RecipeCard({ recipes }) {
             (<CardWrapper
                 key={recipe.id}
             >
+                <img src={recipe.image} alt={recipe.title} />
                 <h3>{recipe.title}</h3>
                 <p>You need:</p>
                 {recipe.missedIngredients.map((missedIngredient) => (
