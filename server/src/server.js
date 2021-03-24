@@ -25,5 +25,21 @@ app.get('/', (req, res) =>
 );
 
 
+app.get('/ingredients', (req, res) => {
+    const queryParams = req.query
+
+    axios.get(`https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=${API_KEY}`, {
+        params: {
+            metaInformation: true,
+            number: queryParams.number,
+            query: queryParams.query
+        },
+    })
+        .then(res => res.data)
+        .then(ingredients => res.status(200).send(ingredients))
+        .catch(error => res.json(error))
+})
+
+
 const port = 4000;
 app.listen(port, () => console.log(`Server listens on port ${port}.`));
