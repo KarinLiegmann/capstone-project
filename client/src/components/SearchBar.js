@@ -20,7 +20,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && ingredient.length !== 0 && isError !== true) {
+        if (searchQuery.length >= 3 && ingredient.length !== 0 && !isError) {
             onCreateIngredient(ingredient)
             setIngredient({})
             setSearchQuery('')
@@ -29,9 +29,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             setIngredient({})
         }
 
-        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name === searchQuery) {
+        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery) && !isError) {
             onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
+            setFetchedIngredients([])
+        } else {
+            setIsError(true)
+            setIngredient({})
         }
     }
 

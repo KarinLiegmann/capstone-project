@@ -13,7 +13,7 @@ export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatu
                     onClick={() => onToggleStatus(ingredient.id)}
                     isActive={ingredient.isActive}
                 >
-                    {ingredient.ingredientName}
+                    {ingredient.name}
                 </StyledIngredientTag>
                 <DeleteIcon
                     onClick={() => onDeleteTag(ingredient.id)} />
