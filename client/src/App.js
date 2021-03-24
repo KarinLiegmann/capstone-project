@@ -81,7 +81,8 @@ function App() {
         missedIngredients: recipe.missedIngredients,
         usedIngredients: recipe.usedIngredients,
         unusedIngredients: recipe.unusedIngredients,
-        likes: recipe.likes
+        likes: recipe.likes,
+        isLiked: false
       }))
       setRecipes(recipeData)
       console.log(recipeData)
@@ -91,6 +92,23 @@ function App() {
     } catch (error) {
       console.error(error.message)
     }
+  }
+
+  function deleteRecipe(idToFind) {
+    const recipesToKeep = recipes.filter((recipe) => {
+      if (recipe.id === idToFind) {
+        console.log(recipe.title)
+      }
+    })
+  }
+
+  function likeRecipe(idToFind) {
+    const likedRecipe = recipes.find((recipe) => {
+      if (recipe.id === idToFind) {
+        recipe.isLiked = true
+        console.log(recipe.isLiked)
+      }
+    })
   }
 
   return (
@@ -115,7 +133,9 @@ function App() {
 
             <Route path="/results">
               <RecipeResults
-                recipes={recipes} />
+                recipes={recipes}
+                onDeleteRecipe={deleteRecipe}
+                onLikeRecipe={likeRecipe} />
             </Route>
 
           </Switch>

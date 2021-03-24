@@ -33,6 +33,7 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 }
 
 const Wrapper = styled.section`
+margin: 5% 0;
 
 Button {
     width: fit-content;
