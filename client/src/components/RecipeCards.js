@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { img } from '../assets/RecipeCard_Background.png'
 import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
