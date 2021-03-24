@@ -25,7 +25,8 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
             <Link to="/results">
                 <Button
                     text="Find Recipes"
-                    onHandleClick={onGetRecipeResults} />
+                    onHandleClick={onGetRecipeResults}
+                    isActive={true} />
             </Link>
         </Wrapper>
     )

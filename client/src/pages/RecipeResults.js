@@ -11,8 +11,13 @@ export default function RecipeResults({ recipes }) {
             <RecipeCards
                 recipes={recipes} />
             <h2>Recipes left: {recipes.length} </h2>
-            <Button text="All Done!" />
-            <Button text="Try Again" />
+            <Button
+                text="All Done!"
+                isActive={true} />
+            <p>Nothing to your taste?</p>
+            <Button
+                text="Try Again"
+                isActive={false} />
         </Wrapper>
     )
 }

@@ -54,8 +54,7 @@ margin-bottom: 10px;
 width: 90%;
 `
 const CardContent = styled.div`
-border: 1px solid var(--clr-dark);
-padding: 3rem 1.5rem;
+padding: 3.2rem 1.5rem;
 
 img {
     border-radius: 10px;
