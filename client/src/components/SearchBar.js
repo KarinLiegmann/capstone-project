@@ -29,9 +29,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             setIngredient({})
         }
 
-        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name === searchQuery) {
+        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery) && !isError) {
             onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
+            setFetchedIngredients([])
+        } else {
+            setIsError(true)
+            setIngredient({})
         }
     }
 
