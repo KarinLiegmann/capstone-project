@@ -20,7 +20,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && ingredient.length !== 0 && isError !== true) {
+        if (searchQuery.length >= 3 && ingredient.length !== 0 && !isError) {
             onCreateIngredient(ingredient)
             setIngredient({})
             setSearchQuery('')
