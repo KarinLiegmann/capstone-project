@@ -22,7 +22,6 @@ function App() {
     }
 
     setIngredients([newIngredient, ...ingredients])
-    console.log(ingredients)
   }
 
   const deleteIngredient = (idToDelete) => {
