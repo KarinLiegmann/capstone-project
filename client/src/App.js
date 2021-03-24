@@ -57,7 +57,7 @@ function App() {
   }, [ingredients])
 
   const getRecipeResults = async () => {
-    const ingredientNames = activeIngredients.map(ingredient => ingredient.ingredientName)
+    const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
 
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
     console.log(queryString)
