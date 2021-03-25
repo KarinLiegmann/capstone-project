@@ -51,19 +51,27 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                     <p key={usedIngredient.id}>{usedIngredient.name.toLowerCase()},</p>
                                 ))}
                             </>}
+                        <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                        <Modal
+                            show={openModal}
+                            handleClose={hideModal}>
+                            <h3>Missing Ingredients:</h3>
+                            <ul>
+                                {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
+                                    <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                                ))}
+                            </ul>
+
+                            <h3>Used Ingredients:</h3>
+                            <ul>
+                                {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
+                                    <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                                ))}
+                            </ul>
+                        </Modal>
                     </IngredientsWrapper>
 
-                    <p onClick={() => setOpenModal(!openModal)}>Click for more Info</p>
-                    <Modal
-                        show={openModal}
-                        handleClose={hideModal}>
-                        <h3>Missing Ingredients:</h3>
-                        <ul>
-                            {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
-                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-                    </Modal>
+
                 </CardContent>
             </CardWrapper >
             ))
@@ -113,6 +121,11 @@ flex-wrap: wrap;
 const StyledParagraph = styled.p`
 font-weight: var(--fw-bold);
 margin: 0;
+`
+
+const InfoButton = styled.p`
+color: var(--clr-accent1);
+font-weight: var(--fw-bold);
 `
 
 const IconsWrapper = styled.div`

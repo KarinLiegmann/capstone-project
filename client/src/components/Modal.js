@@ -26,14 +26,14 @@ width: 100%;
 const ContentDiv = styled.div`
 position: fixed;
 backdrop-filter: blur(7px);
-background: rgba(255, 255, 255, 0.4);
+background: rgb(252, 250, 248, .3);
 border: 1px solid rgba(0, 0, 0, 0.1);
-border-radius: .5rem;
+border-radius: 1rem;
 cursor: pointer;
 width: 80%;
 height: auto;
 top: 35%;
 left: 50%;
 padding: 1rem;
-transform: translate(-50%, -50%);
+transform: translate(-50%, -30%);
 `
