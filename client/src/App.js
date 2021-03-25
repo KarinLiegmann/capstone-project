@@ -96,17 +96,20 @@ function App() {
     saveToLocal('recipes', recipesToKeep)
   }
 
-  function likeRecipe(recipeToFind) {
-    const updatedRecipes = recipes.find((recipe) => {
-      if (recipe.id === recipeToFind.id) {
-        recipe.isLiked = true
-      }
-      console.log(recipe)
-      return recipe
-    })
-    setLikedRecipes(updatedRecipes)
-    saveToLocal('likedRecipes', likedRecipes)
+  function addToLikedRecipes(recipe) {
+    const newRecipe = {
+      ...recipe,
+      isLiked: true
+    }
+    setLikedRecipes([newRecipe, ...likedRecipes])
   }
+
+  useEffect(() => {
+    saveToLocal('likedRecipes', likedRecipes)
+  }, [likedRecipes])
+
+
+
 
   return (
     <Router>
@@ -131,7 +134,7 @@ function App() {
               <RecipeResults
                 recipes={recipes}
                 onDeleteRecipe={deleteRecipe}
-                onLikeRecipe={likeRecipe} />
+                onLikeRecipe={addToLikedRecipes} />
             </Route>
 
           </Switch>
