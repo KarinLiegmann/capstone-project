@@ -1,10 +1,19 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCard_Background.png'
 import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
+import Modal from './Modal'
+
 export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
+
+    const [openModal, setOpenModal] = useState(false)
+
+    const hideModal = () => {
+        setOpenModal(false)
+    }
 
 
     return (
@@ -22,6 +31,9 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                         <LikeIcon
                             onClick={() => onLikeRecipe(recipe)} />
                     </IconsWrapper>
+
+
+
                     <IngredientsWrapper>
                         {recipe.missedIngredients.length > 0 &&
                             <>
@@ -39,8 +51,19 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                     <p key={usedIngredient.id}>{usedIngredient.name.toLowerCase()},</p>
                                 ))}
                             </>}
-
                     </IngredientsWrapper>
+
+                    <p onClick={() => setOpenModal(!openModal)}>Click for more Info</p>
+                    <Modal
+                        show={openModal}
+                        handleClose={hideModal}>
+                        <h3>Missing Ingredients:</h3>
+                        <ul>
+                            {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
+                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                            ))}
+                        </ul>
+                    </Modal>
                 </CardContent>
             </CardWrapper >
             ))
