@@ -37,4 +37,6 @@ margin: 5% 0;
 
 RecipeResults.propTypes = {
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDeleteRecipe: PropTypes.func.isRequired,
+    onLikeRecipe: PropTypes.func.isRequired
 }

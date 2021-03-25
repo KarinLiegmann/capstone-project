@@ -31,7 +31,6 @@ function App() {
 
   const deleteIngredient = (idToDelete) => {
     const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
-
     setIngredients(ingredientsToKeep)
     setActiveIngredients(ingredientsToKeep)
   }
@@ -60,14 +59,14 @@ function App() {
   const getRecipeResults = async () => {
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
-    console.log(queryString)
 
     try {
       const searchResults =
         await axios.get(`http://localhost:4000/recipes`, {
           params: {
-            ranking: 2,
-            number: 2,
+            instructionsRequired: true,
+            ranking: 1,
+            number: 3,
             ingredients: queryString
           },
         })
@@ -85,7 +84,6 @@ function App() {
         isLiked: false
       }))
       setRecipes(recipeData)
-      console.log(recipeData)
       saveToLocal('recipes', recipeData)
     } catch (error) {
       console.error(error.message)
@@ -93,11 +91,9 @@ function App() {
   }
 
   function deleteRecipe(idToFind) {
-    const recipesToKeep = recipes.filter((recipe) => {
-      if (recipe.id === idToFind) {
-        console.log(recipe.title)
-      }
-    })
+    const recipesToKeep = recipes.filter(recipe => recipe.id !== idToFind)
+    setRecipes(recipesToKeep)
+    saveToLocal('recipes', recipesToKeep)
   }
 
   function likeRecipe(recipeToFind) {
@@ -105,10 +101,11 @@ function App() {
       if (recipe.id === recipeToFind.id) {
         recipe.isLiked = true
       }
+      console.log(recipe)
       return recipe
     })
     setLikedRecipes(updatedRecipes)
-    saveToLocal('likes', likedRecipes)
+    saveToLocal('likedRecipes', likedRecipes)
   }
 
   return (
@@ -119,7 +116,6 @@ function App() {
           setOpen={setOpen} />
 
         <main>
-
           <Switch>
 
             <Route exact path="/">
@@ -139,7 +135,6 @@ function App() {
             </Route>
 
           </Switch>
-
         </main>
 
       </div >
