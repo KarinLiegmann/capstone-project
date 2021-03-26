@@ -6,6 +6,7 @@ import RecipeCards from '../components/RecipeCards'
 import { ButtonMain, ButtonSecondary } from '../components/Buttons'
 
 export default function RecipeResults({ recipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
+
     return (
         <Wrapper>
             <h2>Here is what we found:</h2>
@@ -22,8 +23,7 @@ export default function RecipeResults({ recipes, onDeleteRecipe, onGetNextRecipe
 
             <ButtonMain
                 text="Try Again"
-                onClick={() => onGetNextRecipes(recipes.length)} />
-
+                onClick={() => onGetNextRecipes()} />
 
             <Link to="/">
                 <ButtonSecondary

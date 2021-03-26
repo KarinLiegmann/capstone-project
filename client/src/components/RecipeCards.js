@@ -22,10 +22,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
     const usedIngredients = usedIngredientsData.join(', ')
 
 
-
-    console.log(missingIngredients)
-
-
     return (
         <>
             {recipes && recipes.map((recipe) =>

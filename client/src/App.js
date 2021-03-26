@@ -91,44 +91,6 @@ function App() {
     }
   }
 
-  const getNextRecipeResults = async (length) => {
-    const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
-    let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
-
-    let offsetNumber = length
-    console.log('test')
-
-    try {
-      const searchResults =
-        await axios.get(`http://localhost:4000/recipes`, {
-          params: {
-            instructionsRequired: true,
-            ranking: 1,
-            number: 3,
-            offset: 3,
-            ingredients: queryString
-          },
-        })
-
-      const recipeData = searchResults.data.map(recipe => ({
-        id: recipe.id,
-        title: recipe.title,
-        image: recipe.image,
-        usedIngredientCount: recipe.usedIngredientCount,
-        missedIngredientCount: recipe.missedIngredientCount,
-        missedIngredients: recipe.missedIngredients,
-        usedIngredients: recipe.usedIngredients,
-        unusedIngredients: recipe.unusedIngredients,
-        likes: recipe.likes,
-        isLiked: false
-      }))
-      setRecipes(recipeData)
-      saveToLocal('recipes', recipeData)
-    } catch (error) {
-      console.error(error.message)
-    }
-  }
-
   function deleteRecipe(idToFind) {
     const recipesToKeep = recipes.filter(recipe => recipe.id !== idToFind)
     setRecipes(recipesToKeep)
@@ -147,7 +109,15 @@ function App() {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
+  function removeLikedRecipes() {
+    const allUnlikedRecipes = recipes.filter(recipe => !recipe.isLiked);
+    deleteRecipe()
+    saveToLocal('recipes', allUnlikedRecipes)
+  }
 
+  function testFunction() {
+    console.log('test')
+  }
 
 
   return (
@@ -174,7 +144,7 @@ function App() {
                 recipes={recipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
-                onGetNextRecipes={getNextRecipeResults} />
+                onGetNextRecipes={testFunction} />
             </Route>
 
           </Switch>
