@@ -18,6 +18,7 @@ export default function RecipeCardSmall({ likedRecipes }) {
     const missingIngredients = missingIngredientsData.join(', ')
 
     return (
+
         <CardWrapper>
             <header>
                 <img src={likedRecipes[0].image} alt={likedRecipes[0].title} />
@@ -70,7 +71,7 @@ margin-bottom: 10px;
 min-height: 500px;
 max-width: 360px;
 min-width: 320px;
-padding: 2rem;
+padding: 2.3rem 2rem;
 
 header {
     display: flex;
