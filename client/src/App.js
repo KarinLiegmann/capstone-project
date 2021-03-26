@@ -4,6 +4,7 @@ import { loadFromLocal, saveToLocal } from './library/localStorage'
 
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
+import RecipeSelection from './pages/RecipeSelection'
 
 import Header from './components/Header'
 import axios from 'axios'
@@ -145,6 +146,12 @@ function App() {
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
                 onGetNextRecipes={testFunction} />
+            </Route>
+
+            <Route path="/selections">
+              <RecipeSelection
+                likedRecipes={likedRecipes}
+              />
             </Route>
 
           </Switch>
