@@ -14,47 +14,65 @@ export default function RecipeCardSmall({ likedRecipes }) {
         setOpenModal(false)
     }
 
-    const missingIngredientsData = likedRecipes[0].missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
-    const missingIngredients = missingIngredientsData.join(', ')
+    /*const missingIngredientsData = likedRecipes.map((likedRecipe, index) => {
+        let ingredientNames = likedRecipe.missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
+        return ingredientNames
+    })
+
+    const missingIngredients = missingIngredientsData.filter(ingredientsData => {
+        let ingredients = ingredientsData.join(', ')
+        console.log(ingredients)
+        return ingredients
+    })*/
+
+
 
     return (
+        <>
+            {likedRecipes && likedRecipes.map((likedRecipe) =>
+            (
+                <CardWrapper
+                    key={likedRecipe.id}>
+                    <header>
+                        <img src={likedRecipe.image} alt={likedRecipe.title} />
+                        <h3>{likedRecipe.title}</h3>
+                    </header>
 
-        <CardWrapper>
-            <header>
-                <img src={likedRecipes[0].image} alt={likedRecipes[0].title} />
-                <h3>{likedRecipes[0].title}</h3>
-            </header>
+                    <ButtonSecondary
+                        text="Cook Me"
+                        isActive
+                    />
 
-            <ButtonSecondary
-                text="Cook Me"
-                isActive
-            />
+                    {likedRecipe.missedIngredients.length > 0 &&
+                        <p><span>You need:</span> {
+                            likedRecipe.missedIngredients.map((ingredient) => (<p>{ingredient.name.toLowerCase()}</p>))}
+                        </p>
+                    }
 
-            {likedRecipes[0].missedIngredients.length > 0 &&
-                <p><span>You need:</span> {missingIngredients}</p>
+                    <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                    <Modal
+                        show={openModal}
+                        handleClose={hideModal}>
+                        <h3>Missing Ingredients:</h3>
+                        <ul>
+                            {likedRecipes[0].missedIngredients && likedRecipes[0].missedIngredients.map((missedIngredient) => (
+                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                            ))}
+                        </ul>
+
+                        <h3>Used Ingredients:</h3>
+                        <ul>
+                            {likedRecipes[0].usedIngredients && likedRecipes[0].usedIngredients.map((usedIngredient) => (
+                                <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                            ))}
+                        </ul>
+                    </Modal>
+
+
+                </CardWrapper>
+            ))
             }
-
-            <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
-            <Modal
-                show={openModal}
-                handleClose={hideModal}>
-                <h3>Missing Ingredients:</h3>
-                <ul>
-                    {likedRecipes[0].missedIngredients && likedRecipes[0].missedIngredients.map((missedIngredient) => (
-                        <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                    ))}
-                </ul>
-
-                <h3>Used Ingredients:</h3>
-                <ul>
-                    {likedRecipes[0].usedIngredients && likedRecipes[0].usedIngredients.map((usedIngredient) => (
-                        <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                    ))}
-                </ul>
-            </Modal>
-
-
-        </CardWrapper>
+        </>
     )
 }
 
@@ -94,3 +112,6 @@ const InfoButton = styled.p`
 color: var(--clr-accent1);
 font-weight: var(--fw-bold);
 `
+RecipeCardSmall.propTypes = {
+    likedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+}

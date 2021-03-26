@@ -67,7 +67,7 @@ function App() {
           params: {
             instructionsRequired: true,
             ranking: 1,
-            number: 3,
+            number: 6,
             offset: 0,
             ingredients: queryString
           },
