@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
-import Button from '../components/Button'
+import { ButtonMain } from '../components/Buttons'
 
 
 export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus }) {
@@ -23,7 +23,7 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
                 onDeleteTag={onDeleteTag}
             />
             <Link to="/results">
-                <Button
+                <ButtonMain
                     text="Find Recipes"
                     onHandleClick={onGetRecipeResults}
                     isActive={true} />

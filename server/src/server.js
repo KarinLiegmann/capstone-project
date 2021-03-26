@@ -48,6 +48,7 @@ app.get('/recipes', (req, res) => {
             instructionsRequired: queryParams.instructionsRequired,
             ranking: queryParams.ranking,
             number: queryParams.number,
+            offset: queryParams.offset,
             ingredients: queryParams.ingredients
         },
     })

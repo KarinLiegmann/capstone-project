@@ -15,6 +15,16 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
         setOpenModal(false)
     }
 
+    const missingIngredientsData = recipes[0].missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
+    const missingIngredients = missingIngredientsData.join(', ')
+
+    const usedIngredientsData = recipes[0].usedIngredients.map((ingredient) => ingredient.name.toLowerCase())
+    const usedIngredients = usedIngredientsData.join(', ')
+
+
+
+    console.log(missingIngredients)
+
 
     return (
         <>
@@ -32,44 +42,34 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                             onClick={() => onLikeRecipe(recipe)} />
                     </IconsWrapper>
 
-
-
                     <IngredientsWrapper>
                         {recipe.missedIngredients.length > 0 &&
-                            <>
-                                <StyledParagraph>You need:</StyledParagraph>
-                                {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
-                                    <p key={missedIngredient.id}> {missedIngredient.name.toLowerCase()}, </p>
-                                ))}
-                            </>
+                            <p><span>You need:</span> {missingIngredients}</p>
                         }
 
                         {recipe.usedIngredients.length > 0 &&
-                            <>
-                                <StyledParagraph>You have:</StyledParagraph>
-                                {recipe.usedIngredients.map((usedIngredient) => (
-                                    <p key={usedIngredient.id}>{usedIngredient.name.toLowerCase()},</p>
-                                ))}
-                            </>}
-                        <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
-                        <Modal
-                            show={openModal}
-                            handleClose={hideModal}>
-                            <h3>Missing Ingredients:</h3>
-                            <ul>
-                                {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
-                                    <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                                ))}
-                            </ul>
-
-                            <h3>Used Ingredients:</h3>
-                            <ul>
-                                {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
-                                    <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                                ))}
-                            </ul>
-                        </Modal>
+                            <p><span>You have:</span> {usedIngredients}</p>
+                        }
                     </IngredientsWrapper>
+
+                    <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                    <Modal
+                        show={openModal}
+                        handleClose={hideModal}>
+                        <h3>Missing Ingredients:</h3>
+                        <ul>
+                            {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
+                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                            ))}
+                        </ul>
+
+                        <h3>Used Ingredients:</h3>
+                        <ul>
+                            {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
+                                <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                            ))}
+                        </ul>
+                    </Modal>
 
 
                 </CardContent>
@@ -91,7 +91,7 @@ flex-wrap: wrap;
 justify-content: center;
 margin-bottom: 10px;
 min-height: 500px;
-max-width: 380px;
+max-width: 360px;
 min-width: 320px;
 `
 const CardContent = styled.div`
@@ -114,13 +114,17 @@ li {
 `
 
 const IngredientsWrapper = styled.div`
+text-align: left;
 display: flex;
 flex-wrap: wrap;
-`
 
-const StyledParagraph = styled.p`
-font-weight: var(--fw-bold);
-margin: 0;
+p {
+    margin-bottom: 0.5rem;
+}
+
+span {
+    font-weight: var(--fw-bold);
+}
 `
 
 const InfoButton = styled.p`
@@ -131,7 +135,7 @@ font-weight: var(--fw-bold);
 const IconsWrapper = styled.div`
 display: flex;
 justify-content: space-around;
-margin: 1.5rem 0;
+margin: 1rem 0;
 `
 
 
