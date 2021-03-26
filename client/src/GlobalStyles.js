@@ -31,7 +31,7 @@ export const GlobalStyles = createGlobalStyle`
     --fs-body: 1rem;
     --fs-h1: 2rem;
     --fs-h2: 1.5rem;
-    --fs-h3: 1.2rem;
+    --fs-h3: 1.1rem;
 
     --fw-extralight: 200;
     --fw-light: 300;

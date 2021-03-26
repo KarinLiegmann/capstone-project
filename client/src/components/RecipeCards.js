@@ -92,7 +92,7 @@ min-width: 320px;
 `
 const CardContent = styled.div`
 height: min-content;
-padding: 3.2rem 2.3rem;
+padding: 3.2rem 2rem;
 max-width: inherit;
 
 img {
