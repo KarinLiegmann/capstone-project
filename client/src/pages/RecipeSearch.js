@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react'
-import { loadFromLocal, saveToLocal } from '../library/localStorage'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
-import Button from '../components/Button'
+import { ButtonMain } from '../components/Buttons'
 
 
-export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onToggleStatus }) {
+export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus }) {
 
 
 
@@ -23,14 +22,18 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
                 onToggleStatus={onToggleStatus}
                 onDeleteTag={onDeleteTag}
             />
-
-            <Button
-                text="Find Recipes" />
+            <Link to="/results">
+                <ButtonMain
+                    text="Find Recipes"
+                    onHandleClick={onGetRecipeResults}
+                    isActive={true} />
+            </Link>
         </Wrapper>
     )
 }
 
 const Wrapper = styled.section`
+margin: 5% 0;
 
 Button {
     width: fit-content;
