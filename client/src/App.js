@@ -5,9 +5,11 @@ import { loadFromLocal, saveToLocal } from './library/localStorage'
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 import RecipeSelection from './pages/RecipeSelection'
+import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
 import axios from 'axios'
+import { ButtonSecondary } from './components/Buttons'
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
 
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
+
+  const [recipeInstructions, setRecipeInstructions] = useState({})
 
   function addIngredient(ingredient) {
     const newIngredient =
@@ -120,6 +124,24 @@ function App() {
     console.log('test')
   }
 
+  const getRecipeInstructions = async () => {
+    let recipeId = 196490 // params, not query in der Abfrage-URL!!! 
+
+    try {
+      const searchResults =
+        await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
+
+      const recipeData = searchResults.data
+      console.log(recipeData)
+      setRecipeInstructions(recipeData)
+      saveToLocal('recipeInstructions', recipeData)
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+
+
+
 
   return (
     <Router>
@@ -153,6 +175,17 @@ function App() {
                 likedRecipes={likedRecipes}
               />
             </Route>
+
+            <Route path="/recipe">
+              <RecipeInstructions
+
+              />
+              <ButtonSecondary
+                text="Get Recipe Test"
+                onHandleClick={getRecipeInstructions} />
+            </Route>
+
+
 
           </Switch>
         </main>

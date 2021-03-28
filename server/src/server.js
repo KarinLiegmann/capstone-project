@@ -57,6 +57,15 @@ app.get('/recipes', (req, res) => {
         .catch(error => res.json(error))
 })
 
+app.get('/recipeInstructions/:recipeId', (req, res) => {
+    const recipeId = req.params.recipeId
+
+    axios.get(`https://api.spoonacular.com/recipes/${recipeId}/analyzedInstructions?apiKey=${API_KEY}`)
+        .then(res => res.data)
+        .then(recipe => res.status(200).send(recipe))
+        .catch(error => res.json(error))
+})
+
 
 
 
