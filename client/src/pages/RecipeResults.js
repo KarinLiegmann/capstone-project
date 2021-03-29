@@ -16,10 +16,14 @@ export default function RecipeResults({ recipes, onDeleteRecipe, onGetNextRecipe
                 onLikeRecipe={onLikeRecipe} />
             <h2>Recipes left: {recipes.length} </h2>
             <p>Click on the left Button to delete and on the right Button to keep!</p>
-            <ButtonMain
-                text="All Done!"
-                isActive={true} />
+
+            <Link to="/selections">
+                <ButtonMain
+                    text="All Done!"
+                    isActive={true} />
+            </Link>
             <p>Nothing to your taste?</p>
+
 
             <ButtonMain
                 text="Try Again"
