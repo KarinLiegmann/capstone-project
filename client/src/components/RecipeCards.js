@@ -61,7 +61,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                     ))}
                                 </ul>
                             </Modal>
-
                         </CardContent>
                     </CardWrapper >
                     )

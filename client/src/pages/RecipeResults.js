@@ -9,21 +9,30 @@ export default function RecipeResults({ recipes, onDeleteRecipe, onGetNextRecipe
 
     return (
         <Wrapper>
-            <h2>Here is what we found:</h2>
+            <h2>Here is what we found</h2>
             <RecipeCards
                 recipes={recipes}
                 onDeleteRecipe={onDeleteRecipe}
                 onLikeRecipe={onLikeRecipe} />
             <h2>Recipes left: {recipes.length} </h2>
             <p>Click on the left Button to delete and on the right Button to keep!</p>
-            <ButtonMain
-                text="All Done!"
-                isActive={true} />
-            <p>Nothing to your taste?</p>
+            <p>After you are done, you will find get a list of your liked recipes or can chose to get the next results.</p>
 
-            <ButtonMain
-                text="Try Again"
-                onClick={() => onGetNextRecipes()} />
+            {recipes.length === 0 &&
+                <>
+                    <ButtonMain
+                        text="All Done!"
+                        isActive={true} />
+
+                    <p>Nothing to your taste?</p>
+
+                    <ButtonMain
+                        text="Try Again"
+                        onClick={() => onGetNextRecipes()} />
+                </>
+            }
+
+
 
             <Link to="/">
                 <ButtonSecondary
@@ -38,7 +47,7 @@ const Wrapper = styled.section`
 align-items: center;
 display: flex;
 flex-direction: column;
-margin: 5% 0;
+margin: 5%;
 `
 
 
