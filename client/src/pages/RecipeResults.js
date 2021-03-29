@@ -49,9 +49,11 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                         ))}
                     </LikedRecipesList>
 
-                    <ButtonMain
-                        text="All Done!"
-                        isActive={true} />
+                    <Link to="/selections">
+                        <ButtonMain
+                            text="All Done!"
+                            isActive={true} />
+                    </Link>
 
                     <p>Nothing to your taste?</p>
 
