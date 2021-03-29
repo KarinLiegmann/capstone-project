@@ -97,24 +97,21 @@ function App() {
     saveToLocal('recipes', recipesToKeep)
   }
 
-  function addToLikedRecipes(recipe) {
+  function addToLikedRecipes(recipeToAdd) {
     const newRecipe = {
-      ...recipe,
+      ...recipeToAdd,
       isLiked: true
     }
     setLikedRecipes([newRecipe, ...likedRecipes])
+
+    const allUnlikedRecipes = recipes.filter(recipe => recipe.id !== recipeToAdd.id);
+    setRecipes(allUnlikedRecipes)
+    saveToLocal('recipes', allUnlikedRecipes)
   }
 
   useEffect(() => {
     saveToLocal('likedRecipes', likedRecipes)
-    removeLikedRecipes()
   }, [likedRecipes])
-
-  function removeLikedRecipes() {
-    const allUnlikedRecipes = recipes.filter(recipe => !recipe.isLiked);
-    setRecipes(allUnlikedRecipes)
-    saveToLocal('recipes', allUnlikedRecipes)
-  }
 
 
 
