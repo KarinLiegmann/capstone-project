@@ -15,6 +15,8 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
         setOpenModal(false)
     }
 
+
+
     const missingIngredientsData = recipes[0].missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
     const missingIngredients = missingIngredientsData.join(', ')
 
@@ -24,7 +26,7 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
     return (
         <>
-            {recipes && recipes.map((recipe) =>
+            {recipes && recipes.map((recipe, index) =>
             (<CardWrapper
                 key={recipe.id}
             >
@@ -40,7 +42,7 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
                     <IngredientsWrapper>
                         {recipe.missedIngredients.length > 0 &&
-                            <p><span>You need:</span> {missingIngredients}</p>
+                            <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase()))}</p>
                         }
 
                         {recipe.usedIngredients.length > 0 &&
@@ -66,7 +68,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                             ))}
                         </ul>
                     </Modal>
-
 
                 </CardContent>
             </CardWrapper >

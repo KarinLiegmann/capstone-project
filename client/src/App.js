@@ -107,13 +107,16 @@ function App() {
 
   useEffect(() => {
     saveToLocal('likedRecipes', likedRecipes)
+    removeLikedRecipes()
   }, [likedRecipes])
 
   function removeLikedRecipes() {
     const allUnlikedRecipes = recipes.filter(recipe => !recipe.isLiked);
-    deleteRecipe()
+    setRecipes(allUnlikedRecipes)
     saveToLocal('recipes', allUnlikedRecipes)
   }
+
+
 
   function testFunction() {
     console.log('test')
