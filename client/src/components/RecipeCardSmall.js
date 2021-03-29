@@ -14,21 +14,6 @@ export default function RecipeCardSmall({ likedRecipes }) {
         setOpenModal(false)
     }
 
-    /*const missingIngredientsData = likedRecipes.map((likedRecipe, index) => {
-        let ingredientNames = likedRecipe.missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
-        return ingredientNames
-    })
-
-    console.log(missingIngredientsData)*/
-
-    /*const missingIngredients = missingIngredientsData.filter(ingredientsData => {
-        let ingredients = ingredientsData.join(', ')
-        console.log(ingredients)
-        return ingredients
-    })*/
-
-
-
     return (
         <>
             {likedRecipes && likedRecipes.map((likedRecipe) =>
@@ -54,17 +39,18 @@ export default function RecipeCardSmall({ likedRecipes }) {
                     <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
                     <Modal
                         show={openModal}
-                        handleClose={hideModal}>
+                        handleClose={hideModal}
+                    >
                         <h3>Missing Ingredients:</h3>
                         <ul>
-                            {likedRecipes[0].missedIngredients && likedRecipes[0].missedIngredients.map((missedIngredient) => (
+                            {likedRecipe.missedIngredients && likedRecipe.missedIngredients.map((missedIngredient) => (
                                 <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
                             ))}
                         </ul>
 
                         <h3>Used Ingredients:</h3>
                         <ul>
-                            {likedRecipes[0].usedIngredients && likedRecipes[0].usedIngredients.map((usedIngredient) => (
+                            {likedRecipe.usedIngredients && likedRecipe.usedIngredients.map((usedIngredient) => (
                                 <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
                             ))}
                         </ul>

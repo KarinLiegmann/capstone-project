@@ -1,9 +1,12 @@
 import styled from 'styled-components'
 
-export default function Modal({ handleClose, show, children, recipes }) {
+export default function Modal({ handleClose, show, children, recipes, likedRecipes }) {
     return (
         <ModalDiv block={show ? 'block' : 'none'}>
-            <ContentDiv recipes={recipes}>
+            <ContentDiv
+                likedRecipes={likedRecipes}
+                recipes={recipes}
+            >
                 {children}
                 <button
                     onClick={handleClose}>
