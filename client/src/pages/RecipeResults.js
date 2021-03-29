@@ -8,7 +8,11 @@ import { ButtonMain, ButtonSecondary } from '../components/Buttons'
 
 export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
 
+    /*function onGetNextRecipes(event) {
+        event.preventDefault();
+        console.log('test')
 
+    }*/
 
     return (
         <Wrapper>
@@ -54,7 +58,7 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                     <ButtonMain
                         text="Try Again"
                         isActive={true}
-                        onClick={() => onGetNextRecipes()} />
+                        onHandleClick={onGetNextRecipes} />
                 </>
             }
 

@@ -114,10 +114,11 @@ function App() {
   }, [likedRecipes])
 
 
-
-  function testFunction() {
+  const testFunction = (event, counter) => {
+    event.preventDefault()
     console.log('test')
   }
+
 
 
   return (
