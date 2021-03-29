@@ -19,7 +19,9 @@ export default function RecipeCardSmall({ likedRecipes }) {
         return ingredientNames
     })
 
-    const missingIngredients = missingIngredientsData.filter(ingredientsData => {
+    console.log(missingIngredientsData)*/
+
+    /*const missingIngredients = missingIngredientsData.filter(ingredientsData => {
         let ingredients = ingredientsData.join(', ')
         console.log(ingredients)
         return ingredients
@@ -45,7 +47,7 @@ export default function RecipeCardSmall({ likedRecipes }) {
 
                     {likedRecipe.missedIngredients.length > 0 &&
                         <p><span>You need:</span> {
-                            likedRecipe.missedIngredients.map((ingredient) => (<p>{ingredient.name.toLowerCase()}</p>))}
+                            likedRecipe.missedIngredients.map((ingredient) => (<>{ingredient.name.toLowerCase()}, </>))}
                         </p>
                     }
 
@@ -79,17 +81,18 @@ export default function RecipeCardSmall({ likedRecipes }) {
 const CardWrapper = styled.section`
 align-items: center;
 background-image: url(${img});
-background-size: cover;
+background-size: 100% auto;
 background-repeat: no-repeat;
-background-position-x: center;
+background-position: center;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
 margin-bottom: 10px;
-min-height: 500px;
-max-width: 360px;
+min-height: 350px;
+max-width: 350px;
 min-width: 320px;
 padding: 2.3rem 2rem;
+text-align: left;
 
 header {
     display: flex;
@@ -106,6 +109,10 @@ img {
 
 button {
     width: fit-content;
+}
+
+span {
+    font-weight: var(--fw-bold);
 }
 `
 const InfoButton = styled.p`
