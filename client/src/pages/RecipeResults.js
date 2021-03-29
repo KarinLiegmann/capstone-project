@@ -12,23 +12,17 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
 
     return (
         <Wrapper>
-            <h2>Here is what we found</h2>
-            <RecipeCards
-                recipes={recipes}
-                onDeleteRecipe={onDeleteRecipe}
-                onLikeRecipe={onLikeRecipe} />
-            <h2>Recipes left: {recipes.length} </h2>
-            <p>Click on the left Button to delete and on the right Button to keep!</p>
-
-            <LikedRecipesList>
-                {likedRecipes && likedRecipes.map((likedRecipe) => (
-                    <li><LikeIcon /> {likedRecipe.title}</li>
-                ))}
-            </LikedRecipesList>
-
-
             {recipes.length !== 0 &&
                 <>
+                    <h2>Here is what we found</h2>
+                    <RecipeCards
+                        recipes={recipes}
+                        onDeleteRecipe={onDeleteRecipe}
+                        onLikeRecipe={onLikeRecipe} />
+                    <h2>Recipes left: {recipes.length} </h2>
+
+                    <p>Click on the left Button to delete and on the right Button to keep!</p>
+
                     <ButtonMain
                         text="All Done!"
                         isActive={false} />
@@ -44,6 +38,13 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
 
             {recipes.length === 0 &&
                 <>
+                    <h2>Recipes Liked: {likedRecipes.length}</h2>
+                    <LikedRecipesList>
+                        {likedRecipes && likedRecipes.map((likedRecipe) => (
+                            <li><LikeIcon /> {likedRecipe.title}</li>
+                        ))}
+                    </LikedRecipesList>
+
                     <ButtonMain
                         text="All Done!"
                         isActive={true} />
