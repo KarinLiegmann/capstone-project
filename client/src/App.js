@@ -145,6 +145,7 @@ function App() {
             <Route path="/results">
               <RecipeResults
                 recipes={recipes}
+                likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
                 onGetNextRecipes={testFunction} />
