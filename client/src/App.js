@@ -98,30 +98,28 @@ function App() {
     saveToLocal('recipes', recipesToKeep)
   }
 
-  function addToLikedRecipes(recipe) {
+  function addToLikedRecipes(recipeToAdd) {
     const newRecipe = {
-      ...recipe,
+      ...recipeToAdd,
       isLiked: true
     }
     setLikedRecipes([newRecipe, ...likedRecipes])
-  }
 
-  useEffect(() => {
-    saveToLocal('likedRecipes', likedRecipes)
-    removeLikedRecipes()
-  }, [likedRecipes])
-
-  function removeLikedRecipes() {
-    const allUnlikedRecipes = recipes.filter(recipe => !recipe.isLiked);
+    const allUnlikedRecipes = recipes.filter(recipe => recipe.id !== recipeToAdd.id);
     setRecipes(allUnlikedRecipes)
     saveToLocal('recipes', allUnlikedRecipes)
   }
 
+  useEffect(() => {
+    saveToLocal('likedRecipes', likedRecipes)
+  }, [likedRecipes])
 
 
-  function testFunction() {
+  const testFunction = (event, counter) => {
+    event.preventDefault()
     console.log('test')
   }
+
 
 
   return (
@@ -146,6 +144,7 @@ function App() {
             <Route path="/results">
               <RecipeResults
                 recipes={recipes}
+                likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
                 onGetNextRecipes={testFunction} />
