@@ -42,7 +42,15 @@ const Wrapper = styled.section`
 align-items: center;
 display: flex;
 flex-direction: column;
-margin: 5% 0;
+margin-top: 25%;
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+Button {
+    margin-bottom: 2rem;
+}
 `
 
 
