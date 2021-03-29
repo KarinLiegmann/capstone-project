@@ -30,7 +30,11 @@ export const GlobalStyles = createGlobalStyle`
 
     --fs-body: 1rem;
     --fs-h1: 2rem;
+<<<<<<< HEAD
     --fs-h2: 1.4rem;
+=======
+    --fs-h2: 1.5rem;
+>>>>>>> recipes
     --fs-h3: 1.1rem;
 
     --fw-extralight: 200;
