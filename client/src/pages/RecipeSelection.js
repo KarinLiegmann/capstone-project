@@ -2,12 +2,13 @@ import styled from 'styled-components'
 
 import RecipeCardSmall from '../components/RecipeCardSmall'
 
-export default function RecipeSelection({ likedRecipes }) {
+export default function RecipeSelection({ likedRecipes, onShowRecipePage }) {
     return (
         <Wrapper>
             <h2>My Recipes</h2>
             <RecipeCardSmall
-                likedRecipes={likedRecipes} />
+                likedRecipes={likedRecipes}
+                onShowRecipePage={onShowRecipePage} />
         </Wrapper>
     )
 }

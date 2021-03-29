@@ -6,7 +6,7 @@ import img from '../assets/RecipeCardSmall_Background.png'
 import Modal from './Modal'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes }) {
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
 
     const [openModal, setOpenModal] = useState(false)
 
@@ -14,10 +14,11 @@ export default function RecipeCardSmall({ likedRecipes }) {
         setOpenModal(false)
     }
 
+
     return (
         <>
             {likedRecipes && likedRecipes.map((likedRecipe) =>
-            (
+            (<>
                 <CardWrapper
                     key={likedRecipe.id}>
                     <header>
@@ -28,6 +29,7 @@ export default function RecipeCardSmall({ likedRecipes }) {
                     <ButtonSecondary
                         text="Cook Me"
                         isActive
+                        onHandleClick={() => onShowRecipePage(likedRecipe)}
                     />
 
                     {likedRecipe.missedIngredients.length > 0 &&
@@ -38,6 +40,7 @@ export default function RecipeCardSmall({ likedRecipes }) {
 
                     <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
                     <Modal
+                        key={likedRecipe.id}
                         show={openModal}
                         handleClose={hideModal}
                     >
@@ -56,8 +59,10 @@ export default function RecipeCardSmall({ likedRecipes }) {
                         </ul>
                     </Modal>
 
-
                 </CardWrapper>
+
+
+            </>
             ))
             }
         </>

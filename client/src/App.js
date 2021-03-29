@@ -120,6 +120,10 @@ function App() {
     console.log('test')
   }
 
+  const showRecipePage = (recipeToRender) => {
+    console.log(recipeToRender)
+  }
+
 
 
   return (
@@ -153,6 +157,7 @@ function App() {
             <Route path="/selections">
               <RecipeSelection
                 likedRecipes={likedRecipes}
+                onShowRecipePage={showRecipePage}
               />
             </Route>
 
