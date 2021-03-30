@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { loadFromLocal } from '../library/localStorage'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCard_Background.png'
@@ -14,6 +15,12 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
     const hideModal = () => {
         setOpenModal(false)
     }
+
+    useEffect(() => {
+        loadFromLocal('recipes')
+    }, [])
+
+
 
     return (
         <>

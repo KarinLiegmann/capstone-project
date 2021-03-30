@@ -10,8 +10,8 @@ export function addNewIngredient(ingredient) {
     return newIngredient
 }
 
-export function deleteItem(ingredients, idToDelete) {
-    const itemsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
+export function deleteItem(items, idToDelete) {
+    const itemsToKeep = items.filter(item => (item.id !== idToDelete))
 
     return itemsToKeep
 }
