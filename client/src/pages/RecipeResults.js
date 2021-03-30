@@ -8,11 +8,6 @@ import { ButtonMain, ButtonSecondary } from '../components/Buttons'
 
 export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
 
-    /*function onGetNextRecipes(event) {
-        event.preventDefault();
-        console.log('test')
-
-    }*/
 
     return (
         <Wrapper>
@@ -26,17 +21,6 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                     <h2>Recipes left: {recipes.length} </h2>
 
                     <p>Click on the left Button to delete and on the right Button to keep!</p>
-
-                    <ButtonMain
-                        text="All Done!"
-                        isActive={false} />
-
-                    <p>Nothing to your taste?</p>
-
-                    <ButtonMain
-                        text="Try Again"
-                        isActive={false}
-                    />
                 </>
             }
 
@@ -45,7 +29,7 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                     <h2>Recipes Liked: {likedRecipes.length}</h2>
                     <LikedRecipesList>
                         {likedRecipes && likedRecipes.map((likedRecipe) => (
-                            <li><LikeIcon /> {likedRecipe.title}</li>
+                            <li key={likedRecipe.id}><LikeIcon /> {likedRecipe.title}</li>
                         ))}
                     </LikedRecipesList>
 
@@ -61,8 +45,6 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                         onHandleClick={onGetNextRecipes} />
                 </>
             }
-
-
 
             <Link to="/">
                 <ButtonSecondary

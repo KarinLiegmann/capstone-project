@@ -19,6 +19,8 @@ function App() {
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
+  const [offsetCounter, setOffsetCounter] = useState(0)
+
   function addIngredient(ingredient) {
     const newIngredient =
     {
@@ -56,6 +58,7 @@ function App() {
     filterActiveIngredients()
   }, [ingredients])
 
+
   const getRecipeResults = async () => {
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
@@ -67,7 +70,7 @@ function App() {
             instructionsRequired: true,
             ranking: 1,
             number: 3,
-            offset: 0,
+            offset: offsetCounter,
             ingredients: queryString
           },
         })
@@ -113,13 +116,11 @@ function App() {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
-
-  const testFunction = (event, counter) => {
-    event.preventDefault()
-    console.log('test')
+  function getNextRecipeResults() {
+    let counter = offsetCounter + 3
+    setOffsetCounter(counter)
+    console.log(offsetCounter)
   }
-
-
 
   return (
     <Router>
@@ -146,7 +147,7 @@ function App() {
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
-                onGetNextRecipes={testFunction} />
+                onGetNextRecipes={getNextRecipeResults} />
             </Route>
 
           </Switch>
