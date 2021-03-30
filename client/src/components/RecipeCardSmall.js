@@ -14,6 +14,10 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
         setOpenModal(false)
     }
 
+    function showModal(recipeToFind) {
+        setOpenModal(!openModal)
+    }
+
 
     return (
         <>
@@ -37,34 +41,17 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                             likedRecipe.missedIngredients.map((ingredient) => (<>{ingredient.name.toLowerCase()}, </>))}
                         </p>
                     }
-
-                    <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                    <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
                     <Modal
-                        key={likedRecipe.id}
-                        show={openModal}
                         handleClose={hideModal}
-                    >
-                        <h3>Missing Ingredients:</h3>
-                        <ul>
-                            {likedRecipe.missedIngredients && likedRecipe.missedIngredients.map((missedIngredient) => (
-                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-
-                        <h3>Used Ingredients:</h3>
-                        <ul>
-                            {likedRecipe.usedIngredients && likedRecipe.usedIngredients.map((usedIngredient) => (
-                                <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-                    </Modal>
-
+                        recipe={likedRecipe}
+                        show={openModal}
+                    />
                 </CardWrapper>
-
-
             </>
             ))
             }
+
         </>
     )
 }
