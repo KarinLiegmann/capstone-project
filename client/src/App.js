@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { loadFromLocal, saveToLocal } from './library/localStorage'
+import { addNewIngredient, deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
 
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 
 import Header from './components/Header'
 import axios from 'axios'
+
+
 
 
 function App() {
@@ -21,41 +24,24 @@ function App() {
 
   const [offsetCounter, setOffsetCounter] = useState(0)
 
-  function addIngredient(ingredient) {
-    const newIngredient =
-    {
-      name: ingredient.name,
-      id: ingredient.id,
-      isActive: true
-    }
+  const addIngredient = (ingredient) => {
+    const newIngredient = addNewIngredient(ingredient)
     setIngredients([newIngredient, ...ingredients])
   }
 
   const deleteIngredient = (idToDelete) => {
-    const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
+    const ingredientsToKeep = deleteItem(ingredients, idToDelete)
     setIngredients(ingredientsToKeep)
     setActiveIngredients(ingredientsToKeep)
   }
 
   const toggleActiveState = (idToToggle) => {
-    const updatedIngredients = ingredients.map(ingredient => {
-      if (ingredient.id === idToToggle) {
-        ingredient.isActive = !ingredient.isActive
-      }
-      return ingredient;
-    })
+    const updatedIngredients = toggleIngredient(ingredients, idToToggle)
     setIngredients(updatedIngredients)
   }
 
-  function filterActiveIngredients() {
-    const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
-    setActiveIngredients(allActiveIngredients)
-    saveToLocal('ingredients', ingredients)
-    saveToLocal('activeIngredients', allActiveIngredients)
-  }
-
   useEffect(() => {
-    filterActiveIngredients()
+    filterActiveIngredients(ingredients)
   }, [ingredients])
 
 
