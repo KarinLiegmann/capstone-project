@@ -1,23 +1,9 @@
 import styled from 'styled-components'
 
-export default function Modal({ handleClose, show, children, recipe }) {
+export default function Modal({ handleClose, show, children }) {
     return (
         <ModalDiv block={show ? 'block' : 'none'}>
-            <ContentDiv
-                recipe={recipe}
-            >
-                <h3>Missing Ingredients:</h3>
-                <ul>
-                    {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
-                        <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                    ))}
-                    <h3>Used Ingredients:</h3>
-                    <ul>
-                        {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
-                            <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                        ))}
-                    </ul>
-                </ul>
+            <ContentDiv >
                 {children}
                 <button
                     onClick={handleClose}>
