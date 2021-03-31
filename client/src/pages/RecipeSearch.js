@@ -9,7 +9,6 @@ import { ButtonMain } from '../components/Buttons'
 export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus }) {
 
 
-
     return (
         <Wrapper>
             <h2>Hi, what's in your fridge today?</h2>

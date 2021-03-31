@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router, Link } from 'react-router-dom'
+
 import { loadFromLocal, saveToLocal } from './library/localStorage'
+import { addNewIngredient, deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
+
+import { getRecipeData } from './library/axiosRequests'
 
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
@@ -8,7 +12,8 @@ import RecipeSelection from './pages/RecipeSelection'
 import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
-import axios from 'axios'
+import { ButtonSecondary } from './components/Buttons'
+
 
 
 function App() {
@@ -21,80 +26,38 @@ function App() {
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
-  function addIngredient(ingredient) {
-    const newIngredient =
-    {
-      name: ingredient.name,
-      id: ingredient.id,
-      isActive: true
-    }
+  const [offsetCounter, setOffsetCounter] = useState(0)
+
+  const addIngredient = (ingredient) => {
+    const newIngredient = addNewIngredient(ingredient)
     setIngredients([newIngredient, ...ingredients])
   }
 
   const deleteIngredient = (idToDelete) => {
-    const ingredientsToKeep = ingredients.filter(ingredient => (ingredient.id !== idToDelete))
+    const ingredientsToKeep = deleteItem(ingredients, idToDelete)
     setIngredients(ingredientsToKeep)
     setActiveIngredients(ingredientsToKeep)
   }
 
   const toggleActiveState = (idToToggle) => {
-    const updatedIngredients = ingredients.map(ingredient => {
-      if (ingredient.id === idToToggle) {
-        ingredient.isActive = !ingredient.isActive
-      }
-      return ingredient;
-    })
+    const updatedIngredients = toggleIngredient(ingredients, idToToggle)
     setIngredients(updatedIngredients)
   }
 
-  function filterActiveIngredients() {
-    const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
-    setActiveIngredients(allActiveIngredients)
+  useEffect(() => {
+    const allActiveIngredients = filterActiveIngredients(ingredients)
     saveToLocal('ingredients', ingredients)
     saveToLocal('activeIngredients', allActiveIngredients)
-  }
-
-  useEffect(() => {
-    filterActiveIngredients()
   }, [ingredients])
 
   const getRecipeResults = async () => {
-    const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
-    let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
-
-    try {
-      const searchResults =
-        await axios.get(`http://localhost:4000/recipes`, {
-          params: {
-            instructionsRequired: true,
-            ranking: 1,
-            number: 6,
-            offset: 0,
-            ingredients: queryString
-          },
-        })
-
-      const recipeData = searchResults.data.map(recipe => ({
-        id: recipe.id,
-        title: recipe.title,
-        image: recipe.image,
-        usedIngredientCount: recipe.usedIngredientCount,
-        missedIngredientCount: recipe.missedIngredientCount,
-        missedIngredients: recipe.missedIngredients,
-        usedIngredients: recipe.usedIngredients,
-        unusedIngredients: recipe.unusedIngredients,
-        likes: recipe.likes,
-        isLiked: false
-      }))
-      setRecipes(recipeData)
-      saveToLocal('recipes', recipeData)
-    } catch (error) {
-      console.error(error.message)
-    }
+    const recipeData = await getRecipeData(activeIngredients, offsetCounter)
+    setRecipes(recipeData)
+    saveToLocal('recipes', recipeData)
   }
 
-  function deleteRecipe(idToFind) {
-    const recipesToKeep = recipes.filter(recipe => recipe.id !== idToFind)
+  function deleteRecipe(idToDelete) {
+    const recipesToKeep = deleteItem(recipes, idToDelete)
     setRecipes(recipesToKeep)
     saveToLocal('recipes', recipesToKeep)
   }
@@ -116,16 +79,24 @@ function App() {
   }, [likedRecipes])
 
 
-  const testFunction = (event, counter) => {
-    event.preventDefault()
-    console.log('test')
+  const increaseOffsetCounter = () => {
+    setOffsetCounter(offsetCounter + 6)
+    console.log(offsetCounter)
+    return offsetCounter
+  }
+
+  const getNextRecipeResults = async () => {
+    increaseOffsetCounter()
+
+    const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 6)
+    setRecipes(nextRecipeData)
+    saveToLocal('recipes', nextRecipeData)
+    console.log(offsetCounter)
   }
 
   const showRecipePage = (recipeToRender) => {
     console.log(recipeToRender)
   }
-
-
 
   return (
     <Router>
@@ -140,7 +111,7 @@ function App() {
             <Route exact path="/">
               <RecipeSearch
                 ingredients={ingredients}
-                onGetRecipeResults={getRecipeResults}
+                onGetRecipeResults={() => getRecipeResults()}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onToggleStatus={toggleActiveState} />
@@ -149,10 +120,16 @@ function App() {
             <Route path="/results">
               <RecipeResults
                 recipes={recipes}
+                getRecipeResults={getRecipeResults}
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
-                onGetNextRecipes={testFunction} />
+                onGetNextRecipes={() => getNextRecipeResults()} />
+              <Link to="/">
+                <ButtonSecondary
+                  text="Go Back"
+                  isActive={true} />
+              </Link>
             </Route>
 
             <Route path="/selections">

@@ -1,18 +1,23 @@
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa'
 
 import RecipeCards from '../components/RecipeCards'
-import { ButtonMain, ButtonSecondary } from '../components/Buttons'
+import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
+export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
 
-    /*function onGetNextRecipes(event) {
-        event.preventDefault();
-        console.log('test')
+    /*const [data, setData] = useState(recipes ?? [])
 
-    }*/
+    useEffect(() => {
+        const recipeData = getRecipeResults()
+        console.log(recipeData)
+        setData(recipeData)
+
+    }, [])*/
+
 
     return (
         <Wrapper>
@@ -26,26 +31,15 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                     <h2>Recipes left: {recipes.length} </h2>
 
                     <p>Click on the left Button to delete and on the right Button to keep!</p>
-
-                    <ButtonMain
-                        text="All Done!"
-                        isActive={false} />
-
-                    <p>Nothing to your taste?</p>
-
-                    <ButtonMain
-                        text="Try Again"
-                        isActive={false}
-                    />
                 </>
             }
 
-            {recipes.length === 0 &&
+            {recipes.length === 0 && likedRecipes.length !== 0 &&
                 <>
                     <h2>Recipes Liked: {likedRecipes.length}</h2>
                     <LikedRecipesList>
                         {likedRecipes && likedRecipes.map((likedRecipe) => (
-                            <li><LikeIcon /> {likedRecipe.title}</li>
+                            <li key={likedRecipe.id}><LikeIcon /> {likedRecipe.title}</li>
                         ))}
                     </LikedRecipesList>
 
@@ -64,11 +58,19 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                 </>
             }
 
-            <Link to="/">
-                <ButtonSecondary
-                    text="Go Back"
-                    isActive={true} />
-            </Link>
+            {recipes.length === 0 && likedRecipes.length === 0 &&
+                <>
+
+
+                    <p>Nothing to your taste?</p>
+
+                    <ButtonMain
+                        text="Try Again"
+                        isActive={true}
+                        onHandleClick={onGetNextRecipes} />
+                </>
+            }
+
         </Wrapper>
     )
 }
