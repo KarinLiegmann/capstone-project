@@ -46,17 +46,20 @@ function App() {
     filterActiveIngredients(ingredients)
   }, [ingredients])
 
-  const getRecipeResults = () => {
-    const recipeData = getRecipeData(activeIngredients)
+  const getRecipeResults = async () => {
+    const recipeData = await getRecipeData(activeIngredients)
     setRecipes(recipeData)
-    return recipeData
+
   }
+
+
+
 
 
   /*const getRecipeResults = async () => {
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
     let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
-
+  
     try {
       const searchResults =
         await axios.get(`http://localhost:4000/recipes`, {
@@ -68,7 +71,7 @@ function App() {
             ingredients: queryString
           },
         })
-
+  
       const recipeData = searchResults.data.map(recipe => ({
         id: recipe.id,
         title: recipe.title,

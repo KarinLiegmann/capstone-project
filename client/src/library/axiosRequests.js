@@ -34,7 +34,7 @@ export async function getRecipeData(activeIngredients) {
         }))
 
         console.log(recipeData)
-        saveToLocal('recipes', recipeData)
+        saveToLocal('recipes', recipeData) // auslagern in App.js
         return recipeData
 
     } catch (error) {
