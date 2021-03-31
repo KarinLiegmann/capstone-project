@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa'
 
 import RecipeCards from '../components/RecipeCards'
-import { ButtonMain, ButtonSecondary } from '../components/Buttons'
+import { ButtonMain } from '../components/Buttons'
 
 export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
 
@@ -34,7 +33,7 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                 </>
             }
 
-            {recipes.length === 0 &&
+            {recipes.length === 0 && likedRecipes.length !== 0 &&
                 <>
                     <h2>Recipes Liked: {likedRecipes.length}</h2>
                     <LikedRecipesList>
@@ -56,11 +55,19 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                 </>
             }
 
-            <Link to="/">
-                <ButtonSecondary
-                    text="Go Back"
-                    isActive={true} />
-            </Link>
+            {recipes.length === 0 && likedRecipes.length === 0 &&
+                <>
+
+
+                    <p>Nothing to your taste?</p>
+
+                    <ButtonMain
+                        text="Try Again"
+                        isActive={true}
+                        onHandleClick={onGetNextRecipes} />
+                </>
+            }
+
         </Wrapper>
     )
 }

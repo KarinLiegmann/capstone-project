@@ -1,4 +1,4 @@
-import { saveToLocal } from './localStorage'
+
 
 export function addNewIngredient(ingredient) {
     const newIngredient =
@@ -12,7 +12,6 @@ export function addNewIngredient(ingredient) {
 
 export function deleteItem(items, idToDelete) {
     const itemsToKeep = items.filter(item => (item.id !== idToDelete))
-
     return itemsToKeep
 }
 
@@ -28,9 +27,5 @@ export const toggleIngredient = (ingredients, idToToggle) => {
 
 export function filterActiveIngredients(ingredients) {
     const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
-
-    saveToLocal('ingredients', ingredients)
-    saveToLocal('activeIngredients', allActiveIngredients)
-
     return allActiveIngredients;
 }

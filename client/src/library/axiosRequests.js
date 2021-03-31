@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { saveToLocal } from './localStorage'
 
-export async function getRecipeData(activeIngredients) {
+
+export async function getRecipeData(activeIngredients, offsetCounter) {
 
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
-    let queryString = ingredientNames.join(',+').replaceAll(' ', '%')
+    const queryString = ingredientNames.join(',+').replaceAll(' ', '%')
 
-    let offsetCounter = 0
+    let offsetNumber = offsetCounter
 
     try {
         const searchResults =
@@ -14,8 +14,8 @@ export async function getRecipeData(activeIngredients) {
                 params: {
                     instructionsRequired: true,
                     ranking: 1,
-                    number: 3,
-                    offset: offsetCounter,
+                    number: 6,
+                    offset: offsetNumber,
                     ingredients: queryString
                 },
             })
@@ -33,8 +33,9 @@ export async function getRecipeData(activeIngredients) {
             isLiked: false
         }))
 
+        console.log(offsetNumber)
         console.log(recipeData)
-        saveToLocal('recipes', recipeData) // auslagern in App.js
+
         return recipeData
 
     } catch (error) {
