@@ -13,12 +13,7 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
 
     const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
 
-    const [steps, setSteps] = useState([])
     console.log(instructions[0].steps)
-
-
-
-
 
 
     return (

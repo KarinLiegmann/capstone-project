@@ -27,16 +27,6 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
 
                     <p>Click on the left Button to delete and on the right Button to keep!</p>
 
-                    <ButtonMain
-                        text="All Done!"
-                        isActive={false} />
-
-                    <p>Nothing to your taste?</p>
-
-                    <ButtonMain
-                        text="Try Again"
-                        isActive={false}
-                    />
                 </>
             }
 
