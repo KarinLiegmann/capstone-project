@@ -110,9 +110,13 @@ function App() {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
-  function getNextRecipeResults() {
+  function increaseOffsetCounter() {
     let counter = offsetCounter + 3
     setOffsetCounter(counter)
+  }
+
+  function getNextRecipeResults() {
+    increaseOffsetCounter()
     console.log(offsetCounter)
   }
 
@@ -129,7 +133,7 @@ function App() {
             <Route exact path="/">
               <RecipeSearch
                 ingredients={ingredients}
-                onGetRecipeResults={getRecipeResults}
+                onGetRecipeResults={() => getRecipeResults()}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onToggleStatus={toggleActiveState} />
@@ -138,6 +142,7 @@ function App() {
             <Route path="/results">
               <RecipeResults
                 recipes={recipes}
+                getRecipeResults={getRecipeResults}
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}

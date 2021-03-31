@@ -40,5 +40,4 @@ export async function getRecipeData(activeIngredients) {
     } catch (error) {
         console.error(error.message)
     }
-
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
@@ -6,7 +7,16 @@ import { FaHeart } from 'react-icons/fa'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain, ButtonSecondary } from '../components/Buttons'
 
-export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
+export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
+
+    /*const [data, setData] = useState(recipes ?? [])
+
+    useEffect(() => {
+        const recipeData = getRecipeResults()
+        console.log(recipeData)
+        setData(recipeData)
+
+    }, [])*/
 
 
     return (
