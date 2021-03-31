@@ -9,7 +9,6 @@ import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
 import axios from 'axios'
-import { ButtonSecondary } from './components/Buttons'
 
 
 function App() {
@@ -124,8 +123,8 @@ function App() {
     console.log('test')
   }
 
-  const getRecipeInstructions = async () => {
-    let recipeId = 196490 // params, not query in der Abfrage-URL!!! 
+  const getRecipeInstructions = async (recipeToRender) => {
+    let recipeId = recipeToRender.id
 
     try {
       const searchResults =
@@ -145,6 +144,7 @@ function App() {
   const showRecipePage = (recipeToRender) => {
     console.log(recipeToRender)
     saveToLocal('recipe', recipeToRender)
+    getRecipeInstructions(recipeToRender)
   }
 
 

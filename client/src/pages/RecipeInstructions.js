@@ -9,7 +9,10 @@ import IngredientTags from '../components/IngredientTags'
 
 export default function RecipeInstructions({ activeIngredients, likedRecipes, recipeInstructions }) {
 
+    const [recipe, setRecipe] = useState(loadFromLocal('recipe') ?? {})
+
     const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
+
     const [steps, setSteps] = useState([])
     console.log(instructions[0].steps)
 
@@ -20,19 +23,19 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
 
     return (
         <Wrapper>
-            <p>test-recipe</p>
-            <Link to="/selections" >
-                <ButtonMain
-                    isActive
-                    text="Back" />
-            </Link>
+            <header>
+                <img src={recipe.image} alt={recipe.title} />
+                <h2>{recipe.title}</h2>
+            </header>
+
+            <>
+
+            </>
 
             <Instructions>
+                <h3>Cooking Instructions</h3>
                 {instructions[0].steps.map((step) => (
                     <>
-                        <p>{step.ingredients && step.ingredients.map((ingredient) => (
-                            <p>{ingredient.name}</p>
-                        ))}</p>
                         <li key={step.number}><span>Step {step.number}:</span> {step.step}</li>
                     </>
                 ))}
@@ -44,6 +47,12 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
                 ))}
             </>
 
+            <Link to="/selections" >
+                <ButtonMain
+                    isActive
+                    text="Back" />
+            </Link>
+
 
 
         </Wrapper>
@@ -53,6 +62,16 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
 const Wrapper = styled.section`
 display: flex;
 flex-direction: column;
+margin-top: 25%;
+
+header {
+    padding: 0 2rem;
+
+    img {
+        border-radius: 20px;
+        width: 90%;
+    }
+}
 `
 
 const Instructions = styled.ul`
