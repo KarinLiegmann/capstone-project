@@ -102,25 +102,25 @@ function App() {
     saveToLocal('recipes', recipesToKeep)
   }
 
-  function addToLikedRecipes(recipe) {
+  function addToLikedRecipes(recipeToAdd) {
     const newRecipe = {
-      ...recipe,
+      ...recipeToAdd,
       isLiked: true
     }
     setLikedRecipes([newRecipe, ...likedRecipes])
+
+    const allUnlikedRecipes = recipes.filter(recipe => recipe.id !== recipeToAdd.id);
+    setRecipes(allUnlikedRecipes)
+    saveToLocal('recipes', allUnlikedRecipes)
   }
 
   useEffect(() => {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
-  function removeLikedRecipes() {
-    const allUnlikedRecipes = recipes.filter(recipe => !recipe.isLiked);
-    deleteRecipe()
-    saveToLocal('recipes', allUnlikedRecipes)
-  }
 
-  function testFunction() {
+  const testFunction = (event, counter) => {
+    event.preventDefault()
     console.log('test')
   }
 
@@ -140,6 +140,12 @@ function App() {
     }
   }
 
+
+
+  const showRecipePage = (recipeToRender) => {
+    console.log(recipeToRender)
+    saveToLocal('recipe', recipeToRender)
+  }
 
 
 
@@ -165,6 +171,7 @@ function App() {
             <Route path="/results">
               <RecipeResults
                 recipes={recipes}
+                likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
                 onGetNextRecipes={testFunction} />
@@ -173,19 +180,15 @@ function App() {
             <Route path="/selections">
               <RecipeSelection
                 likedRecipes={likedRecipes}
+                onShowRecipePage={showRecipePage}
               />
             </Route>
 
             <Route path="/recipe">
               <RecipeInstructions
-
+                activeIngredients={activeIngredients}
               />
-              <ButtonSecondary
-                text="Get Recipe Test"
-                onHandleClick={getRecipeInstructions} />
             </Route>
-
-
 
           </Switch>
         </main>

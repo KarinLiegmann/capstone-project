@@ -15,62 +15,58 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
         setOpenModal(false)
     }
 
-    const missingIngredientsData = recipes[0].missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
-    const missingIngredients = missingIngredientsData.join(', ')
-
-    const usedIngredientsData = recipes[0].usedIngredients.map((ingredient) => ingredient.name.toLowerCase())
-    const usedIngredients = usedIngredientsData.join(', ')
-
-
     return (
         <>
-            {recipes && recipes.map((recipe) =>
-            (<CardWrapper
-                key={recipe.id}
-            >
-                <CardContent>
-                    <img src={recipe.image} alt={recipe.title} />
-                    <h3>{recipe.title}</h3>
-                    <IconsWrapper>
-                        <DislikeIcon
-                            onClick={() => onDeleteRecipe(recipe.id)} />
-                        <LikeIcon
-                            onClick={() => onLikeRecipe(recipe)} />
-                    </IconsWrapper>
+            {recipes && recipes.map((recipe, index) => {
+                if (index === 0) {
+                    return (<CardWrapper
+                        key={recipe.id}
+                    >
+                        <CardContent>
+                            <img src={recipe.image} alt={recipe.title} />
+                            <h3>{recipe.title}</h3>
+                            <IconsWrapper>
+                                <DislikeIcon
+                                    onClick={() => onDeleteRecipe(recipe.id)} />
+                                <LikeIcon
+                                    onClick={() => onLikeRecipe(recipe)} />
+                            </IconsWrapper>
 
-                    <IngredientsWrapper>
-                        {recipe.missedIngredients.length > 0 &&
-                            <p><span>You need:</span> {missingIngredients}</p>
-                        }
+                            <IngredientsWrapper>
+                                {recipe.missedIngredients.length > 0 &&
+                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => (<>{missingIngredient.name.toLowerCase()}, </>)))}</p>
+                                }
 
-                        {recipe.usedIngredients.length > 0 &&
-                            <p><span>You have:</span> {usedIngredients}</p>
-                        }
-                    </IngredientsWrapper>
+                                {recipe.usedIngredients.length > 0 &&
+                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => (<>{usedIngredient.name.toLowerCase()}, </>)))}</p>
+                                }
+                            </IngredientsWrapper>
 
-                    <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
-                    <Modal
-                        show={openModal}
-                        handleClose={hideModal}>
-                        <h3>Missing Ingredients:</h3>
-                        <ul>
-                            {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
-                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
+                            <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                            <Modal
+                                key={recipe.id}
+                                show={openModal}
+                                handleClose={hideModal}>
+                                <h3>Missing Ingredients:</h3>
+                                <ul>
+                                    {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
+                                        <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                                    ))}
+                                </ul>
 
-                        <h3>Used Ingredients:</h3>
-                        <ul>
-                            {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
-                                <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-                    </Modal>
+                                <h3>Used Ingredients:</h3>
+                                <ul>
+                                    {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
+                                        <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                                    ))}
+                                </ul>
+                            </Modal>
+                        </CardContent>
+                    </CardWrapper >
+                    )
+                }
+            })
 
-
-                </CardContent>
-            </CardWrapper >
-            ))
             }
         </>
     )

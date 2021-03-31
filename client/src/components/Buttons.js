@@ -21,6 +21,8 @@ color: ${({ isActive }) => isActive ? 'var(--clr-light)' : 'var(--clr-accent1)'}
 font-size: var(--fs-h3);
 font-weight: var(--fw-bold);
 padding: .5em 1.2em;
+text-decoration: ${({ isActive }) => isActive ? 'none' : 'line-through'};
+text-decoration-thickness: 2px;
 `
 
 function ButtonSecondary({ isActive, text, onHandleClick }) {

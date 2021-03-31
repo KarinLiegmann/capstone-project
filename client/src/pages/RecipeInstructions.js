@@ -1,20 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { loadFromLocal } from "../library/localStorage"
 import styled from 'styled-components'
+
+import { ButtonMain } from '../components/Buttons'
+import IngredientTags from '../components/IngredientTags'
 
 
 export default function RecipeInstructions({ activeIngredients, likedRecipes, recipeInstructions }) {
 
-    const [recipe, setRecipe] = useState(loadFromLocal('recipeInstructions') ?? {})
+    const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
     const [steps, setSteps] = useState([])
-    console.log(recipe[0].steps)
+    console.log(instructions[0].steps)
+
+
+
+
 
 
     return (
         <Wrapper>
-            <p>test</p>
+            <p>test-recipe</p>
+            <Link to="/selections" >
+                <ButtonMain
+                    isActive
+                    text="Back" />
+            </Link>
+
             <Instructions>
-                {recipe[0].steps.map((step) => (
+                {instructions[0].steps.map((step) => (
                     <>
                         <p>{step.ingredients && step.ingredients.map((ingredient) => (
                             <p>{ingredient.name}</p>
@@ -23,6 +37,15 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
                     </>
                 ))}
             </Instructions>
+
+            <>
+                {activeIngredients && activeIngredients.map((ingredient) => (
+                    <li>{ingredient.name}</li>
+                ))}
+            </>
+
+
+
         </Wrapper>
     )
 }

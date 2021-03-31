@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Route, Switch, useRouteMatch, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
@@ -6,7 +7,7 @@ import img from '../assets/RecipeCardSmall_Background.png'
 import Modal from './Modal'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes }) {
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
 
     const [openModal, setOpenModal] = useState(false)
 
@@ -14,23 +15,17 @@ export default function RecipeCardSmall({ likedRecipes }) {
         setOpenModal(false)
     }
 
-    /*const missingIngredientsData = likedRecipes.map((likedRecipe, index) => {
-        let ingredientNames = likedRecipe.missedIngredients.map((ingredient) => ingredient.name.toLowerCase())
-        return ingredientNames
-    })
+    function showModal(recipeToFind) {
+        setOpenModal(!openModal)
+    }
 
-    const missingIngredients = missingIngredientsData.filter(ingredientsData => {
-        let ingredients = ingredientsData.join(', ')
-        console.log(ingredients)
-        return ingredients
-    })*/
-
+    let { url, path } = useRouteMatch();
 
 
     return (
         <>
             {likedRecipes && likedRecipes.map((likedRecipe) =>
-            (
+            (<>
                 <CardWrapper
                     key={likedRecipe.id}>
                     <header>
@@ -38,40 +33,30 @@ export default function RecipeCardSmall({ likedRecipes }) {
                         <h3>{likedRecipe.title}</h3>
                     </header>
 
-                    <ButtonSecondary
-                        text="Cook Me"
-                        isActive
-                    />
+                    <Link to={`/recipe/${likedRecipe.id}`}>
+                        <ButtonSecondary
+                            text="Cook Me"
+                            isActive
+                            onHandleClick={() => onShowRecipePage(likedRecipe)}
+                        />
+                    </Link>
 
                     {likedRecipe.missedIngredients.length > 0 &&
                         <p><span>You need:</span> {
-                            likedRecipe.missedIngredients.map((ingredient) => (<p>{ingredient.name.toLowerCase()}</p>))}
+                            likedRecipe.missedIngredients.map((ingredient) => (<>{ingredient.name.toLowerCase()}, </>))}
                         </p>
                     }
-
-                    <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
+                    <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
                     <Modal
+                        handleClose={hideModal}
+                        recipe={likedRecipe}
                         show={openModal}
-                        handleClose={hideModal}>
-                        <h3>Missing Ingredients:</h3>
-                        <ul>
-                            {likedRecipes[0].missedIngredients && likedRecipes[0].missedIngredients.map((missedIngredient) => (
-                                <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-
-                        <h3>Used Ingredients:</h3>
-                        <ul>
-                            {likedRecipes[0].usedIngredients && likedRecipes[0].usedIngredients.map((usedIngredient) => (
-                                <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                            ))}
-                        </ul>
-                    </Modal>
-
-
+                    />
                 </CardWrapper>
+            </>
             ))
             }
+
         </>
     )
 }
@@ -79,17 +64,19 @@ export default function RecipeCardSmall({ likedRecipes }) {
 const CardWrapper = styled.section`
 align-items: center;
 background-image: url(${img});
-background-size: cover;
+background-size: 100% auto;
 background-repeat: no-repeat;
 background-position-x: center;
+background-position-y: center;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
 margin-bottom: 10px;
-min-height: 500px;
-max-width: 360px;
+min-height: 360px;
+max-width: 350px;
 min-width: 320px;
 padding: 2.3rem 2rem;
+text-align: left;
 
 header {
     display: flex;
@@ -106,6 +93,10 @@ img {
 
 button {
     width: fit-content;
+}
+
+span {
+    font-weight: var(--fw-bold);
 }
 `
 const InfoButton = styled.p`
