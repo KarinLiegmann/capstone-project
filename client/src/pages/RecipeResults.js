@@ -64,8 +64,6 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                 </>
             }
 
-
-
             <Link to="/">
                 <ButtonSecondary
                     text="Go Back"

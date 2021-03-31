@@ -5,6 +5,7 @@ import { loadFromLocal, saveToLocal } from './library/localStorage'
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 import RecipeSelection from './pages/RecipeSelection'
+import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
 import axios from 'axios'
@@ -158,6 +159,11 @@ function App() {
               <RecipeSelection
                 likedRecipes={likedRecipes}
                 onShowRecipePage={showRecipePage}
+              />
+            </Route>
+
+            <Route path="/recipe">
+              <RecipeInstructions
               />
             </Route>
 

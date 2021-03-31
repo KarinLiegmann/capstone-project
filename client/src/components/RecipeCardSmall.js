@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Route, Switch, useRouteMatch, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
@@ -18,6 +19,8 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
         setOpenModal(!openModal)
     }
 
+    let { url, path } = useRouteMatch();
+
 
     return (
         <>
@@ -30,11 +33,13 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                         <h3>{likedRecipe.title}</h3>
                     </header>
 
-                    <ButtonSecondary
-                        text="Cook Me"
-                        isActive
-                        onHandleClick={() => onShowRecipePage(likedRecipe)}
-                    />
+                    <Link to={`/recipe/${likedRecipe.id}`}>
+                        <ButtonSecondary
+                            text="Cook Me"
+                            isActive
+                            onHandleClick={() => onShowRecipePage(likedRecipe)}
+                        />
+                    </Link>
 
                     {likedRecipe.missedIngredients.length > 0 &&
                         <p><span>You need:</span> {

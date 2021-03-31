@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { loadFromLocal } from "../library/localStorage"
 import styled from 'styled-components'
+
+import { ButtonMain } from '../components/Buttons'
 
 
 export default function RecipeInstructions({ activeIngredients, likedRecipes, recipeInstructions }) {
@@ -14,7 +17,13 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
 
     return (
         <Wrapper>
-            <p>test</p>
+            <p>test-recipe</p>
+            <Link to="/selections" >
+                <ButtonMain
+                    isActive
+                    text="Back" />
+            </Link>
+
             <Instructions>
                 {recipe[0].steps.map((step) => (
                     <>
