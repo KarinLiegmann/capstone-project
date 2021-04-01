@@ -27,6 +27,7 @@ function App() {
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
   const [offsetCounter, setOffsetCounter] = useState(0)
+  const [error, setError] = useState(false)
 
   const addIngredient = (ingredient) => {
     const newIngredient = addNewIngredient(ingredient)
@@ -81,17 +82,21 @@ function App() {
 
   const increaseOffsetCounter = () => {
     setOffsetCounter(offsetCounter + 6)
-    console.log(offsetCounter)
     return offsetCounter
   }
 
   const getNextRecipeResults = async () => {
     increaseOffsetCounter()
-
     const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 6)
-    setRecipes(nextRecipeData)
-    saveToLocal('recipes', nextRecipeData)
-    console.log(offsetCounter)
+
+    if (nextRecipeData.length === 0) {
+      setError(true)
+      console.log(error)
+    } else {
+      setRecipes(nextRecipeData)
+      saveToLocal('recipes', nextRecipeData)
+    }
+
   }
 
   const showRecipePage = (recipeToRender) => {

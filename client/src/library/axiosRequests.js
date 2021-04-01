@@ -33,9 +33,6 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
             isLiked: false
         }))
 
-        console.log(offsetNumber)
-        console.log(recipeData)
-
         return recipeData
 
     } catch (error) {

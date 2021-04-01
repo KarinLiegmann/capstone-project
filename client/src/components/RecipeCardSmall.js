@@ -47,15 +47,20 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                         </p>
                     }
                     <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
-                    <Modal
-                        handleClose={hideModal}
-                        recipe={likedRecipe}
-                        show={openModal}
-                    />
+
                 </CardWrapper>
             </>
             ))
             }
+
+            {likedRecipes && likedRecipes.map((likedRecipe) => (
+                <Modal
+                    handleClose={hideModal}
+                    show={openModal}
+                >{likedRecipe.title}</Modal>
+
+            ))}
+
 
         </>
     )

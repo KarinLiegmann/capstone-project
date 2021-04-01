@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import RecipeCardSmall from '../components/RecipeCardSmall'
+import Modal from '../components/Modal'
 
 export default function RecipeSelection({ likedRecipes, onShowRecipePage }) {
     return (
