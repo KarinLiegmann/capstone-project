@@ -6,17 +6,7 @@ import { FaHeart } from 'react-icons/fa'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
-
-    /*const [data, setData] = useState(recipes ?? [])
-
-    useEffect(() => {
-        const recipeData = getRecipeResults()
-        console.log(recipeData)
-        setData(recipeData)
-
-    }, [])*/
-
+export default function RecipeResults({ error, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
 
     return (
         <Wrapper>
@@ -57,16 +47,15 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
 
             {recipes.length === 0 && likedRecipes.length === 0 &&
                 <>
-
-
                     <p>Nothing to your taste?</p>
-
                     <ButtonMain
                         text="Try Again"
                         isActive={true}
                         onHandleClick={onGetNextRecipes} />
                 </>
             }
+
+            {error && <ErrorMessage>Sorry, we couldn't find any recipes!</ErrorMessage>}
 
         </Wrapper>
     )
@@ -95,6 +84,10 @@ li {
 const LikeIcon = styled(FaHeart)`
 color: var(--clr-accent2);
 font-size: 1rem;
+`
+
+const ErrorMessage = styled.p`
+color: var(--clr-accent2);
 `
 
 

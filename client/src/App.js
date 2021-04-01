@@ -24,6 +24,8 @@ function App() {
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
+  const [error, setError] = useState(false)
+
   const [offsetCounter, setOffsetCounter] = useState(0)
 
   const addIngredient = (ingredient) => {
@@ -50,8 +52,13 @@ function App() {
 
   const getRecipeResults = async () => {
     const recipeData = await getRecipeData(activeIngredients, offsetCounter)
-    setRecipes(recipeData)
-    saveToLocal('recipes', recipeData)
+
+    if (recipeData.length === 0) {
+      setError(true)
+    } else {
+      setRecipes(recipeData)
+      saveToLocal('recipes', recipeData)
+    }
   }
 
   function deleteRecipe(idToDelete) {
@@ -85,10 +92,14 @@ function App() {
 
   const getNextRecipeResults = async () => {
     increaseOffsetCounter()
-
     const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 6)
-    setRecipes(nextRecipeData)
-    saveToLocal('recipes', nextRecipeData)
+
+    if (nextRecipeData.length === 0) {
+      setError(true)
+    } else {
+      setRecipes(nextRecipeData)
+      saveToLocal('recipes', nextRecipeData)
+    }
     console.log(offsetCounter)
   }
 
@@ -113,6 +124,7 @@ function App() {
 
             <Route path="/results">
               <RecipeResults
+                error={error}
                 recipes={recipes}
                 getRecipeResults={getRecipeResults}
                 likedRecipes={likedRecipes}
