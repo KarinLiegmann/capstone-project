@@ -42,8 +42,7 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                     </Link>
 
                     {likedRecipe.missedIngredients.length > 0 &&
-                        <p><span>You need:</span> {
-                            likedRecipe.missedIngredients.map((ingredient) => (<>{ingredient.name.toLowerCase()}, </>))}
+                        <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
                         </p>
                     }
                     <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
