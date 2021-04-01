@@ -58,6 +58,7 @@ function App() {
     } else {
       setRecipes(recipeData)
       saveToLocal('recipes', recipeData)
+      setError(false)
     }
   }
 
@@ -96,9 +97,11 @@ function App() {
 
     if (nextRecipeData.length === 0) {
       setError(true)
+      setOffsetCounter(0)
     } else {
       setRecipes(nextRecipeData)
       saveToLocal('recipes', nextRecipeData)
+      setError(false)
     }
     console.log(offsetCounter)
   }
