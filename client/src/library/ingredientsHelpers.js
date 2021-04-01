@@ -3,8 +3,7 @@
 export function addNewIngredient(ingredient) {
     const newIngredient =
     {
-        name: ingredient.name,
-        id: ingredient.id,
+        ...ingredient,
         isActive: true
     }
     return newIngredient
@@ -29,3 +28,12 @@ export function filterActiveIngredients(ingredients) {
     const allActiveIngredients = ingredients.filter(ingredient => ingredient.isActive);
     return allActiveIngredients;
 }
+
+
+
+
+
+
+
+
+

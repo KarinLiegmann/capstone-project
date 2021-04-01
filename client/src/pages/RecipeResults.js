@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { FaHeart } from 'react-icons/fa'
@@ -6,14 +5,13 @@ import { FaHeart } from 'react-icons/fa'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
+export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
 
     return (
         <Wrapper>
-
             {loading && <LoadingMessage>Loading...</LoadingMessage>}
 
-            {recipes.length !== 0 &&
+            {!loading && recipes.length !== 0 &&
                 <>
                     <h2>Here is what we found</h2>
                     <RecipeCards
@@ -26,7 +24,7 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
                 </>
             }
 
-            {recipes.length === 0 && likedRecipes.length !== 0 &&
+            {!loading && recipes.length === 0 && likedRecipes.length !== 0 &&
                 <>
                     <h2>Recipes Liked: {likedRecipes.length}</h2>
                     <LikedRecipesList>
@@ -38,28 +36,20 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
                     <ButtonMain
                         text="All Done!"
                         isActive={true} />
-
-                    <p>Nothing to your taste?</p>
-
-                    <ButtonMain
-                        text="Try Again"
-                        isActive={true}
-                        onHandleClick={onGetNextRecipes} />
                 </>
             }
 
-            {recipes.length === 0 && likedRecipes.length === 0 &&
+            {!loading && recipes.length === 0 && likedRecipes.length === 0 &&
                 <>
                     <p>Nothing to your taste?</p>
                     <ButtonMain
-                        text="Try Again"
+                        text="Get Next Recipes"
                         isActive={true}
                         onHandleClick={onGetNextRecipes} />
                 </>
             }
 
             {error && <ErrorMessage>Sorry, we couldn't find any recipes!</ErrorMessage>}
-
         </Wrapper>
     )
 }
@@ -99,6 +89,8 @@ color: var(--clr-accent1);
 
 
 RecipeResults.propTypes = {
+    error: PropTypes.bool,
+    loading: PropTypes.bool,
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
     onDeleteRecipe: PropTypes.func.isRequired,
     onLikeRecipe: PropTypes.func.isRequired

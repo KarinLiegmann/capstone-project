@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { Route, Switch, BrowserRouter as Router, Link } from 'react-router-dom'
 
 import { loadFromLocal, saveToLocal } from './library/localStorage'
-import { addNewIngredient, deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
+import { deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
+
+import { isNewEntry, isValidId } from './library/validateFunctions'
 
 import { getRecipeData } from './library/axiosRequests'
 
@@ -11,8 +13,6 @@ import RecipeResults from './pages/RecipeResults'
 
 import Header from './components/Header'
 import { ButtonSecondary } from './components/Buttons'
-
-
 
 function App() {
 
@@ -30,8 +30,14 @@ function App() {
   const [offsetCounter, setOffsetCounter] = useState(0)
 
   const addIngredient = (ingredient) => {
-    const newIngredient = addNewIngredient(ingredient)
-    setIngredients([newIngredient, ...ingredients])
+    const newIngredient =
+    {
+      ...ingredient,
+      isActive: true
+    }
+    if (isValidId(newIngredient) && isNewEntry(ingredients, newIngredient)) {
+      setIngredients([newIngredient, ...ingredients])
+    }
   }
 
   const deleteIngredient = (idToDelete) => {
@@ -53,17 +59,15 @@ function App() {
 
   const getRecipeResults = async () => {
     setLoading(true)
-
     const recipeData = await getRecipeData(activeIngredients, offsetCounter)
-
-    if (recipeData.length === 0) {
-      setLoading(false)
-      setError(true)
-    } else {
+    if (recipeData) {
       setRecipes(recipeData)
       saveToLocal('recipes', recipeData)
       setLoading(false)
       setError(false)
+    } else {
+      setLoading(false)
+      setError(true)
     }
   }
 
@@ -78,7 +82,10 @@ function App() {
       ...recipeToAdd,
       isLiked: true
     }
-    setLikedRecipes([newRecipe, ...likedRecipes])
+
+    if (isNewEntry(likedRecipes, newRecipe)) {
+      setLikedRecipes([newRecipe, ...likedRecipes])
+    }
 
     const allUnlikedRecipes = recipes.filter(recipe => recipe.id !== recipeToAdd.id);
     setRecipes(allUnlikedRecipes)
@@ -97,7 +104,6 @@ function App() {
 
   const getNextRecipeResults = async () => {
     setLoading(true)
-
     increaseOffsetCounter()
     const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 6)
 
