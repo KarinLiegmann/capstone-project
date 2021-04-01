@@ -41,11 +41,11 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
                             <IngredientsWrapper>
                                 {recipe.missedIngredients.length > 0 &&
-                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => (<>{missingIngredient.name.toLowerCase()}, </>)))}</p>
+                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}</p>
                                 }
 
                                 {recipe.usedIngredients.length > 0 &&
-                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => (<>{usedIngredient.name.toLowerCase()}, </>)))}</p>
+                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}</p>
                                 }
                             </IngredientsWrapper>
 
