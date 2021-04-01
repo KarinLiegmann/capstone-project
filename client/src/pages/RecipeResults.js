@@ -6,10 +6,13 @@ import { FaHeart } from 'react-icons/fa'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ error, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
+export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, getRecipeResults }) {
 
     return (
         <Wrapper>
+
+            {loading && <LoadingMessage>Loading...</LoadingMessage>}
+
             {recipes.length !== 0 &&
                 <>
                     <h2>Here is what we found</h2>
@@ -88,6 +91,10 @@ font-size: 1rem;
 
 const ErrorMessage = styled.p`
 color: var(--clr-accent2);
+`
+
+const LoadingMessage = styled.h2`
+color: var(--clr-accent1);
 `
 
 
