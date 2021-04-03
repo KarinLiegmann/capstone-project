@@ -24,7 +24,7 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
     return (
         <>
-            {recipes && recipes.map((recipe, index) => {
+            {recipes.map((recipe, index) => {
                 if (index === 0) {
                     return (<CardWrapper
                         key={recipe.id}
