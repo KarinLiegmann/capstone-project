@@ -4,19 +4,28 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
 
-import Modal from './Modal'
+import Modal2 from './Modal2'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onShowModal }) {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const hideModal = () => {
+    /*const hideModal = () => {
         setOpenModal(false)
     }
 
-    function showModal(recipeToFind) {
+    function showModal(indexToFind) {
         setOpenModal(!openModal)
+    }*/
+
+    function showModal(recipe) {
+        setOpenModal(!openModal)
+        console.log(recipe.title)
+    }
+
+    function closeModal() {
+        setOpenModal(false)
     }
 
     let { url, path } = useRouteMatch();
@@ -47,18 +56,21 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                     }
                     <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
 
+                    {openModal && <Modal2
+                        openModal={openModal}
+                        onHandleClose={closeModal}
+                        recipe={likedRecipe}>
+                        <p>{likedRecipe.title}</p>
+                    </Modal2>}
+
                 </CardWrapper>
+
             </>
             ))
             }
 
-            {likedRecipes && likedRecipes.map((likedRecipe) => (
-                <Modal
-                    handleClose={hideModal}
-                    show={openModal}
-                >{likedRecipe.title}</Modal>
 
-            ))}
+
 
 
         </>
