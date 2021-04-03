@@ -8,7 +8,7 @@ export default function Modal({ handleClose, show, children, recipes }) {
                 <button
                     onClick={handleClose}>
                     Close
-                    </button>
+                </button>
             </ContentDiv>
         </ModalDiv>
     )

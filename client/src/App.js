@@ -132,7 +132,7 @@ function App() {
             <Route exact path="/">
               <RecipeSearch
                 ingredients={ingredients}
-                onGetRecipeResults={() => getRecipeResults()}
+                onGetRecipeResults={getRecipeResults}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onToggleStatus={toggleActiveState} />
