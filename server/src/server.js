@@ -40,6 +40,25 @@ app.get('/ingredients', (req, res) => {
         .catch(error => res.json(error))
 })
 
+app.get('/recipes', (req, res) => {
+    const queryParams = req.query
+
+    axios.get(`https://api.spoonacular.com/recipes/findByIngredients?&apiKey=${API_KEY}`, {
+        params: {
+            instructionsRequired: queryParams.instructionsRequired,
+            ranking: queryParams.ranking,
+            number: queryParams.number,
+            offset: queryParams.offset,
+            ingredients: queryParams.ingredients
+        },
+    })
+        .then(res => res.data)
+        .then(recipes => res.status(200).send(recipes))
+        .catch(error => res.json(error))
+})
+
+
+
 
 
 

@@ -31,7 +31,7 @@ export const GlobalStyles = createGlobalStyle`
     --fs-body: 1rem;
     --fs-h1: 2rem;
     --fs-h2: 1.5rem;
-    --fs-h3: 1.2rem;
+    --fs-h3: 1.1rem;
 
     --fw-extralight: 200;
     --fw-light: 300;
@@ -61,6 +61,8 @@ h3 { font-size: var(--fs-h3) }
 .App {
     align-items: center;
     background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--clr-dark);
     display: flex;
     flex-direction: column;
