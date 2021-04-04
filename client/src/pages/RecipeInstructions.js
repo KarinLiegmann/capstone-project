@@ -17,7 +17,7 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
     console.log(instructions[0].steps)
 
 
-    return (
+    return (recipe && instructions &&
         <Wrapper>
             <header>
                 <img src={recipe.image} alt={recipe.title} />
@@ -40,8 +40,8 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
             </Instructions>
 
             <TagWrapper>
-                <h3>All done with cooking?
-                    Remove the ingredients you have used up: </h3>
+                <h3>All done with cooking?</h3>
+                <p>Remove the ingredients you have used up:</p>
                 <IngredientTags
                     ingredients={activeIngredients}
                     onDeleteTag={onDeleteTag} />
@@ -53,7 +53,7 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
                     isActive
                     text="Back" />
             </Link>
-        </Wrapper>
+        </Wrapper >
     )
 }
 
@@ -92,5 +92,6 @@ text-align: left;
 
 const TagWrapper = styled.section`
 padding: 1.5rem;
+text-align: left;
 `
 

@@ -6,7 +6,7 @@ import { deleteItem, filterActiveIngredients, toggleIngredient } from './library
 
 import { isNewEntry, isValidId } from './library/validateFunctions'
 
-import { getRecipeData } from './library/axiosRequests'
+import { getRecipeData, getInstructions } from './library/axiosRequests'
 
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
@@ -109,7 +109,7 @@ function App() {
     return offsetCounter
   }
 
-  const getRecipeInstructions = async (recipeToRender) => {
+  /*const getRecipeInstructions = async (recipeToRender) => {
     let recipeId = recipeToRender.id
 
     try {
@@ -123,6 +123,11 @@ function App() {
     } catch (error) {
       console.error(error.message)
     }
+  }*/
+
+  const getRecipeInstructions = async (recipeToRender) => {
+    const recipeData = await getInstructions(recipeToRender)
+    console.log(recipeData)
   }
 
 
