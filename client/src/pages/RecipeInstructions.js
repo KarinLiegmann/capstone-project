@@ -23,9 +23,15 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
                 <h2>{recipe.title}</h2>
             </header>
 
-            <>
-
-            </>
+            <CookingIngredients>
+                <h3>Cooking Ingredients</h3>
+                {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
+                    <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                ))}
+                {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
+                    <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                ))}
+            </CookingIngredients>
 
             <Instructions>
                 <h3>Cooking Instructions</h3>
@@ -36,12 +42,13 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
                 ))}
             </Instructions>
 
-            <>
-                <h3>Your ingredients</h3>
+            <TagWrapper>
+                <h3>All done with cooking?
+                    Remove the ingredients you have used up: </h3>
                 <IngredientTags
                     ingredients={activeIngredients}
                     onDeleteTag={onDeleteTag} />
-            </>
+            </TagWrapper>
 
 
             <Link to="/selections" >
@@ -83,5 +90,13 @@ li {
 span {
     font-weight: var(--fw-bold);
 }
+`
+
+const CookingIngredients = styled.ul`
+text-align: left;
+`
+
+const TagWrapper = styled.section`
+padding: 1.5rem;
 `
 

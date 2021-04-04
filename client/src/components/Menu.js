@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function Menu({ open, setOpen }) {
   return (
@@ -49,6 +49,7 @@ const StyledMenu = styled.nav`
     &:hover {
       color: var(--clr-accent2);
     }
+
   }
 `;
 

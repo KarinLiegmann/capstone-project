@@ -20,8 +20,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
         loadFromLocal('recipes')
     }, [])
 
-
-
     return (
         <>
             {recipes && recipes.map((recipe, index) => {
