@@ -1,59 +1,63 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { loadFromLocal } from "../library/localStorage"
 import styled from 'styled-components'
+import { AiFillStar } from 'react-icons/ai'
 
 import { ButtonMain } from '../components/Buttons'
 import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
 
 
-export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag }) {
-
-    const [recipe, setRecipe] = useState(loadFromLocal('recipe') ?? {})
-
-    const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
-
-    console.log(instructions[0].steps)
+export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe }) {
 
 
-    return (
+    const usedIngredientsRecipe = completeRecipe.usedIngredients.map(ingredient => ingredient.name)
+    console.log(usedIngredientsRecipe)
+
+    const activeIngredientsNames = activeIngredients.map(ingredient => ingredient.name)
+    console.log(activeIngredientsNames)
+
+    /*const intersection = activeIngredientsNames.filter(element => activeIngredientsNames.includes(element));
+    console.log(intersection)*/
+
+    // check for ID of whole Ingredient!
+
+
+    return (completeRecipe &&
         <Wrapper>
             <header>
-                <img src={recipe.image} alt={recipe.title} />
-                <h2>{recipe.title}</h2>
+                <img src={completeRecipe.image} alt={completeRecipe.title} />
+                <h2>{completeRecipe.title}</h2>
             </header>
+
+            <FavouriteIcon onClick={() => onLikeRecipe(completeRecipe)} />
 
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
-                <IngredientsList ingredients={recipe.missedIngredients} />
-                <IngredientsList ingredients={recipe.usedIngredients} />
+                <IngredientsList ingredients={completeRecipe.missedIngredients} />
+                <IngredientsList ingredients={completeRecipe.usedIngredients} />
             </CookingIngredients>
 
             <Instructions>
                 <h3>Cooking Instructions</h3>
-                {instructions[0].steps.map((step) => (
-                    <>
-                        <li key={step.number}><span>Step {step.number}:</span> {step.step}</li>
-                    </>
+                {completeRecipe.steps[0].map((step, index) => (
+                    <p><span>Step {index + 1}:</span> {step}</p>
                 ))}
             </Instructions>
 
             <TagWrapper>
-                <h3>All done with cooking?
-                    Remove the ingredients you have used up: </h3>
+                <h3>All done with cooking?</h3>
+                <p>Remove the ingredients you have used up:</p>
                 <IngredientTags
                     ingredients={activeIngredients}
                     onDeleteTag={onDeleteTag} />
             </TagWrapper>
-
 
             <Link to="/selections" >
                 <ButtonMain
                     isActive
                     text="Back" />
             </Link>
-        </Wrapper>
+        </Wrapper >
     )
 }
 
@@ -92,5 +96,13 @@ text-align: left;
 
 const TagWrapper = styled.section`
 padding: 1.5rem;
+text-align: left;
+`
+
+const FavouriteIcon = styled(AiFillStar)`
+align-self: flex-end;
+color: var(--clr-accent2-light);
+font-size: 2.7rem;
+margin-right: 2rem;
 `
 

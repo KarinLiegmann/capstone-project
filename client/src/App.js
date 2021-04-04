@@ -6,7 +6,7 @@ import { deleteItem, filterActiveIngredients, toggleIngredient } from './library
 
 import { isNewEntry, isValidId } from './library/validateFunctions'
 
-import { getRecipeData } from './library/axiosRequests'
+import { getRecipeData, getInstructions } from './library/axiosRequests'
 
 import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
@@ -15,7 +15,7 @@ import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
 import { ButtonSecondary } from './components/Buttons'
-import axios from 'axios'
+
 
 function App() {
 
@@ -27,7 +27,9 @@ function App() {
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
-  const [recipeInstructions, setRecipeInstructions] = useState({})
+
+  const [completeRecipe, setCompleteRecipe] = useState(loadFromLocal('completeRecipe') ?? {})
+  const [favouriteRecipes, setFavouriteRecipes] = useState(loadFromLocal('favouriteRecipes') ?? [])
 
 
   const [error, setError] = useState(false)
@@ -89,7 +91,6 @@ function App() {
       ...recipeToAdd,
       isLiked: true
     }
-
     if (isNewEntry(likedRecipes, newRecipe)) {
       setLikedRecipes([newRecipe, ...likedRecipes])
     }
@@ -103,6 +104,10 @@ function App() {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
+  useEffect(() => {
+    saveToLocal('favouriteRecipes', favouriteRecipes)
+  }, [favouriteRecipes])
+
 
   const increaseOffsetCounter = () => {
     setOffsetCounter(offsetCounter + 6)
@@ -110,27 +115,15 @@ function App() {
   }
 
   const getRecipeInstructions = async (recipeToRender) => {
-    let recipeId = recipeToRender.id
-
-    try {
-      const searchResults =
-        await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
-
-      const recipeData = searchResults.data
-      console.log(recipeData)
-      setRecipeInstructions(recipeData)
-      saveToLocal('recipeInstructions', recipeData)
-    } catch (error) {
-      console.error(error.message)
-    }
+    const recipeData = await getInstructions(recipeToRender)
+    setCompleteRecipe(recipeData)
+    saveToLocal('completeRecipe', recipeData)
   }
 
-
-
-  const showRecipePage = (recipeToRender) => {
+  const showRecipePage = async (recipeToRender) => {
     console.log(recipeToRender)
     saveToLocal('recipe', recipeToRender)
-    getRecipeInstructions(recipeToRender)
+    await getRecipeInstructions(recipeToRender)
   }
 
   const getNextRecipeResults = async () => {
@@ -147,6 +140,16 @@ function App() {
       setRecipes(nextRecipeData)
       saveToLocal('recipes', nextRecipeData)
       setError(false)
+    }
+  }
+
+  function addToFavouriteRecipes(recipeToAdd) {
+    const newRecipe = {
+      ...recipeToAdd,
+      isFavourite: true
+    }
+    if (isNewEntry(favouriteRecipes, newRecipe)) {
+      setFavouriteRecipes([newRecipe, ...favouriteRecipes])
     }
   }
 
@@ -196,9 +199,11 @@ function App() {
             <Route path="/recipe">
               <RecipeInstructions
                 activeIngredients={activeIngredients}
+                completeRecipe={completeRecipe}
                 ingredients={activeIngredients}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
+                onLikeRecipe={addToFavouriteRecipes}
               />
             </Route>
 
