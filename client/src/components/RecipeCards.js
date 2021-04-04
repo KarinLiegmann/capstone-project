@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { loadFromLocal } from '../library/localStorage'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCard_Background.png'
@@ -14,6 +15,12 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
     const hideModal = () => {
         setOpenModal(false)
     }
+
+    useEffect(() => {
+        loadFromLocal('recipes')
+    }, [])
+
+
 
     return (
         <>
@@ -34,11 +41,11 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
                             <IngredientsWrapper>
                                 {recipe.missedIngredients.length > 0 &&
-                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => (<>{missingIngredient.name.toLowerCase()}, </>)))}</p>
+                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}</p>
                                 }
 
                                 {recipe.usedIngredients.length > 0 &&
-                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => (<>{usedIngredient.name.toLowerCase()}, </>)))}</p>
+                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}</p>
                                 }
                             </IngredientsWrapper>
 
@@ -49,14 +56,14 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                 handleClose={hideModal}>
                                 <h3>Missing Ingredients:</h3>
                                 <ul>
-                                    {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
+                                    {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
                                         <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
                                     ))}
                                 </ul>
 
                                 <h3>Used Ingredients:</h3>
                                 <ul>
-                                    {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
+                                    {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
                                         <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
                                     ))}
                                 </ul>

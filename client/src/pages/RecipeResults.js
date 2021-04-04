@@ -1,22 +1,18 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa'
 
 import RecipeCards from '../components/RecipeCards'
-import { ButtonMain, ButtonSecondary } from '../components/Buttons'
+import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
-
-    /*function onGetNextRecipes(event) {
-        event.preventDefault();
-        console.log('test')
-
-    }*/
+export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
 
     return (
         <Wrapper>
-            {recipes.length !== 0 &&
+            {loading && <LoadingMessage>Loading...</LoadingMessage>}
+
+            {!loading && recipes.length !== 0 &&
                 <>
                     <h2>Here is what we found</h2>
                     <RecipeCards
@@ -26,16 +22,15 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                     <h2>Recipes left: {recipes.length} </h2>
 
                     <p>Click on the left Button to delete and on the right Button to keep!</p>
-
                 </>
             }
 
-            {recipes.length === 0 &&
+            {!loading && recipes.length === 0 && likedRecipes.length !== 0 &&
                 <>
                     <h2>Recipes Liked: {likedRecipes.length}</h2>
                     <LikedRecipesList>
                         {likedRecipes && likedRecipes.map((likedRecipe) => (
-                            <li><LikeIcon /> {likedRecipe.title}</li>
+                            <li key={likedRecipe.id}><LikeIcon /> {likedRecipe.title}</li>
                         ))}
                     </LikedRecipesList>
 
@@ -44,21 +39,20 @@ export default function RecipeResults({ recipes, likedRecipes, onDeleteRecipe, o
                             text="All Done!"
                             isActive={true} />
                     </Link>
+                </>
+            }
 
+            {!loading && recipes.length === 0 && likedRecipes.length === 0 &&
+                <>
                     <p>Nothing to your taste?</p>
-
                     <ButtonMain
-                        text="Try Again"
+                        text="Get Next Recipes"
                         isActive={true}
                         onHandleClick={onGetNextRecipes} />
                 </>
             }
 
-            <Link to="/">
-                <ButtonSecondary
-                    text="Go Back"
-                    isActive={true} />
-            </Link>
+            {error && <ErrorMessage>Sorry, we couldn't find any recipes!</ErrorMessage>}
         </Wrapper>
     )
 }
@@ -88,8 +82,18 @@ color: var(--clr-accent2);
 font-size: 1rem;
 `
 
+const ErrorMessage = styled.p`
+color: var(--clr-accent2);
+`
+
+const LoadingMessage = styled.h2`
+color: var(--clr-accent1);
+`
+
 
 RecipeResults.propTypes = {
+    error: PropTypes.bool,
+    loading: PropTypes.bool,
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
     onDeleteRecipe: PropTypes.func.isRequired,
     onLikeRecipe: PropTypes.func.isRequired

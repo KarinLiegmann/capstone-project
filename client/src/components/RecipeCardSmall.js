@@ -4,19 +4,25 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
 
-import Modal from './Modal'
+import Modal2 from './Modal2'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onHandleClick, id }) {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const hideModal = () => {
-        setOpenModal(false)
+    function showModal(recipe) {
+        if (recipe.id === Modal2.id) {
+            setOpenModal(!openModal)
+            console.log(recipe.title)
+
+        }
+
+
     }
 
-    function showModal(recipeToFind) {
-        setOpenModal(!openModal)
+    function closeModal() {
+        setOpenModal(false)
     }
 
     let { url, path } = useRouteMatch();
@@ -42,20 +48,30 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage }) {
                     </Link>
 
                     {likedRecipe.missedIngredients.length > 0 &&
-                        <p><span>You need:</span> {
-                            likedRecipe.missedIngredients.map((ingredient) => (<>{ingredient.name.toLowerCase()}, </>))}
+                        <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
                         </p>
                     }
-                    <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
-                    <Modal
-                        handleClose={hideModal}
-                        recipe={likedRecipe}
-                        show={openModal}
-                    />
+                    <InfoButton onClick={() => showModal(likedRecipe)}>
+                        Click for details
+                        </InfoButton>
                 </CardWrapper>
+
             </>
             ))
             }
+
+            {openModal && likedRecipes.map((likedRecipe) => (<Modal2
+                id={likedRecipe.id}
+                openModal={openModal}
+                onHandleClick={closeModal}>
+                <p>{likedRecipe.title}</p>
+
+                <ButtonSecondary isActive text="Close" onHandleClick={closeModal} />
+            </Modal2>))}
+
+
+
+
 
         </>
     )

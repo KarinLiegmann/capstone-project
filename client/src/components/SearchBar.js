@@ -18,10 +18,10 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         setSearchQuery(query)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (searchQuery.length >= 3 && ingredient.length !== 0 && !isError) {
-            onCreateIngredient(ingredient)
+            await onCreateIngredient(ingredient)
             setIngredient({})
             setSearchQuery('')
         } else {
@@ -30,7 +30,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         }
 
         if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery) && !isError) {
-            onCreateIngredient(fetchedIngredients[0])
+            await onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
             setFetchedIngredients([])
         } else {
