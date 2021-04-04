@@ -187,6 +187,9 @@ function App() {
             <Route path="/recipe">
               <RecipeInstructions
                 activeIngredients={activeIngredients}
+                ingredients={activeIngredients}
+                onCreateIngredient={addIngredient}
+                onDeleteTag={deleteIngredient}
               />
             </Route>
 

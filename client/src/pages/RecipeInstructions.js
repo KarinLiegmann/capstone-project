@@ -7,7 +7,7 @@ import { ButtonMain } from '../components/Buttons'
 import IngredientTags from '../components/IngredientTags'
 
 
-export default function RecipeInstructions({ activeIngredients, likedRecipes, recipeInstructions }) {
+export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag }) {
 
     const [recipe, setRecipe] = useState(loadFromLocal('recipe') ?? {})
 
@@ -37,10 +37,12 @@ export default function RecipeInstructions({ activeIngredients, likedRecipes, re
             </Instructions>
 
             <>
-                {activeIngredients && activeIngredients.map((ingredient) => (
-                    <li>{ingredient.name}</li>
-                ))}
+                <h3>Your ingredients</h3>
+                <IngredientTags
+                    ingredients={activeIngredients}
+                    onDeleteTag={onDeleteTag} />
             </>
+
 
             <Link to="/selections" >
                 <ButtonMain

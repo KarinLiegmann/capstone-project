@@ -1,11 +1,12 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
-export default function Menu({ open }) {
+export default function Menu({ open, setOpen }) {
   return (
     <StyledMenu open={open}>
-      <a href="/">Profile</a>
+      <Link to="/"><a onClick={() => setOpen(!open)}>Recipe Search</a></Link>
       <a href="/">Favourite Recipes</a>
-      <a href="/">Last Search Results</a>
+      <Link to="/selections"><a onClick={() => setOpen(!open)}>Last Search Results</a></Link>
     </StyledMenu>
   )
 }
