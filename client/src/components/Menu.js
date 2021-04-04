@@ -1,12 +1,14 @@
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Menu({ open, setOpen }) {
   return (
     <StyledMenu open={open}>
-      <Link to="/"><a onClick={() => setOpen(!open)}>Recipe Search</a></Link>
-      <a href="/">Favourite Recipes</a>
-      <Link to="/selections"><a onClick={() => setOpen(!open)}>Last Search Results</a></Link>
+      <NavLink to="/"><h2 onClick={() => setOpen(!open)}>Recipe Search</h2></NavLink>
+
+      <NavLink to="/selections"><h2 onClick={() => setOpen(!open)}>Last Search Results</h2></NavLink>
+
+      <NavLink to="/favourites"><h2 onClick={() => setOpen(!open)}>Favourite Recipes</h2></NavLink>
     </StyledMenu>
   )
 }
