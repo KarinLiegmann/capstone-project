@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import { ButtonMain } from '../components/Buttons'
 import IngredientTags from '../components/IngredientTags'
+import IngredientsList from '../components/IngredientsList'
 
 
 export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag }) {
@@ -25,12 +26,8 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
 
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
-                {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
-                    <li key={missedIngredient.id}>{Math.ceil(missedIngredient.amount)} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                ))}
-                {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
-                    <li key={usedIngredient.id}>{Math.ceil(usedIngredient.amount)} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                ))}
+                <IngredientsList ingredients={recipe.missedIngredients} />
+                <IngredientsList ingredients={recipe.usedIngredients} />
             </CookingIngredients>
 
             <Instructions>

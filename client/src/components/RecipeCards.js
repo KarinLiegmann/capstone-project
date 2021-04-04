@@ -7,6 +7,7 @@ import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
 import Modal from './Modal'
+import IngredientsList from './IngredientsList'
 
 export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
 
@@ -54,16 +55,12 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                 handleClose={hideModal}>
                                 <h3>Missing Ingredients:</h3>
                                 <ul>
-                                    {recipes[0].missedIngredients && recipes[0].missedIngredients.map((missedIngredient) => (
-                                        <li key={missedIngredient.id}>{Math.ceil(missedIngredient.amount)} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
-                                    ))}
+                                    <IngredientsList ingredients={recipes[0].missedIngredients} />
                                 </ul>
 
                                 <h3>Used Ingredients:</h3>
                                 <ul>
-                                    {recipes[0].usedIngredients && recipes[0].usedIngredients.map((usedIngredient) => (
-                                        <li key={usedIngredient.id}>{Math.ceil(usedIngredient.amount)} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
-                                    ))}
+                                    <IngredientsList ingredients={recipes[0].usedIngredients} />
                                 </ul>
                             </Modal>
                         </CardContent>
