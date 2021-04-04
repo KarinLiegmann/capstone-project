@@ -15,7 +15,7 @@ import RecipeInstructions from './pages/RecipeInstructions'
 
 import Header from './components/Header'
 import { ButtonSecondary } from './components/Buttons'
-import axios from 'axios'
+
 
 function App() {
 
@@ -28,6 +28,7 @@ function App() {
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
   const [recipeInstructions, setRecipeInstructions] = useState({})
+  const [completeRecipe, setCompleteRecipe] = useState(loadFromLocal('completeRecipe') ?? {})
 
 
   const [error, setError] = useState(false)
@@ -109,33 +110,16 @@ function App() {
     return offsetCounter
   }
 
-  /*const getRecipeInstructions = async (recipeToRender) => {
-    let recipeId = recipeToRender.id
-
-    try {
-      const searchResults =
-        await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
-
-      const recipeData = searchResults.data
-      console.log(recipeData)
-      setRecipeInstructions(recipeData)
-      saveToLocal('recipeInstructions', recipeData)
-    } catch (error) {
-      console.error(error.message)
-    }
-  }*/
-
   const getRecipeInstructions = async (recipeToRender) => {
     const recipeData = await getInstructions(recipeToRender)
-    console.log(recipeData)
+    setCompleteRecipe(recipeData)
+    saveToLocal('completeRecipe', recipeData)
   }
 
-
-
-  const showRecipePage = (recipeToRender) => {
+  const showRecipePage = async (recipeToRender) => {
     console.log(recipeToRender)
     saveToLocal('recipe', recipeToRender)
-    getRecipeInstructions(recipeToRender)
+    await getRecipeInstructions(recipeToRender)
   }
 
   const getNextRecipeResults = async () => {
@@ -201,6 +185,7 @@ function App() {
             <Route path="/recipe">
               <RecipeInstructions
                 activeIngredients={activeIngredients}
+                completeRecipe={completeRecipe}
                 ingredients={activeIngredients}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}

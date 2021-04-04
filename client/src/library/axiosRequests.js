@@ -39,7 +39,6 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
     }
 }
 
-
 export async function getInstructions(recipeToRender) {
     let recipeId = recipeToRender.id
 
@@ -47,9 +46,14 @@ export async function getInstructions(recipeToRender) {
         const searchResults =
             await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
 
-        const recipeInstructions = searchResults.data
-        console.log(recipeInstructions)
-        return recipeInstructions
+        const recipeInstructions = searchResults.data.map(result => (result.steps.map(step => step.step)
+        ))
+
+        const wholeRecipe = {
+            ...recipeToRender, steps: [...recipeInstructions], isFavourite: false
+        }
+        return wholeRecipe
+
     } catch (error) {
         console.error(error.message)
     }

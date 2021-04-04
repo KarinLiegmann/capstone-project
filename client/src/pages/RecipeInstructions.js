@@ -8,34 +8,29 @@ import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
 
 
-export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag }) {
+export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag, completeRecipe }) {
 
     const [recipe, setRecipe] = useState(loadFromLocal('recipe') ?? {})
 
     const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
 
-    console.log(instructions[0].steps)
-
-
     return (recipe && instructions &&
         <Wrapper>
             <header>
-                <img src={recipe.image} alt={recipe.title} />
-                <h2>{recipe.title}</h2>
+                <img src={completeRecipe.image} alt={completeRecipe.title} />
+                <h2>{completeRecipe.title}</h2>
             </header>
 
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
-                <IngredientsList ingredients={recipe.missedIngredients} />
-                <IngredientsList ingredients={recipe.usedIngredients} />
+                <IngredientsList ingredients={completeRecipe.missedIngredients} />
+                <IngredientsList ingredients={completeRecipe.usedIngredients} />
             </CookingIngredients>
 
             <Instructions>
                 <h3>Cooking Instructions</h3>
-                {instructions[0].steps.map((step) => (
-                    <>
-                        <li key={step.number}><span>Step {step.number}:</span> {step.step}</li>
-                    </>
+                {completeRecipe.steps[0].map((step, index) => (
+                    <p><span>Step {index + 1}:</span> {step}</p>
                 ))}
             </Instructions>
 
