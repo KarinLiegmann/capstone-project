@@ -27,7 +27,7 @@ function App() {
   const [recipes, setRecipes] = useState(loadFromLocal('recipes') ?? [])
   const [likedRecipes, setLikedRecipes] = useState(loadFromLocal('likedRecipes') ?? [])
 
-  const [recipeInstructions, setRecipeInstructions] = useState({})
+
   const [completeRecipe, setCompleteRecipe] = useState(loadFromLocal('completeRecipe') ?? {})
 
 
@@ -90,7 +90,6 @@ function App() {
       ...recipeToAdd,
       isLiked: true
     }
-
     if (isNewEntry(likedRecipes, newRecipe)) {
       setLikedRecipes([newRecipe, ...likedRecipes])
     }

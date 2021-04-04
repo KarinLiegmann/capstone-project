@@ -1,25 +1,34 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { loadFromLocal } from "../library/localStorage"
 import styled from 'styled-components'
+import { AiFillStar } from 'react-icons/ai'
 
 import { ButtonMain } from '../components/Buttons'
 import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
 
 
-export default function RecipeInstructions({ ingredients, activeIngredients, likedRecipes, recipeInstructions, onDeleteTag, completeRecipe }) {
+export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe }) {
 
-    const [recipe, setRecipe] = useState(loadFromLocal('recipe') ?? {})
 
-    const [instructions, setInstructions] = useState(loadFromLocal('recipeInstructions') ?? {})
+    const usedIngredientsRecipe = completeRecipe.usedIngredients.map(ingredient => ingredient.name)
+    console.log(usedIngredientsRecipe)
 
-    return (recipe && instructions &&
+    const activeIngredientsNames = activeIngredients.map(ingredient => ingredient.name)
+    console.log(activeIngredientsNames)
+
+    /*const intersection = activeIngredientsNames.filter(element => activeIngredientsNames.includes(element));
+    console.log(intersection)*/
+
+
+
+    return (completeRecipe &&
         <Wrapper>
             <header>
                 <img src={completeRecipe.image} alt={completeRecipe.title} />
                 <h2>{completeRecipe.title}</h2>
             </header>
+
+            <FavouriteIcon />
 
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
@@ -41,7 +50,6 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
                     ingredients={activeIngredients}
                     onDeleteTag={onDeleteTag} />
             </TagWrapper>
-
 
             <Link to="/selections" >
                 <ButtonMain
@@ -88,5 +96,12 @@ text-align: left;
 const TagWrapper = styled.section`
 padding: 1.5rem;
 text-align: left;
+`
+
+const FavouriteIcon = styled(AiFillStar)`
+align-self: flex-end;
+color: var(--clr-accent2-light);
+font-size: 2.7rem;
+margin-right: 2rem;
 `
 
