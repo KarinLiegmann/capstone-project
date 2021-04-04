@@ -26,10 +26,10 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
                 {recipe.missedIngredients && recipe.missedIngredients.map((missedIngredient) => (
-                    <li key={missedIngredient.id}>{missedIngredient.amount} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
+                    <li key={missedIngredient.id}>{Math.ceil(missedIngredient.amount)} {missedIngredient.unitShort} {missedIngredient.name.toLowerCase()}</li>
                 ))}
                 {recipe.usedIngredients && recipe.usedIngredients.map((usedIngredient) => (
-                    <li key={usedIngredient.id}>{usedIngredient.amount} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
+                    <li key={usedIngredient.id}>{Math.ceil(usedIngredient.amount)} {usedIngredient.unitShort} {usedIngredient.name.toLowerCase()}</li>
                 ))}
             </CookingIngredients>
 
@@ -56,9 +56,6 @@ export default function RecipeInstructions({ ingredients, activeIngredients, lik
                     isActive
                     text="Back" />
             </Link>
-
-
-
         </Wrapper>
     )
 }
