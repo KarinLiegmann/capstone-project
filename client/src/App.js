@@ -29,6 +29,7 @@ function App() {
 
 
   const [completeRecipe, setCompleteRecipe] = useState(loadFromLocal('completeRecipe') ?? {})
+  const [favouriteRecipes, setFavouriteRecipes] = useState(loadFromLocal('favouriteRecipes') ?? [])
 
 
   const [error, setError] = useState(false)
@@ -103,6 +104,10 @@ function App() {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
+  useEffect(() => {
+    saveToLocal('favouriteRecipes', favouriteRecipes)
+  }, [favouriteRecipes])
+
 
   const increaseOffsetCounter = () => {
     setOffsetCounter(offsetCounter + 6)
@@ -135,6 +140,16 @@ function App() {
       setRecipes(nextRecipeData)
       saveToLocal('recipes', nextRecipeData)
       setError(false)
+    }
+  }
+
+  function addToFavouriteRecipes(recipeToAdd) {
+    const newRecipe = {
+      ...recipeToAdd,
+      isFavourite: true
+    }
+    if (isNewEntry(favouriteRecipes, newRecipe)) {
+      setFavouriteRecipes([newRecipe, ...favouriteRecipes])
     }
   }
 
@@ -188,6 +203,7 @@ function App() {
                 ingredients={activeIngredients}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
+                onLikeRecipe={addToFavouriteRecipes}
               />
             </Route>
 
