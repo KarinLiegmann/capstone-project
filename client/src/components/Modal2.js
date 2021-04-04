@@ -1,24 +1,19 @@
 import styled from 'styled-components'
-import { ButtonMain } from './Buttons'
 
-export default function Modal2({ onHideModal, onShowModal, show, recipe, openModal, onHandleClose, children }) {
+export default function Modal2({ onHideModal, onShowModal, show, recipe, openModal, onHandleClick, children, id }) {
 
 
     return (
         <>
-            {<ModalDiv
-                recipe={recipe}>
+            <ModalDiv openModal={openModal} id={id}>
                 <ContentDiv>
-                    <h2>{recipe.title}</h2>
+
                     {children}
 
-                    <ButtonMain
-                        isActive
-                        text="Close"
-                        onHandleClick={onHandleClose} />
+
                 </ContentDiv>
             </ModalDiv>
-            }
+
         </>
     )
 }

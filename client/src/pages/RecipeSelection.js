@@ -4,7 +4,7 @@ import { useState } from 'react'
 import RecipeCardSmall from '../components/RecipeCardSmall'
 import Modal2 from '../components/Modal2'
 
-export default function RecipeSelection({ likedRecipes, onShowRecipePage }) {
+export default function RecipeSelection({ likedRecipes, onShowRecipePage, onHandleClick }) {
 
     const [openModal, setOpenModal] = useState(false)
 
@@ -26,12 +26,9 @@ export default function RecipeSelection({ likedRecipes, onShowRecipePage }) {
             <RecipeCardSmall
                 likedRecipes={likedRecipes}
                 onShowRecipePage={onShowRecipePage}
-                onShowModal={showModal} />
-            <Modal2
+                onShowModal={showModal}
+                onHandleClick={onHandleClick} />
 
-                onHideModal={hideModal}
-
-                openModal={openModal} />
         </Wrapper>
     )
 }

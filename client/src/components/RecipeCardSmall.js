@@ -7,21 +7,18 @@ import img from '../assets/RecipeCardSmall_Background.png'
 import Modal2 from './Modal2'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onShowModal }) {
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onHandleClick, id }) {
 
     const [openModal, setOpenModal] = useState(false)
 
-    /*const hideModal = () => {
-        setOpenModal(false)
-    }
-
-    function showModal(indexToFind) {
-        setOpenModal(!openModal)
-    }*/
-
     function showModal(recipe) {
-        setOpenModal(!openModal)
-        console.log(recipe.title)
+        if (recipe.id === Modal2.id) {
+            setOpenModal(!openModal)
+            console.log(recipe.title)
+
+        }
+
+
     }
 
     function closeModal() {
@@ -54,20 +51,23 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onShow
                         <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
                         </p>
                     }
-                    <InfoButton onClick={() => showModal(likedRecipe)}>Click for details</InfoButton>
-
-                    {openModal && <Modal2
-                        openModal={openModal}
-                        onHandleClose={closeModal}
-                        recipe={likedRecipe}>
-                        <p>{likedRecipe.title}</p>
-                    </Modal2>}
-
+                    <InfoButton onClick={() => showModal(likedRecipe)}>
+                        Click for details
+                        </InfoButton>
                 </CardWrapper>
 
             </>
             ))
             }
+
+            {openModal && likedRecipes.map((likedRecipe) => (<Modal2
+                id={likedRecipe.id}
+                openModal={openModal}
+                onHandleClick={closeModal}>
+                <p>{likedRecipe.title}</p>
+
+                <ButtonSecondary isActive text="Close" onHandleClick={closeModal} />
+            </Modal2>))}
 
 
 
