@@ -5,7 +5,6 @@ import { loadFromLocal, saveToLocal } from './library/localStorage'
 import { deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
 
 import { isNewEntry, isValidId } from './library/validateFunctions'
-
 import { getRecipeData, getInstructions } from './library/axiosRequests'
 
 import RecipeSearch from './pages/RecipeSearch'
@@ -101,6 +100,10 @@ function App() {
   }
 
   useEffect(() => {
+    saveToLocal('recipes', recipes)
+  }, [recipes])
+
+  useEffect(() => {
     saveToLocal('likedRecipes', likedRecipes)
   }, [likedRecipes])
 
@@ -166,7 +169,7 @@ function App() {
             <Route exact path="/">
               <RecipeSearch
                 ingredients={ingredients}
-                onGetRecipeResults={() => getRecipeResults()}
+                onGetRecipeResults={getRecipeResults}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onToggleStatus={toggleActiveState} />
