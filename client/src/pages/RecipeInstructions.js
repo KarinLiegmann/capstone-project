@@ -7,7 +7,7 @@ import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
 
 
-export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe }) {
+export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus }) {
 
 
     const usedIngredientsRecipe = completeRecipe.usedIngredients.map(ingredient => ingredient.name)
@@ -51,7 +51,8 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
                 <p>Remove the ingredients you have used up:</p>
                 <IngredientTags
                     ingredients={activeIngredients}
-                    onDeleteTag={onDeleteTag} />
+                    onDeleteTag={onDeleteTag}
+                    onToggleStatus={onToggleStatus} />
             </TagWrapper>
 
             <Link to="/selections" >

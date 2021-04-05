@@ -130,7 +130,6 @@ function App() {
   }
 
   const showRecipePage = async (recipeToRender) => {
-    console.log(recipeToRender)
     saveToLocal('recipe', recipeToRender)
     await getRecipeInstructions(recipeToRender)
   }
@@ -169,6 +168,10 @@ function App() {
 
   function closeModal() {
     setOpenModal(false)
+  }
+
+  function ignoreStatus() {
+    console.log('test')
   }
 
   return (
@@ -232,6 +235,7 @@ function App() {
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onLikeRecipe={addToFavouriteRecipes}
+                onToggleStatus={ignoreStatus}
               />
             </Route>
 
