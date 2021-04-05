@@ -62,12 +62,18 @@ const Wrapper = styled.section`
 align-items: center;
 display: flex;
 flex-direction: column;
-margin: 5% 0;
+height: 100vmin;
+margin-top: 20%;
+padding: 0 2rem;
+width: 100vw;
 
 button {
-    margin-bottom: 1.5rem;
+    margin: 2rem 0;
+    width: fit-content;
 }
 `
+
+
 
 const LikedRecipesList = styled.ul`
 margin-bottom: 2rem;

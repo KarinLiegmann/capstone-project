@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { FaMinus } from 'react-icons/fa'
 import { GiCheckMark } from 'react-icons/gi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
@@ -50,8 +49,6 @@ font-weight: var(--fw-bold);
 justify-self: flex-start;
 margin: .5rem 0;
 padding: .2rem .8rem;
-text-decoration: ${({ isActive }) => isActive ? 'none' : 'line-through'};
-text-decoration-thickness: 2px;
 `
 
 const DeleteIcon = styled(RiDeleteBinLine)`
