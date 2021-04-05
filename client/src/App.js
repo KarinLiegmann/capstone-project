@@ -208,11 +208,6 @@ function App() {
                 openModal={openModal}
                 recipeData={modalRecipe}
                 onCloseModal={closeModal} />
-              <Link to="/">
-                <ButtonSecondary
-                  text="Go Back"
-                  isActive={true} />
-              </Link>
             </Route>
 
             <Route path="/selections">
