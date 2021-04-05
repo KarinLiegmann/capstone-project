@@ -30,7 +30,7 @@ export const GlobalStyles = createGlobalStyle`
 
     --fs-body: 1rem;
     --fs-h1: 2rem;
-    --fs-h2: 1.4rem;
+    --fs-h2: 1.5rem;
     --fs-h3: 1.1rem;
 
     --fw-extralight: 200;
@@ -45,18 +45,13 @@ export const GlobalStyles = createGlobalStyle`
 body {    
     background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
     background-repeat: no-repeat;
-    background-size: stretch;
-    
+    background-size: stretch;    
     margin: 0;   
 }
 
 /* Typography */
 
-h1,
-h2,
-h3 {
-    margin: 0;
-}
+
 
 h1 { font-size: var(--fs-h1) }
 h2 { font-size: var(--fs-h2) }

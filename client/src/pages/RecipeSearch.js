@@ -11,7 +11,8 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 
     return (
         <Wrapper>
-            <h2>Hi, what's in your fridge today?</h2>
+            <h2>Hey, what's in your <br />
+                <span>fridge today?</span></h2>
             <SearchBar
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={onCreateIngredient}
@@ -32,9 +33,22 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 }
 
 const Wrapper = styled.section`
-margin: 5% 0;
+display: flex;
+flex-direction: column;
+padding: 0 2rem;
+width: 100vw;
 
-Button {
+h2 {
+    font-weight: var(--fw-semibold);
+    text-align: left;
+
+    span {
+        font-weight: var(--fw-bold);
+    }
+}
+
+button {
+    align-self: flex-end;
     margin-bottom: 2rem;
     width: fit-content;
 }
