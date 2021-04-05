@@ -6,6 +6,7 @@ export default function Modal({ recipeData, openModal, onCloseModal }) {
 
 
     return (
+
         <>{openModal && <ModalDiv
             openModal={openModal}
             recipeData={recipeData}
@@ -41,6 +42,7 @@ export default function Modal({ recipeData, openModal, onCloseModal }) {
         </ModalDiv>}
 
         </>
+
     )
 }
 
