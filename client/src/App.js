@@ -14,7 +14,7 @@ import RecipeInstructions from './pages/RecipeInstructions'
 import FavouriteRecipes from './pages/FavouriteRecipes'
 
 import Header from './components/Header'
-import Modal3 from './components/Modal3'
+import Modal from './components/Modal'
 import { ButtonSecondary } from './components/Buttons'
 
 
@@ -22,6 +22,7 @@ function App() {
 
   const [open, setOpen] = useState(false)
   const [openModal, setOpenModal] = useState(false)
+  const [modalRecipe, setModalRecipe] = useState({})
 
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
@@ -39,7 +40,7 @@ function App() {
 
   const [offsetCounter, setOffsetCounter] = useState(0)
 
-  const [modalRecipe, setModalRecipe] = useState({})
+
 
 
   const addIngredient = (ingredient) => {
@@ -198,7 +199,12 @@ function App() {
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
+                onOpenModal={showModal}
                 onGetNextRecipes={() => getNextRecipeResults()} />
+              <Modal
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
               <Link to="/">
                 <ButtonSecondary
                   text="Go Back"
@@ -212,7 +218,7 @@ function App() {
                 onShowRecipePage={showRecipePage}
                 onOpenModal={showModal}
               />
-              <Modal3
+              <Modal
                 openModal={openModal}
                 recipeData={modalRecipe}
                 onCloseModal={closeModal} />
@@ -232,8 +238,13 @@ function App() {
             <Route path="/favourites">
               <FavouriteRecipes
                 favouriteRecipes={favouriteRecipes}
+                onOpenModal={showModal}
                 onShowRecipePage={showRecipePage}
               />
+              <Modal
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
             </Route>
 
           </Switch>
