@@ -35,6 +35,7 @@ const Wrapper = styled.section`
 margin: 5% 0;
 
 Button {
+    margin-bottom: 2rem;
     width: fit-content;
 }
 `

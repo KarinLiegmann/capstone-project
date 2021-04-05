@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { FaHeart } from 'react-icons/fa'
@@ -5,7 +6,7 @@ import { FaHeart } from 'react-icons/fa'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain } from '../components/Buttons'
 
-export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe }) {
+export default function RecipeResults({ error, loading, recipes, likedRecipes, onDeleteRecipe, onGetNextRecipes, onLikeRecipe, onOpenModal }) {
 
     return (
         <Wrapper>
@@ -13,11 +14,12 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
 
             {!loading && recipes.length !== 0 &&
                 <>
-                    <h2>Here is what we found</h2>
+                    <h2>Here is what I found</h2>
                     <RecipeCards
                         recipes={recipes}
                         onDeleteRecipe={onDeleteRecipe}
-                        onLikeRecipe={onLikeRecipe} />
+                        onLikeRecipe={onLikeRecipe}
+                        onOpenModal={onOpenModal} />
                     <h2>Recipes left: {recipes.length} </h2>
 
                     <p>Click on the left Button to delete and on the right Button to keep!</p>
@@ -33,9 +35,11 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
                         ))}
                     </LikedRecipesList>
 
-                    <ButtonMain
-                        text="All Done!"
-                        isActive={true} />
+                    <Link to="/selections">
+                        <ButtonMain
+                            text="All Done!"
+                            isActive={true} />
+                    </Link>
                 </>
             }
 

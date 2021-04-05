@@ -61,5 +61,5 @@ justify-self: flex-end;
 IngredientTags.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
     onDeleteTag: PropTypes.func.isRequired,
-    onToggleStatus: PropTypes.func.isRequired,
+    onToggleStatus: PropTypes.func,
 }

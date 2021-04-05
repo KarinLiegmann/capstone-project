@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 export async function getRecipeData(activeIngredients, offsetCounter) {
 
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
@@ -14,7 +13,7 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
                 params: {
                     instructionsRequired: true,
                     ranking: 1,
-                    number: 6,
+                    number: 3,
                     offset: offsetNumber,
                     ingredients: queryString
                 },
@@ -38,4 +37,25 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
     } catch (error) {
         console.error(error.message)
     }
+}
+
+export async function getInstructions(recipeToRender) {
+    let recipeId = recipeToRender.id
+
+    try {
+        const searchResults =
+            await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
+
+        const recipeInstructions = searchResults.data.map(result => (result.steps.map(step => step.step)
+        ))
+
+        const wholeRecipe = {
+            ...recipeToRender, steps: [...recipeInstructions], isFavourite: false
+        }
+        return wholeRecipe
+
+    } catch (error) {
+        console.error(error.message)
+    }
+
 }

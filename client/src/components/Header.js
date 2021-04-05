@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import Burger from './Burger'
 import Menu from './Menu'
 
-
-
 export default function Header({ open, setOpen }) {
     return (
         <StyledHeader>

@@ -1,11 +1,14 @@
 import styled from 'styled-components'
+import { NavLink } from 'react-router-dom'
 
-export default function Menu({ open }) {
+export default function Menu({ open, setOpen }) {
   return (
     <StyledMenu open={open}>
-      <a href="/">Profile</a>
-      <a href="/">Favourite Recipes</a>
-      <a href="/">Last Search Results</a>
+      <NavLink to="/"><h2 onClick={() => setOpen(!open)}>Recipe Search</h2></NavLink>
+
+      <NavLink to="/selections"><h2 onClick={() => setOpen(!open)}>Last Search Results</h2></NavLink>
+
+      <NavLink to="/favourites"><h2 onClick={() => setOpen(!open)}>Favourite Recipes</h2></NavLink>
     </StyledMenu>
   )
 }
@@ -46,6 +49,7 @@ const StyledMenu = styled.nav`
     &:hover {
       color: var(--clr-accent2);
     }
+
   }
 `;
 

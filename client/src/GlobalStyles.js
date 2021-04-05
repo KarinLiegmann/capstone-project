@@ -30,7 +30,7 @@ export const GlobalStyles = createGlobalStyle`
 
     --fs-body: 1rem;
     --fs-h1: 2rem;
-    --fs-h2: 1.5rem;
+    --fs-h2: 1.4rem;
     --fs-h3: 1.1rem;
 
     --fw-extralight: 200;
@@ -43,6 +43,10 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {    
+    background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
+    background-repeat: no-repeat;
+    background-size: stretch;
+    
     margin: 0;   
 }
 
@@ -60,15 +64,12 @@ h3 { font-size: var(--fs-h3) }
 
 .App {
     align-items: center;
-    background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 100vh;    
     color: var(--clr-dark);
     display: flex;
     flex-direction: column;
     font-family: var(--ff-primary);
-    font-size: var(--fs-body);
-    height: 100vh;
+    font-size: var(--fs-body);    
     line-height: 1.5;
     text-align: center;
 }
