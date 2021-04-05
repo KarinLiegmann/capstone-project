@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react'
-import { loadFromLocal } from '../library/localStorage'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCard_Background.png'
 import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
-import Modal from './Modal'
-import IngredientsList from './IngredientsList'
-
-export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
-
-    const [openModal, setOpenModal] = useState(false)
-
-    const hideModal = () => {
-        setOpenModal(false)
-    }
-
-    useEffect(() => {
-        loadFromLocal('recipes')
-    }, [])
+export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOpenModal }) {
 
     return (
         <>
@@ -48,21 +33,9 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe }) {
                                 }
                             </IngredientsWrapper>
 
-                            <InfoButton onClick={() => setOpenModal(!openModal)}>Click for details</InfoButton>
-                            <Modal
-                                key={recipe.id}
-                                show={openModal}
-                                handleClose={hideModal}>
-                                <h3>Missing Ingredients:</h3>
-                                <ul>
-                                    <IngredientsList ingredients={recipes[0].missedIngredients} />
-                                </ul>
-
-                                <h3>Used Ingredients:</h3>
-                                <ul>
-                                    <IngredientsList ingredients={recipes[0].usedIngredients} />
-                                </ul>
-                            </Modal>
+                            <InfoButton onClick={() => onOpenModal(recipe)}>
+                                Click for details
+                        </InfoButton>
                         </CardContent>
                     </CardWrapper >
                     )

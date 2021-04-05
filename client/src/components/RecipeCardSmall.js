@@ -1,32 +1,11 @@
-import { useState } from 'react'
-import { Route, Switch, useRouteMatch, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
 
-import Modal2 from './Modal2'
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onHandleClick, id }) {
-
-    const [openModal, setOpenModal] = useState(false)
-
-    function showModal(recipe) {
-        if (recipe.id === Modal2.id) {
-            setOpenModal(!openModal)
-            console.log(recipe.title)
-
-        }
-
-
-    }
-
-    function closeModal() {
-        setOpenModal(false)
-    }
-
-    let { url, path } = useRouteMatch();
-
+export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpenModal }) {
 
     return (
         <>
@@ -51,7 +30,8 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onHand
                         <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
                         </p>
                     }
-                    <InfoButton onClick={() => showModal(likedRecipe)}>
+
+                    <InfoButton onClick={() => onOpenModal(likedRecipe)}>
                         Click for details
                         </InfoButton>
                 </CardWrapper>
@@ -59,20 +39,6 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onHand
             </>
             ))
             }
-
-            {openModal && likedRecipes.map((likedRecipe) => (<Modal2
-                id={likedRecipe.id}
-                openModal={openModal}
-                onHandleClick={closeModal}>
-                <p>{likedRecipe.title}</p>
-
-                <ButtonSecondary isActive text="Close" onHandleClick={closeModal} />
-            </Modal2>))}
-
-
-
-
-
         </>
     )
 }

@@ -11,14 +11,18 @@ import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 import RecipeSelection from './pages/RecipeSelection'
 import RecipeInstructions from './pages/RecipeInstructions'
+import FavouriteRecipes from './pages/FavouriteRecipes'
 
 import Header from './components/Header'
+import Modal from './components/Modal'
 import { ButtonSecondary } from './components/Buttons'
 
 
 function App() {
 
   const [open, setOpen] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+  const [modalRecipe, setModalRecipe] = useState({})
 
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
@@ -35,6 +39,8 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   const [offsetCounter, setOffsetCounter] = useState(0)
+
+
 
 
   const addIngredient = (ingredient) => {
@@ -124,7 +130,6 @@ function App() {
   }
 
   const showRecipePage = async (recipeToRender) => {
-    console.log(recipeToRender)
     saveToLocal('recipe', recipeToRender)
     await getRecipeInstructions(recipeToRender)
   }
@@ -156,6 +161,19 @@ function App() {
     }
   }
 
+  function showModal(recipeData) {
+    setModalRecipe(recipeData)
+    setOpenModal(!openModal)
+  }
+
+  function closeModal() {
+    setOpenModal(false)
+  }
+
+  function ignoreStatus() {
+    console.log('test')
+  }
+
   return (
     <Router>
       <div className="App">
@@ -184,7 +202,12 @@ function App() {
                 likedRecipes={likedRecipes}
                 onDeleteRecipe={deleteRecipe}
                 onLikeRecipe={addToLikedRecipes}
+                onOpenModal={showModal}
                 onGetNextRecipes={() => getNextRecipeResults()} />
+              <Modal
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
               <Link to="/">
                 <ButtonSecondary
                   text="Go Back"
@@ -196,7 +219,12 @@ function App() {
               <RecipeSelection
                 likedRecipes={likedRecipes}
                 onShowRecipePage={showRecipePage}
+                onOpenModal={showModal}
               />
+              <Modal
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
             </Route>
 
             <Route path="/recipe">
@@ -207,7 +235,20 @@ function App() {
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onLikeRecipe={addToFavouriteRecipes}
+                onToggleStatus={ignoreStatus}
               />
+            </Route>
+
+            <Route path="/favourites">
+              <FavouriteRecipes
+                favouriteRecipes={favouriteRecipes}
+                onOpenModal={showModal}
+                onShowRecipePage={showRecipePage}
+              />
+              <Modal
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
             </Route>
 
           </Switch>
