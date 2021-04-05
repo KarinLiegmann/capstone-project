@@ -11,14 +11,17 @@ import RecipeSearch from './pages/RecipeSearch'
 import RecipeResults from './pages/RecipeResults'
 import RecipeSelection from './pages/RecipeSelection'
 import RecipeInstructions from './pages/RecipeInstructions'
+import FavouriteRecipes from './pages/FavouriteRecipes'
 
 import Header from './components/Header'
+import Modal3 from './components/Modal3'
 import { ButtonSecondary } from './components/Buttons'
 
 
 function App() {
 
   const [open, setOpen] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
 
   const [ingredients, setIngredients] = useState(loadFromLocal('ingredients') ?? [])
   const [activeIngredients, setActiveIngredients] = useState(loadFromLocal('activeIngredients') ?? [])
@@ -35,6 +38,8 @@ function App() {
   const [loading, setLoading] = useState(false)
 
   const [offsetCounter, setOffsetCounter] = useState(0)
+
+  const [modalRecipe, setModalRecipe] = useState({})
 
 
   const addIngredient = (ingredient) => {
@@ -156,6 +161,15 @@ function App() {
     }
   }
 
+  function showModal(recipeData) {
+    setModalRecipe(recipeData)
+    setOpenModal(!openModal)
+  }
+
+  function closeModal() {
+    setOpenModal(false)
+  }
+
   return (
     <Router>
       <div className="App">
@@ -196,7 +210,12 @@ function App() {
               <RecipeSelection
                 likedRecipes={likedRecipes}
                 onShowRecipePage={showRecipePage}
+                onOpenModal={showModal}
               />
+              <Modal3
+                openModal={openModal}
+                recipeData={modalRecipe}
+                onCloseModal={closeModal} />
             </Route>
 
             <Route path="/recipe">
@@ -207,6 +226,13 @@ function App() {
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onLikeRecipe={addToFavouriteRecipes}
+              />
+            </Route>
+
+            <Route path="/favourites">
+              <FavouriteRecipes
+                favouriteRecipes={favouriteRecipes}
+                onShowRecipePage={showRecipePage}
               />
             </Route>
 

@@ -29,7 +29,9 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
                 <h2>{completeRecipe.title}</h2>
             </header>
 
-            <FavouriteIcon onClick={() => onLikeRecipe(completeRecipe)} />
+            <FavouriteIcon
+                onClick={() => onLikeRecipe(completeRecipe)}
+                isFavourite={completeRecipe.isFavourite} />
 
             <CookingIngredients>
                 <h3>Cooking Ingredients</h3>
@@ -101,7 +103,7 @@ text-align: left;
 
 const FavouriteIcon = styled(AiFillStar)`
 align-self: flex-end;
-color: var(--clr-accent2-light);
+color: ${({ isFavourite }) => isFavourite ? 'var(--clr-accent2)' : 'var(--clr-accent2-light)'};
 font-size: 2.7rem;
 margin-right: 2rem;
 `
