@@ -83,7 +83,14 @@ span {
 const InfoButton = styled.p`
 color: var(--clr-accent1);
 font-weight: var(--fw-bold);
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    cursor: pointer;
+}
 `
+
 RecipeCardSmall.propTypes = {
     likedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

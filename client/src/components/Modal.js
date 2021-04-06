@@ -79,5 +79,11 @@ span {
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
     align-self: flex-end;
+
+    &:hover,
+    &:active {
+    transform: scale(1.2);
+  }
+  
 }
 `

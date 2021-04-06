@@ -73,7 +73,7 @@ const Wrapper = styled.section`
 align-items: center;
 display: flex;
 flex-direction: column;
-height: 100vmin;
+margin-bottom: 4rem;
 margin-top: 20%;
 padding: 0 2rem;
 width: 100vw;
