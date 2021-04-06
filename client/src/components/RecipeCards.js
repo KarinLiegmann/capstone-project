@@ -63,7 +63,7 @@ min-width: 320px;
 &:before {
     content: url(${header});
     position: relative;
-    left: 1.3rem;
+    left: 1rem;
     height: 100%;
     width: 100%;
 }
@@ -71,7 +71,7 @@ min-width: 320px;
 &:after {
     content: url(${footer});
     position: relative;
-    left: 0rem;
+    left: -.4rem;
     height: 100%;
     width: 100%;
 }
@@ -80,7 +80,7 @@ const CardContent = styled.div`
 background: #fff;
 border-radius: 15px;
 box-shadow: 2px 5px 10px rgba(0, 0, 0, .4);
-padding: .5rem 1rem;
+padding: 1rem 1rem;
 margin-bottom: -17rem;
 margin-top: -11.5rem;
 max-width: 320px;
@@ -91,9 +91,6 @@ img {
     width: 60%;
 }
 
-p {  
-    margin: 0;    
-}
 
 li {
     text-align: left;
