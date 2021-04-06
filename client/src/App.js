@@ -108,14 +108,17 @@ function App() {
 
   useEffect(() => {
     saveToLocal('recipes', recipes)
+    setRecipes(recipes)
   }, [recipes])
 
   useEffect(() => {
     saveToLocal('likedRecipes', likedRecipes)
+    setLikedRecipes(likedRecipes)
   }, [likedRecipes])
 
   useEffect(() => {
     saveToLocal('favouriteRecipes', favouriteRecipes)
+    setFavouriteRecipes(favouriteRecipes)
   }, [favouriteRecipes])
 
 
@@ -137,13 +140,13 @@ function App() {
 
   const getNextRecipeResults = async () => {
     setLoading(true)
+    setError(false)
     increaseOffsetCounter()
-    const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 6)
+    const nextRecipeData = await getRecipeData(activeIngredients, offsetCounter + 3)
 
     if (nextRecipeData.length === 0) {
       setLoading(false)
       setError(true)
-      setOffsetCounter(0)
     } else {
       setLoading(false)
       setRecipes(nextRecipeData)
