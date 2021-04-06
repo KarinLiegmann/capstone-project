@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import img from '../assets/RecipeCardSmall_Background.png'
 import header from '../assets/CardSmallHeader.png'
 import footer from '../assets/CardSmallFooter.png'
 
@@ -68,30 +67,11 @@ text-align: left;
     height: 100%;
     width: 100%;
 }
-
-header {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
-}
-
-img {
-    border-radius: 15px;
-    margin-right: .6rem;
-    width: 100px;
-}
-
-button {
-    width: fit-content;
-}
-
-span {
-    font-weight: var(--fw-bold);
-}
 `
 const InfoButton = styled.p`
 color: var(--clr-accent1);
 font-weight: var(--fw-bold);
+margin: 0;
 
 &:hover,
 &:active {
@@ -107,11 +87,34 @@ border-radius: 15px;
 box-shadow: 2px 5px 10px var(--clr-dark);
 display: flex;
 flex-direction: column;
-margin-bottom: -.3rem;
-margin-top: -1.3rem;
-max-width: 350px;
+margin-bottom: -.6rem;
+margin-top: -1.5rem;
+max-width: 320px;
 min-width: 320px;
+padding: 1rem;
 z-index: 10;
+
+button {
+    width: fit-content;
+}
+
+span {
+    font-weight: var(--fw-bold);
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+
+    img {
+    border-radius: 15px;
+    margin-right: .6rem;
+    height: 40%;
+    width: 40%;
+}
+
+}
 `
 
 RecipeCardSmall.propTypes = {
