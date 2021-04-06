@@ -121,6 +121,10 @@ function App() {
     setFavouriteRecipes(favouriteRecipes)
   }, [favouriteRecipes])
 
+  useEffect(() => {
+    setCompleteRecipe(completeRecipe)
+  }, [completeRecipe])
+
 
   const increaseOffsetCounter = () => {
     setOffsetCounter(offsetCounter + 6)
