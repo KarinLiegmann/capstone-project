@@ -27,6 +27,7 @@ const StyledMenu = styled.nav`
   left: 0;
   transform: ${({ open }) => open ? 'translateX(0)' : 'translateX(-100%)'};
   transition: transform 0.3s ease-in-out;
+  z-index: 20;
   
   @media (max-width: 576px) {
     width: 100%;
