@@ -4,6 +4,9 @@ import img from '../assets/RecipeCard_Background.png'
 import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
+import header from '../assets/CardHeader.png'
+import footer from '../assets/CardFooter.png'
+
 export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOpenModal }) {
 
     return (
@@ -48,23 +51,40 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOp
 }
 
 const CardWrapper = styled.section`
-background-image: url(${img});
-background-size: cover;
-background-repeat: no-repeat;
-background-position-x: center;
+align-items: center;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
 justify-content: center;
 margin-bottom: 10px;
-min-height: 500px;
-max-width: 360px;
+max-width: 350px;
 min-width: 320px;
+
+&:before {
+    content: url(${header});
+    position: relative;
+    left: 1.3rem;
+    height: 100%;
+    width: 100%;
+}
+
+&:after {
+    content: url(${footer});
+    position: relative;
+    left: 0rem;
+    height: 100%;
+    width: 100%;
+}
 `
 const CardContent = styled.div`
-height: min-content;
+background: #fff;
+border-radius: 15px;
+box-shadow: 2px 5px 10px rgba(0, 0, 0, .4);
 padding: 3.2rem 2rem;
-max-width: inherit;
+margin-bottom: -17rem;
+margin-top: -11.5rem;
+max-width: 320px;
+z-index: 10;
 
 img {
     border-radius: 10px;

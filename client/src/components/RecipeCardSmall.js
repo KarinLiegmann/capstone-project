@@ -84,7 +84,7 @@ const ContentWrapper = styled.div`
 align-items: center;
 background: #fff;
 border-radius: 15px;
-box-shadow: 2px 5px 10px var(--clr-dark);
+box-shadow: 2px 5px 10px rgba(0, 0, 0, .4);
 display: flex;
 flex-direction: column;
 margin-bottom: -.6rem;
