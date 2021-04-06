@@ -80,7 +80,7 @@ const CardContent = styled.div`
 background: #fff;
 border-radius: 15px;
 box-shadow: 2px 5px 10px rgba(0, 0, 0, .4);
-padding: 3.2rem 2rem;
+padding: .5rem 1rem;
 margin-bottom: -17rem;
 margin-top: -11.5rem;
 max-width: 320px;
