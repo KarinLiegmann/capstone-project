@@ -69,6 +69,7 @@ function App() {
     const allActiveIngredients = filterActiveIngredients(ingredients)
     saveToLocal('ingredients', ingredients)
     saveToLocal('activeIngredients', allActiveIngredients)
+    setActiveIngredients(allActiveIngredients)
   }, [ingredients])
 
   const getRecipeResults = async () => {
