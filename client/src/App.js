@@ -158,6 +158,7 @@ function App() {
     }
     if (isNewEntry(favouriteRecipes, newRecipe)) {
       setFavouriteRecipes([newRecipe, ...favouriteRecipes])
+      saveToLocal('favouriteRecipes', favouriteRecipes)
     }
   }
 
@@ -227,6 +228,7 @@ function App() {
                 activeIngredients={activeIngredients}
                 completeRecipe={completeRecipe}
                 ingredients={activeIngredients}
+                isFavourite={completeRecipe.isFavourite}
                 onCreateIngredient={addIngredient}
                 onDeleteTag={deleteIngredient}
                 onLikeRecipe={addToFavouriteRecipes}

@@ -51,11 +51,11 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
                     </>
                 }
 
-                {!loading && recipes.length === 0 && likedRecipes.length === 0 &&
+                {!loading && recipes.length === 0 && likedRecipes.length <= 2 &&
                     <>
                         <p>Nothing to your taste?</p>
                         <ButtonMain
-                            text="Get Next Recipes"
+                            text="Get More"
                             isActive={true}
                             onHandleClick={onGetNextRecipes} />
                     </>

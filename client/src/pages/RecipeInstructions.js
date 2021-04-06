@@ -8,7 +8,7 @@ import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
 
 
-export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus }) {
+export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus, isFavourite }) {
 
 
     const usedIngredientsRecipe = completeRecipe.usedIngredients.map(ingredient => ingredient.name)
@@ -37,7 +37,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 
                 <FavouriteIcon
                     onClick={() => onLikeRecipe(completeRecipe)}
-                    isFavourite={completeRecipe.isFavourite} />
+                    isFavourite={isFavourite} />
 
                 <CookingIngredients>
                     <h3>Cooking Ingredients</h3>
@@ -75,6 +75,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 const Wrapper = styled.section`
 display: flex;
 flex-direction: column;
+margin-bottom: 2rem;
 margin-top: 25%;
 
 header {
@@ -117,5 +118,12 @@ align-self: flex-end;
 color: ${({ isFavourite }) => isFavourite ? 'var(--clr-accent2)' : 'var(--clr-accent2-light)'};
 font-size: 2.7rem;
 margin-right: 2rem;
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    color: var(--clr-accent2);
+    cursor: pointer;
+}
 `
 
