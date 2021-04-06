@@ -59,21 +59,24 @@ z-index: 100;
 const ContentDiv = styled.div`
 display: flex;
 flex-direction: column;
-position: fixed;
 backdrop-filter: blur(7px);
 background: rgb(252, 250, 248, .9);
 border: 1px solid rgba(0, 0, 0, 0.1);
 border-radius: 1rem;
 cursor: pointer;
+overflow: scroll;
 width: 80%;
 height: auto;
+max-height: 80vmax;
 top: 35%;
 left: 50%;
 padding: 1rem;
+position: fixed;
 text-align: left;
 transform: translate(-50%, -30%);
 
 h2 {
+    margin: 0;
     margin-bottom: 1rem;
 }
 
