@@ -49,7 +49,7 @@ background-image: url(${img});
 background-size: 100% auto;
 background-repeat: no-repeat;
 background-position-x: center;
-background-position-y: center;
+background-position-y: top;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
@@ -68,9 +68,8 @@ header {
 
 img {
     border-radius: 15px;
-    height: 50%;
     margin-right: .6rem;
-    width: 50%;
+    width: 100px;
 }
 
 button {
