@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+import img from '../assets/dots_green_yellow.png'
+import img2 from '../assets/dots.png'
+
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
 import { ButtonMain } from '../components/Buttons'
@@ -11,7 +14,7 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 
     return (
         <Wrapper>
-            <h2>Hi, what's in your fridge today?</h2>
+            <Headline>Hey, what's in your <span>fridge today?</span></Headline>
             <SearchBar
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={onCreateIngredient}
@@ -32,10 +35,30 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 }
 
 const Wrapper = styled.section`
-margin: 5% 0;
+display: flex;
+flex-direction: column;
+height: 100vmin;
+margin-top: 20%;
+padding: 0 2rem;
+width: 100vw;
 
-Button {
-    margin-bottom: 2rem;
+button {
+    margin: 2rem 0;
     width: fit-content;
 }
+`
+
+const Headline = styled.h2`
+background-image: url(${img2});
+background-size: auto 92%;
+background-position: top;
+background-repeat: no-repeat;
+font-weight: var(--fw-semibold);
+margin-bottom: 2rem;
+padding: 1.2rem 2rem;
+
+    span {
+        font-weight: var(--fw-bold);
+    }
+
 `

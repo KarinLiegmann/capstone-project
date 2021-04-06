@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { FaMinus } from 'react-icons/fa'
+import { GiCheckMark } from 'react-icons/gi'
+import { RiDeleteBinLine } from 'react-icons/ri'
 
 export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
     return (
@@ -13,7 +14,7 @@ export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatu
                     onClick={() => onToggleStatus(ingredient.id)}
                     isActive={ingredient.isActive}
                 >
-                    {ingredient.name}
+                    {ingredient.name} <CheckMark isActive={ingredient.isActive} />
                 </StyledIngredientTag>
                 <DeleteIcon
                     onClick={() => onDeleteTag(ingredient.id)} />
@@ -48,14 +49,18 @@ font-weight: var(--fw-bold);
 justify-self: flex-start;
 margin: .5rem 0;
 padding: .2rem .8rem;
-text-decoration: ${({ isActive }) => isActive ? 'none' : 'line-through'};
-text-decoration-thickness: 2px;
 `
 
-const DeleteIcon = styled(FaMinus)`
-color: var(--clr-accent2);
+const DeleteIcon = styled(RiDeleteBinLine)`
+color: var(--clr-dark);
 font-size: var(--fs-h2);
 justify-self: flex-end;
+`
+
+const CheckMark = styled(GiCheckMark)`
+color: var(--clr-light);
+display: ${({ isActive }) => isActive ? 'block' : 'none'};
+margin-left: .5rem;
 `
 
 IngredientTags.propTypes = {

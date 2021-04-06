@@ -97,6 +97,12 @@ span {
 const InfoButton = styled.p`
 color: var(--clr-accent1);
 font-weight: var(--fw-bold);
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    cursor: pointer;
+}
 `
 
 const IconsWrapper = styled.div`
@@ -110,12 +116,26 @@ const DislikeIcon = styled(RiDislikeLine)`
 color: var(--clr-accent2-light);
 font-size: 2.7rem;
 justify-self: flex-end;
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    color: var(--clr-accent2);
+    cursor: pointer;
+}
 `
 
 const LikeIcon = styled(FaHeart)`
 color: var(--clr-accent2-light);
 font-size: 2.5rem;
 justify-self: flex-end;
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    color: var(--clr-accent2);
+    cursor: pointer;
+}
 `
 
 RecipeCard.propTypes = {

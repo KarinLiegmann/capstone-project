@@ -60,7 +60,7 @@ display: flex;
 flex-direction: column;
 position: fixed;
 backdrop-filter: blur(7px);
-background: rgb(252, 250, 248, .8);
+background: rgb(252, 250, 248, .9);
 border: 1px solid rgba(0, 0, 0, 0.1);
 border-radius: 1rem;
 cursor: pointer;
@@ -81,5 +81,11 @@ span {
     font-size: var(--fs-h2);
     font-weight: var(--fw-bold);
     align-self: flex-end;
+
+    &:hover,
+    &:active {
+    transform: scale(1.2);
+  }
+  
 }
 `

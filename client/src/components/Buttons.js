@@ -23,6 +23,11 @@ font-weight: var(--fw-bold);
 padding: .5em 1.2em;
 text-decoration: ${({ isActive }) => isActive ? 'none' : 'line-through'};
 text-decoration-thickness: 2px;
+
+&:hover,
+&:active {
+    transform: scale(1.1);
+}
 `
 
 function ButtonSecondary({ isActive, text, onHandleClick }) {
@@ -44,4 +49,9 @@ color: ${({ isActive }) => isActive ? 'var(--clr-light)' : 'var(--clr-accent2)'}
 font-size: var(--fs-h3);
 font-weight: var(--fw-bold);
 padding: .5em 1.2em;
+
+&:hover,
+&:active {
+    transform: scale(1.1);
+}
 `
