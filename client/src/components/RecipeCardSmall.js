@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import img from '../assets/RecipeCardSmall_Background.png'
+import header from '../assets/CardSmallHeader.png'
+import footer from '../assets/CardSmallFooter.png'
 
 import { ButtonSecondary } from './Buttons'
 
@@ -13,27 +15,29 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpen
             (<>
                 <CardWrapper
                     key={likedRecipe.id}>
-                    <header>
-                        <img src={likedRecipe.image} alt={likedRecipe.title} />
-                        <h3>{likedRecipe.title}</h3>
-                    </header>
+                    <ContentWrapper>
+                        <header>
+                            <img src={likedRecipe.image} alt={likedRecipe.title} />
+                            <h3>{likedRecipe.title}</h3>
+                        </header>
 
-                    <Link to={`/recipe/${likedRecipe.id}`}>
-                        <ButtonSecondary
-                            text="Cook Me"
-                            isActive
-                            onHandleClick={() => onShowRecipePage(likedRecipe)}
-                        />
-                    </Link>
+                        <Link to={`/recipe/${likedRecipe.id}`}>
+                            <ButtonSecondary
+                                text="Cook Me"
+                                isActive
+                                onHandleClick={() => onShowRecipePage(likedRecipe)}
+                            />
+                        </Link>
 
-                    {likedRecipe.missedIngredients.length > 0 &&
-                        <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
-                        </p>
-                    }
+                        {likedRecipe.missedIngredients.length > 0 &&
+                            <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
+                            </p>
+                        }
 
-                    <InfoButton onClick={() => onOpenModal(likedRecipe)}>
-                        Click for details
+                        <InfoButton onClick={() => onOpenModal(likedRecipe)}>
+                            Click for details
                         </InfoButton>
+                    </ContentWrapper>
                 </CardWrapper>
 
             </>
@@ -45,20 +49,25 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpen
 
 const CardWrapper = styled.section`
 align-items: center;
-background-image: url(${img});
-background-size: 100% auto;
-background-repeat: no-repeat;
-background-position-x: center;
-background-position-y: top;
 display: flex;
 flex-direction: column;
 flex-wrap: wrap;
 margin-bottom: 10px;
-min-height: 360px;
 max-width: 350px;
 min-width: 320px;
-padding: 2.3rem 2rem;
 text-align: left;
+
+&:before {
+    content: url(${header});
+    height: 100%;
+    width: 100%;
+}
+
+&:after {
+    content: url(${footer});
+    height: 100%;
+    width: 100%;
+}
 
 header {
     display: flex;
@@ -89,6 +98,20 @@ font-weight: var(--fw-bold);
     transform: scale(1.2);
     cursor: pointer;
 }
+`
+
+const ContentWrapper = styled.div`
+align-items: center;
+background: #fff;
+border-radius: 15px;
+box-shadow: 2px 5px 10px var(--clr-dark);
+display: flex;
+flex-direction: column;
+margin-bottom: -.3rem;
+margin-top: -1.3rem;
+max-width: 350px;
+min-width: 320px;
+z-index: 10;
 `
 
 RecipeCardSmall.propTypes = {
