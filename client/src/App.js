@@ -15,7 +15,6 @@ import FavouriteRecipes from './pages/FavouriteRecipes'
 
 import Header from './components/Header'
 import Modal from './components/Modal'
-import { ButtonSecondary } from './components/Buttons'
 
 
 function App() {
@@ -76,8 +75,8 @@ function App() {
     setLoading(true)
     const recipeData = await getRecipeData(activeIngredients, offsetCounter)
     if (recipeData) {
-      setRecipes(recipeData)
       saveToLocal('recipes', recipeData)
+      setRecipes(recipeData)
       setLoading(false)
       setError(false)
     } else {
