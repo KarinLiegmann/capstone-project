@@ -11,18 +11,6 @@ import IngredientsList from '../components/IngredientsList'
 export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus, isFavourite }) {
 
 
-    const usedIngredientsRecipe = completeRecipe.usedIngredients.map(ingredient => ingredient.name)
-    console.log(usedIngredientsRecipe)
-
-    const activeIngredientsNames = activeIngredients.map(ingredient => ingredient.name)
-    console.log(activeIngredientsNames)
-
-    /*const intersection = activeIngredientsNames.filter(element => activeIngredientsNames.includes(element));
-    console.log(intersection)*/
-
-    // check for ID of whole Ingredient!
-
-
     return (<>
         <Link to="/selections">
             <BackIcon />
@@ -47,7 +35,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 
                 <Instructions>
                     <h3>Cooking Instructions</h3>
-                    {completeRecipe.steps[0].map((step, index) => (
+                    {completeRecipe.steps && completeRecipe.steps[0].map((step, index) => (
                         <p><span>Step {index + 1}:</span> {step}</p>
                     ))}
                 </Instructions>

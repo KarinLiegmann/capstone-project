@@ -43,9 +43,6 @@ export const GlobalStyles = createGlobalStyle`
 }
 
 body {    
-   /* background: linear-gradient(var(--clr-light), rgb(252, 250, 248));
-    background-repeat: no-repeat;
-    background-size: cover;  */
     height: 100%;  
     margin: 0;   
 }

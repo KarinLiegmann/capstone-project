@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import img from '../assets/dots_green_yellow.png'
-import img2 from '../assets/dots.png'
+import dots from '../assets/dots.png'
 
 import SearchBar from '../components/SearchBar'
 import IngredientTags from '../components/IngredientTags'
@@ -49,7 +48,7 @@ button {
 `
 
 const Headline = styled.h2`
-background-image: url(${img2});
+background-image: url(${dots});
 background-size: auto 92%;
 background-position: top;
 background-repeat: no-repeat;
