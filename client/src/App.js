@@ -186,8 +186,6 @@ function App() {
     console.log('test')
   }
 
-  console.log('render')
-
   return (
 
     <div className="App">

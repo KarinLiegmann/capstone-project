@@ -10,8 +10,6 @@ import IngredientsList from '../components/IngredientsList'
 
 export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus, isFavourite }) {
 
-
-
     return (<>
         <Link to="/selections">
             <BackIcon />
@@ -26,7 +24,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 
                 <FavouriteIcon
                     onClick={() => onLikeRecipe(completeRecipe)}
-                    isFavourite={isFavourite} />
+                    isFavourite={completeRecipe.isFavourite} />
 
                 <CookingIngredients>
                     <h3>Cooking Ingredients</h3>
@@ -76,8 +74,6 @@ header {
     }
 }
 `
-
-
 
 const Instructions = styled.ul`
 list-style: none;
