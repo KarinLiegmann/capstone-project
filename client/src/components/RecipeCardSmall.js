@@ -20,13 +20,13 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpen
                             <h3>{likedRecipe.title}</h3>
                         </header>
 
-                        <Link to={`/recipe/${likedRecipe.id}`}>
-                            <ButtonSecondary
-                                text="Cook Me"
-                                isActive
-                                onHandleClick={() => onShowRecipePage(likedRecipe)}
-                            />
-                        </Link>
+
+                        <ButtonSecondary
+                            text="Cook Me"
+                            isActive
+                            onHandleClick={() => onShowRecipePage(likedRecipe)}
+                        />
+
 
                         {likedRecipe.missedIngredients.length > 0 &&
                             <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}

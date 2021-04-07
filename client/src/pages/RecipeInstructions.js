@@ -11,6 +11,7 @@ import IngredientsList from '../components/IngredientsList'
 export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus, isFavourite }) {
 
 
+
     return (<>
         <Link to="/selections">
             <BackIcon />
@@ -35,7 +36,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 
                 <Instructions>
                     <h3>Cooking Instructions</h3>
-                    {completeRecipe.steps && completeRecipe.steps[0].map((step, index) => (
+                    {completeRecipe.steps && completeRecipe.steps.length > 0 && completeRecipe.steps[0].map((step, index) => (
                         <p><span>Step {index + 1}:</span> {step}</p>
                     ))}
                 </Instructions>

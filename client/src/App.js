@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Switch, BrowserRouter as Router, Link } from 'react-router-dom'
+import { Route, Switch, useHistory } from 'react-router-dom'
 
 import { loadFromLocal, saveToLocal } from './library/localStorage'
 import { deleteItem, filterActiveIngredients, toggleIngredient } from './library/ingredientsHelpers'
@@ -39,7 +39,7 @@ function App() {
 
   const [offsetCounter, setOffsetCounter] = useState(0)
 
-
+  const history = useHistory()
 
 
   const addIngredient = (ingredient) => {
@@ -139,7 +139,11 @@ function App() {
   const showRecipePage = async (recipeToRender) => {
     saveToLocal('recipe', recipeToRender)
     await getRecipeInstructions(recipeToRender)
+    history.push(`/recipe/${recipeToRender.id}`)
+    setCompleteRecipe(loadFromLocal('completeRecipe'))
   }
+
+
 
   const getNextRecipeResults = async () => {
     setLoading(true)
@@ -182,84 +186,85 @@ function App() {
     console.log('test')
   }
 
+  console.log('render')
+
   return (
-    <Router>
-      <div className="App">
-        <Header
-          open={open}
-          setOpen={setOpen} />
 
-        <main>
-          <Switch>
+    <div className="App">
+      <Header
+        open={open}
+        setOpen={setOpen} />
 
-            <Route exact path="/">
-              <RecipeSearch
-                ingredients={ingredients}
-                onGetRecipeResults={getRecipeResults}
-                onCreateIngredient={addIngredient}
-                onDeleteTag={deleteIngredient}
-                onToggleStatus={toggleActiveState} />
-            </Route>
+      <main>
+        <Switch>
 
-            <Route path="/results">
-              <RecipeResults
-                error={error}
-                loading={loading}
-                recipes={recipes}
-                getRecipeResults={getRecipeResults}
-                likedRecipes={likedRecipes}
-                onDeleteRecipe={deleteRecipe}
-                onLikeRecipe={addToLikedRecipes}
-                onOpenModal={showModal}
-                onGetNextRecipes={() => getNextRecipeResults()} />
-              <Modal
-                openModal={openModal}
-                recipeData={modalRecipe}
-                onCloseModal={closeModal} />
-            </Route>
+          <Route exact path="/">
+            <RecipeSearch
+              ingredients={ingredients}
+              onGetRecipeResults={getRecipeResults}
+              onCreateIngredient={addIngredient}
+              onDeleteTag={deleteIngredient}
+              onToggleStatus={toggleActiveState} />
+          </Route>
 
-            <Route path="/selections">
-              <RecipeSelection
-                likedRecipes={likedRecipes}
-                onShowRecipePage={showRecipePage}
-                onOpenModal={showModal}
-              />
-              <Modal
-                openModal={openModal}
-                recipeData={modalRecipe}
-                onCloseModal={closeModal} />
-            </Route>
+          <Route path="/results">
+            <RecipeResults
+              error={error}
+              loading={loading}
+              recipes={recipes}
+              getRecipeResults={getRecipeResults}
+              likedRecipes={likedRecipes}
+              onDeleteRecipe={deleteRecipe}
+              onLikeRecipe={addToLikedRecipes}
+              onOpenModal={showModal}
+              onGetNextRecipes={() => getNextRecipeResults()} />
+            <Modal
+              openModal={openModal}
+              recipeData={modalRecipe}
+              onCloseModal={closeModal} />
+          </Route>
 
-            <Route path="/recipe">
-              <RecipeInstructions
-                activeIngredients={activeIngredients}
-                completeRecipe={completeRecipe}
-                ingredients={activeIngredients}
-                isFavourite={completeRecipe.isFavourite}
-                onCreateIngredient={addIngredient}
-                onDeleteTag={deleteIngredient}
-                onLikeRecipe={addToFavouriteRecipes}
-                onToggleStatus={ignoreStatus}
-              />
-            </Route>
+          <Route path="/selections">
+            <RecipeSelection
+              likedRecipes={likedRecipes}
+              onShowRecipePage={showRecipePage}
+              onOpenModal={showModal}
+            />
+            <Modal
+              openModal={openModal}
+              recipeData={modalRecipe}
+              onCloseModal={closeModal} />
+          </Route>
 
-            <Route path="/favourites">
-              <FavouriteRecipes
-                favouriteRecipes={favouriteRecipes}
-                onOpenModal={showModal}
-                onShowRecipePage={showRecipePage}
-              />
-              <Modal
-                openModal={openModal}
-                recipeData={modalRecipe}
-                onCloseModal={closeModal} />
-            </Route>
+          <Route path="/recipe">
+            <RecipeInstructions
+              activeIngredients={activeIngredients}
+              completeRecipe={completeRecipe}
+              ingredients={activeIngredients}
+              isFavourite={completeRecipe.isFavourite}
+              onCreateIngredient={addIngredient}
+              onDeleteTag={deleteIngredient}
+              onLikeRecipe={addToFavouriteRecipes}
+              onToggleStatus={ignoreStatus}
+            />
+          </Route>
 
-          </Switch>
-        </main>
+          <Route path="/favourites">
+            <FavouriteRecipes
+              favouriteRecipes={favouriteRecipes}
+              onOpenModal={showModal}
+              onShowRecipePage={showRecipePage}
+            />
+            <Modal
+              openModal={openModal}
+              recipeData={modalRecipe}
+              onCloseModal={closeModal} />
+          </Route>
 
-      </div >
-    </Router>
+        </Switch>
+      </main>
+
+    </div>
   );
 }
 
