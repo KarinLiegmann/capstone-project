@@ -4,11 +4,13 @@ import { NavLink } from 'react-router-dom'
 export default function Menu({ open, setOpen }) {
   return (
     <StyledMenu open={open}>
+
       <NavLink to="/"><h2 onClick={() => setOpen(!open)}>Recipe Search</h2></NavLink>
 
       <NavLink to="/selections"><h2 onClick={() => setOpen(!open)}>Last Search Results</h2></NavLink>
 
       <NavLink to="/favourites"><h2 onClick={() => setOpen(!open)}>Favourite Recipes</h2></NavLink>
+
     </StyledMenu>
   )
 }

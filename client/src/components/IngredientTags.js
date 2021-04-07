@@ -9,6 +9,7 @@ export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatu
             {ingredients.map((ingredient) =>
             (<TagWrapper
                 key={ingredient.id}
+                data-testid="ingredient-tag"
             >
                 <StyledIngredientTag
                     onClick={() => onToggleStatus(ingredient.id)}
