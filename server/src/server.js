@@ -23,9 +23,7 @@ mongoose.connect(connectionString, {
     useUnifiedTopology: true,
 });
 
-app.get('/', (req, res) =>
-    res.json({ status: 'Server is up and running.' })
-);
+
 
 
 app.get('/ingredients', (req, res) => {
@@ -69,6 +67,9 @@ app.get('/recipeInstructions/:recipeId', (req, res) => {
         .catch(error => res.json(error))
 })
 
+/*app.get('/', (req, res) =>
+    res.json({ status: 'Server is up and running.' })
+);*/
 
 app.use(express.static(path.join(__dirname, '../../client/build')));
 
