@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import header from '../assets/CardSmallHeader.png'
 import footer from '../assets/CardSmallFooter.png'
+import { AiFillStar } from 'react-icons/ai'
 
 import { ButtonSecondary } from './Buttons'
 
@@ -18,6 +19,8 @@ export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpen
                             <img src={likedRecipe.image} alt={likedRecipe.title} />
                             <h3>{likedRecipe.title}</h3>
                         </header>
+
+                        {likedRecipe.isFavourite && <FavouriteIcon isFavourite={likedRecipe.isFavourite} />}
 
 
                         <ButtonSecondary
@@ -113,6 +116,20 @@ header {
     width: 40%;
 }
 
+}
+`
+
+const FavouriteIcon = styled(AiFillStar)`
+align-self: flex-end;
+color: ${({ isFavourite }) => isFavourite ? 'var(--clr-accent2)' : 'var(--clr-accent2-light)'};
+font-size: 1.2rem;
+margin-right: 2rem;
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    color: var(--clr-accent2);
+    cursor: pointer;
 }
 `
 
