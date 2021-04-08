@@ -25,6 +25,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             setIngredient({})
             setSearchQuery('')
             setFetchedIngredients([])
+            setIsError(false)
         } else {
             setIsError(true)
             setIngredient({})
@@ -34,6 +35,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             await onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
             setFetchedIngredients([])
+            setIsError(false)
         } else {
             setIsError(true)
             setIngredient({})
