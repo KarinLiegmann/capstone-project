@@ -85,6 +85,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 setIngredient(item)
                 setIsError(false)
             } else {
+                setIsError(false)
                 return null
             }
         })
@@ -101,7 +102,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         onChange={getQueryValue}
                         value={searchQuery}
                     />
-                    {fetchedIngredients.length >= 1 &&
+                    {fetchedIngredients.length >= 2 &&
                         <ul>
                             {fetchedIngredients.map(item =>
                                 <li

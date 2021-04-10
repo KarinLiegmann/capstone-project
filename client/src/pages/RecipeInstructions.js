@@ -43,6 +43,8 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
                     {completeRecipe.steps && completeRecipe.steps.length > 0 && completeRecipe.steps[0].map((step, index) => (
                         <p><span>Step {index + 1}:</span> {step}</p>
                     ))}
+
+                    {completeRecipe.steps && completeRecipe.steps.length === 0 && <p>We're sorry, but no instructions could be found. Feel free to get creative with your ingredients!</p>}
                 </Instructions>
 
                 <TagWrapper>
