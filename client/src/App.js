@@ -79,6 +79,7 @@ function App() {
       setRecipes(recipeData)
       setLoading(false)
       setError(false)
+      setLikedRecipes([])
     } else {
       setLoading(false)
       setError(true)
@@ -145,6 +146,14 @@ function App() {
 
 
 
+  function removeFavouriteRecipe(idToDelete) {
+    const favouriteRecipesToKeep = deleteItem(favouriteRecipes, idToDelete)
+    setFavouriteRecipes(favouriteRecipesToKeep)
+    saveToLocal('favouriteRecipes', favouriteRecipesToKeep)
+  }
+
+
+
   const getNextRecipeResults = async () => {
     setLoading(true)
     setError(false)
@@ -186,7 +195,7 @@ function App() {
     console.log('test')
   }
 
-  console.log('render')
+
 
   return (
 
@@ -226,7 +235,7 @@ function App() {
 
           <Route path="/selections">
             <RecipeSelection
-              likedRecipes={likedRecipes}
+              recipes={likedRecipes}
               onShowRecipePage={showRecipePage}
               onOpenModal={showModal}
             />
@@ -243,6 +252,7 @@ function App() {
               ingredients={activeIngredients}
               isFavourite={completeRecipe.isFavourite}
               onCreateIngredient={addIngredient}
+              onDeleteFavourite={removeFavouriteRecipe}
               onDeleteTag={deleteIngredient}
               onLikeRecipe={addToFavouriteRecipes}
               onToggleStatus={ignoreStatus}
@@ -251,9 +261,10 @@ function App() {
 
           <Route path="/favourites">
             <FavouriteRecipes
-              favouriteRecipes={favouriteRecipes}
+              recipes={favouriteRecipes}
               onOpenModal={showModal}
               onShowRecipePage={showRecipePage}
+              onDeleteFavourite={removeFavouriteRecipe}
             />
             <Modal
               openModal={openModal}

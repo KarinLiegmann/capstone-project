@@ -4,18 +4,19 @@ import { Link } from 'react-router-dom'
 import BackIcon from '../components/BackIcon'
 import RecipeCardSmall from '../components/RecipeCardSmall'
 
-export default function FavouriteRecipes({ favouriteRecipes, onShowRecipePage, onOpenModal }) {
+export default function FavouriteRecipes({ recipes, onShowRecipePage, onOpenModal, onDeleteFavourite }) {
     return (<>
         <Link to="/">
-            <BackIcon />
+            <BackIcon styleguide={false} />
         </Link>
 
         <Wrapper>
             <h2>Your Favourite Recipes</h2>
             <RecipeCardSmall
-                likedRecipes={favouriteRecipes}
+                recipes={recipes}
                 onOpenModal={onOpenModal}
-                onShowRecipePage={onShowRecipePage} />
+                onShowRecipePage={onShowRecipePage}
+                onDeleteFavourite={onDeleteFavourite} />
         </Wrapper>
     </>
     )

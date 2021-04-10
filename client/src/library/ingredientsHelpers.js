@@ -1,5 +1,3 @@
-
-
 export function addNewIngredient(ingredient) {
     const newIngredient =
     {

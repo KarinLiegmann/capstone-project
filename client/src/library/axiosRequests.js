@@ -29,7 +29,8 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
             usedIngredients: recipe.usedIngredients,
             unusedIngredients: recipe.unusedIngredients,
             likes: recipe.likes,
-            isLiked: false
+            isLiked: false,
+            isFavourite: false
         }))
 
         return recipeData
@@ -50,7 +51,7 @@ export async function getInstructions(recipeToRender) {
         ))
 
         const wholeRecipe = {
-            ...recipeToRender, steps: [...recipeInstructions], isFavourite: false
+            ...recipeToRender, steps: [...recipeInstructions]
         }
         return wholeRecipe
 
