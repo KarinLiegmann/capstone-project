@@ -33,7 +33,7 @@ const StyledBurger = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${({ open }) => open ? 'var(--clr-accent1)' : 'var(--clr-dark)'};
+    background: ${({ open }) => open ? 'var(--clr-light)' : 'var(--clr-dark)'};
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;

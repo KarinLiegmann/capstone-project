@@ -84,6 +84,8 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 setSearchQuery(ingredientToReplace)
                 setIngredient(item)
                 setIsError(false)
+            } else {
+                return null
             }
         })
     }
