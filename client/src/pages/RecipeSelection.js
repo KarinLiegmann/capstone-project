@@ -4,7 +4,7 @@ import BackIcon from '../components/BackIcon'
 import RecipeCardSmall from '../components/RecipeCardSmall'
 
 
-export default function RecipeSelection({ likedRecipes, onShowRecipePage, onHandleClick, onOpenModal, onCloseModal }) {
+export default function RecipeSelection({ recipes, onShowRecipePage, onHandleClick, onOpenModal, onCloseModal }) {
 
     return (
         <>
@@ -15,7 +15,7 @@ export default function RecipeSelection({ likedRecipes, onShowRecipePage, onHand
             <Wrapper>
                 <h2>My Recipes</h2>
                 <RecipeCardSmall
-                    likedRecipes={likedRecipes}
+                    recipes={recipes}
                     onShowRecipePage={onShowRecipePage}
                     onHandleClick={onHandleClick}
                     onOpenModal={onOpenModal}

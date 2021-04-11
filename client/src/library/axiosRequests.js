@@ -9,7 +9,7 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
 
     try {
         const searchResults =
-            await axios.get(`http://localhost:4000/recipes`, {
+            await axios.get(`/recipes`, {
                 params: {
                     instructionsRequired: true,
                     ranking: 1,
@@ -29,7 +29,8 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
             usedIngredients: recipe.usedIngredients,
             unusedIngredients: recipe.unusedIngredients,
             likes: recipe.likes,
-            isLiked: false
+            isLiked: false,
+            isFavourite: false
         }))
 
         return recipeData
@@ -44,13 +45,13 @@ export async function getInstructions(recipeToRender) {
 
     try {
         const searchResults =
-            await axios.get(`http://localhost:4000/recipeInstructions/${recipeId}`)
+            await axios.get(`/recipeInstructions/${recipeId}`)
 
         const recipeInstructions = searchResults.data.map(result => (result.steps.map(step => step.step)
         ))
 
         const wholeRecipe = {
-            ...recipeToRender, steps: [...recipeInstructions], isFavourite: false
+            ...recipeToRender, steps: [...recipeInstructions]
         }
         return wholeRecipe
 

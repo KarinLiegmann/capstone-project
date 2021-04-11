@@ -5,34 +5,38 @@ import footer from '../assets/CardSmallFooter.png'
 
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ likedRecipes, onShowRecipePage, onOpenModal }) {
+export default function RecipeCardSmall({ onShowRecipePage, onOpenModal, recipes }) {
+
 
     return (
         <>
-            {likedRecipes && likedRecipes.map((likedRecipe) =>
+            {recipes && recipes.map((recipe) =>
             (<>
                 <CardWrapper
-                    key={likedRecipe.id}>
+                    key={recipe.id}>
                     <ContentWrapper>
                         <header>
-                            <img src={likedRecipe.image} alt={likedRecipe.title} />
-                            <h3>{likedRecipe.title}</h3>
+                            <img src={recipe.image} alt={recipe.title} />
+                            <h3>{recipe.title}</h3>
                         </header>
-
 
                         <ButtonSecondary
                             text="Cook Me"
                             isActive
-                            onHandleClick={() => onShowRecipePage(likedRecipe)}
+                            onHandleClick={() => onShowRecipePage(recipe)}
                         />
 
-
-                        {likedRecipe.missedIngredients.length > 0 &&
-                            <p><span>You need:</span> {likedRecipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
+                        {!recipe.isFavourite && recipe.missedIngredients.length > 0 &&
+                            <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
                             </p>
                         }
 
-                        <InfoButton onClick={() => onOpenModal(likedRecipe)}>
+                        {recipe.isFavourite &&
+                            <p><span>Ingredients:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}, {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}
+                            </p>
+                        }
+
+                        <InfoButton onClick={() => onOpenModal(recipe)}>
                             Click for details
                         </InfoButton>
                     </ContentWrapper>
@@ -116,6 +120,7 @@ header {
 }
 `
 
+
 RecipeCardSmall.propTypes = {
-    likedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

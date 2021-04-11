@@ -2,12 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import axios from 'axios';
+import path from 'path';
+import { dirname } from './lib/pathHelpers.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const API_KEY = process.env.API_KEY
 const DB_PATH = process.env.DB_PATH
 
+const __dirname = dirname(import.meta.url);
 
 const app = express();
 app.use(cors());
@@ -20,9 +23,7 @@ mongoose.connect(connectionString, {
     useUnifiedTopology: true,
 });
 
-app.get('/', (req, res) =>
-    res.json({ status: 'Server is up and running.' })
-);
+
 
 
 app.get('/ingredients', (req, res) => {
@@ -66,10 +67,17 @@ app.get('/recipeInstructions/:recipeId', (req, res) => {
         .catch(error => res.json(error))
 })
 
+/*app.get('/', (req, res) =>
+    res.json({ status: 'Server is up and running.' })
+);*/
+
+app.use(express.static(path.join(__dirname, '../../client/build')));
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+});
 
 
 
-
-
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server listens on port ${port}.`));
