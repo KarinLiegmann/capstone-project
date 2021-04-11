@@ -45,7 +45,6 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOp
                     return null
                 }
             })
-
             }
         </>
     )

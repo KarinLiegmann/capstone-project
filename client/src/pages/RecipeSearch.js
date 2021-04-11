@@ -17,11 +17,13 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
             <SearchBar
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={onCreateIngredient}
+                data-testid="tag-input"
             />
             <IngredientTags
                 ingredients={ingredients}
                 onToggleStatus={onToggleStatus}
                 onDeleteTag={onDeleteTag}
+                data-testid="ingredient-tag"
             />
             <Link to="/results">
                 <ButtonMain

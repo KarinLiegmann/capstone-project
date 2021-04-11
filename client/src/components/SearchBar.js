@@ -28,16 +28,18 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             setIsError(false)
         } else {
             setIsError(true)
+            setSearchQuery('')
             setIngredient({})
         }
 
-        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery) && !isError) {
+        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery)) {
             await onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
             setFetchedIngredients([])
             setIsError(false)
         } else {
             setIsError(true)
+            setSearchQuery('')
             setIngredient({})
         }
     }
@@ -60,8 +62,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             if (ingredientsData.length === 0) {
                 setIsError(true);
                 setIngredient({})
+            } else if (ingredientsData.length) {
+
+                setFetchedIngredients(ingredientsData)
+                setIsError(false)
+
             }
-            setFetchedIngredients(ingredientsData)
+
         } catch (error) {
             console.error(error.message)
         }
@@ -70,7 +77,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     useEffect(() => {
         if (searchQuery.length >= 3) {
             getAutofillIngredients();
-        } else if (searchQuery.length === 0) {
+        } else {
             setFetchedIngredients([])
             setIsError(false)
         }
@@ -88,6 +95,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 setIsError(false)
                 return null
             }
+
         })
     }
 
@@ -101,13 +109,16 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         placeholder={placeholderText}
                         onChange={getQueryValue}
                         value={searchQuery}
+                        data-testid="tag-input"
                     />
-                    {fetchedIngredients.length >= 2 &&
-                        <ul>
+                    {fetchedIngredients.length >= 1 &&
+                        <ul
+                            data-test-id="autofill-results">
                             {fetchedIngredients.map(item =>
                                 <li
                                     key={item.id}
                                     name={item.name}
+                                    data-testid="autofill-value"
                                     onClick={() => getAutofillValue(item.id)}>
                                     {item.name}
                                 </li>)}
@@ -123,7 +134,8 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
             </FormWrapper>
             {isError &&
-                <ErrorMessage>Sorry, no matching results...</ErrorMessage>
+                <ErrorMessage
+                    data-testid="error-message">Sorry, no matching results...</ErrorMessage>
             }
         </>
     )
