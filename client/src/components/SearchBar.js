@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
+import { fetchAutofillSuggestions } from '../library/axiosRequests'
+
 
 export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
@@ -18,59 +20,45 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         setSearchQuery(query)
     }
 
+    const handleWrongSubmit = () => {
+        setIsError(true)
+        setSearchQuery('')
+        setIngredient({})
+    }
+
+    const handleRightSubmit = () => {
+        setIngredient({})
+        setSearchQuery('')
+        setFetchedIngredients([])
+        setIsError(false)
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (searchQuery.length >= 3 && ingredient.length !== 0 && !isError) {
             await onCreateIngredient(ingredient)
-            setIngredient({})
-            setSearchQuery('')
-            setFetchedIngredients([])
-            setIsError(false)
+            handleRightSubmit()
         } else {
-            setIsError(true)
-            setSearchQuery('')
-            setIngredient({})
+            handleWrongSubmit()
         }
 
         if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery)) {
             await onCreateIngredient(fetchedIngredients[0])
-            setSearchQuery('')
-            setFetchedIngredients([])
-            setIsError(false)
+            handleRightSubmit()
         } else {
-            setIsError(true)
-            setSearchQuery('')
-            setIngredient({})
+            handleWrongSubmit()
         }
     }
 
     const getAutofillIngredients = async () => {
-        const value = searchQuery
-        try {
-            const searchResults =
-                await axios.get('/ingredients', {
-                    params: {
-                        metaInformation: true,
-                        number: 2,
-                        query: value
-                    },
-                })
-            const ingredientsData = searchResults.data.map(ingredient => ({
-                id: ingredient.id,
-                name: ingredient.name,
-            }))
-            if (ingredientsData.length === 0) {
-                setIsError(true);
-                setIngredient({})
-            } else if (ingredientsData.length) {
+        const ingredientsData = await fetchAutofillSuggestions(searchQuery)
 
-                setFetchedIngredients(ingredientsData)
-                setIsError(false)
-
-            }
-
-        } catch (error) {
-            console.error(error.message)
+        if (ingredientsData.length === 0) {
+            setIsError(true);
+            setIngredient({})
+        } else if (ingredientsData.length) {
+            setFetchedIngredients(ingredientsData)
+            setIsError(false)
         }
     }
 
@@ -95,7 +83,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 setIsError(false)
                 return null
             }
-
         })
     }
 

@@ -1,5 +1,30 @@
 import axios from 'axios'
 
+export async function fetchAutofillSuggestions(searchQuery) {
+    const value = searchQuery
+
+    try {
+        const searchResults =
+            await axios.get('/ingredients', {
+                params: {
+                    metaInformation: true,
+                    number: 2,
+                    query: value
+                },
+            })
+
+        const ingredientsData = searchResults.data.map(ingredient => ({
+            id: ingredient.id,
+            name: ingredient.name
+        }))
+
+        return ingredientsData
+
+    } catch (error) {
+        console.error(error.message)
+    }
+}
+
 export async function getRecipeData(activeIngredients, offsetCounter) {
 
     const ingredientNames = activeIngredients.map(ingredient => ingredient.name)
