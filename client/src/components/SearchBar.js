@@ -110,6 +110,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         onChange={getQueryValue}
                         value={searchQuery}
                         data-testid="tag-input"
+                        type="text"
                     />
                     {fetchedIngredients.length >= 1 &&
                         <ul

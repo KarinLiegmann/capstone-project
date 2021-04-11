@@ -2,10 +2,11 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import header from '../assets/CardSmallHeader.png'
 import footer from '../assets/CardSmallFooter.png'
+import { RiDeleteBinLine } from 'react-icons/ri'
 
 import { ButtonSecondary } from './Buttons'
 
-export default function RecipeCardSmall({ onShowRecipePage, onOpenModal, recipes }) {
+export default function RecipeCardSmall({ onDeleteFavourite, onShowRecipePage, onOpenModal, recipes }) {
 
 
     return (
@@ -32,8 +33,11 @@ export default function RecipeCardSmall({ onShowRecipePage, onOpenModal, recipes
                         }
 
                         {recipe.isFavourite &&
-                            <p><span>Ingredients:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}, {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}
-                            </p>
+                            <>
+                                <DeleteIcon onClick={() => onDeleteFavourite(recipe.id)} />
+                                <p><span>Ingredients:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}, {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}
+                                </p>
+                            </>
                         }
 
                         <InfoButton onClick={() => onOpenModal(recipe)}>
@@ -119,6 +123,18 @@ header {
 
 }
 `
+
+const DeleteIcon = styled(RiDeleteBinLine)`
+color: var(--clr-dark);
+font-size: 2.7rem;
+margin-top: 2rem;
+
+&:hover,
+&:active {
+    transform: scale(1.2);
+    color: var(--clr-accent2);
+    cursor: pointer;
+}`
 
 
 RecipeCardSmall.propTypes = {
