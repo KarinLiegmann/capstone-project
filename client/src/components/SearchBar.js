@@ -60,8 +60,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             if (ingredientsData.length === 0) {
                 setIsError(true);
                 setIngredient({})
+            } else if (ingredientsData.length) {
+
+                setFetchedIngredients(ingredientsData)
+                setIsError(false)
+
             }
-            setFetchedIngredients(ingredientsData)
+
         } catch (error) {
             console.error(error.message)
         }
@@ -124,7 +129,8 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
             </FormWrapper>
             {isError &&
-                <ErrorMessage>Sorry, no matching results...</ErrorMessage>
+                <ErrorMessage
+                    data-testid="error-message">Sorry, no matching results...</ErrorMessage>
             }
         </>
     )
