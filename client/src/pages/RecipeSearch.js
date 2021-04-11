@@ -23,7 +23,7 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
                 ingredients={ingredients}
                 onToggleStatus={onToggleStatus}
                 onDeleteTag={onDeleteTag}
-                data-testid="ingredient-tags"
+                data-testid="ingredient-tag"
             />
             <Link to="/results">
                 <ButtonMain

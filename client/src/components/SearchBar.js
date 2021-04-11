@@ -27,15 +27,17 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             setFetchedIngredients([])
         } else {
             setIsError(true)
+            setSearchQuery('')
             setIngredient({})
         }
 
-        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery) && !isError) {
+        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery)) {
             await onCreateIngredient(fetchedIngredients[0])
             setSearchQuery('')
             setFetchedIngredients([])
         } else {
             setIsError(true)
+            setSearchQuery('')
             setIngredient({})
         }
     }
@@ -68,7 +70,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
     useEffect(() => {
         if (searchQuery.length >= 3) {
             getAutofillIngredients();
-        } else if (searchQuery.length === 0) {
+        } else {
             setFetchedIngredients([])
             setIsError(false)
         }
@@ -83,6 +85,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                 setIngredient(item)
                 setIsError(false)
             }
+
         })
     }
 
@@ -99,11 +102,13 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         data-testid="tag-input"
                     />
                     {fetchedIngredients.length >= 1 &&
-                        <ul>
+                        <ul
+                            data-test-id="autofill-results">
                             {fetchedIngredients.map(item =>
                                 <li
                                     key={item.id}
                                     name={item.name}
+                                    data-testid="autofill-value"
                                     onClick={() => getAutofillValue(item.id)}>
                                     {item.name}
                                 </li>)}

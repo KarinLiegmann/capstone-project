@@ -1,6 +1,6 @@
-describe('<RecipeSearch /> Component E2E tested', () => {
+describe('<SearchBar /> Component E2E tested', () => {
     const TAG_INPUT_FIELD = '[data-testid="tag-input"]';
-    const INGREDIENT_TAG = '[data-testid="ingredient-tags"]';
+
     /*const addThreeTags = () => {
         cy.get(TAG_INPUT_FIELD)
             .type('One')
@@ -16,21 +16,30 @@ describe('<RecipeSearch /> Component E2E tested', () => {
     it('does render the input field', () => {
         cy.get(TAG_INPUT_FIELD).should('be.visible');
     });
-    /*it('should generate a new tag when user enters a tag in the input field', () => {
+    it('should test the query value when typing', () => {
         cy.get(TAG_INPUT_FIELD)
-            .type('One')
-            .type('{enter}');
-        cy.get(TAG_SELECTOR).should('have.length', 1);
+            .type('chick')
+        cy.get(TAG_INPUT_FIELD).should('have.value', 'chick');
     });
-    it('should generate two tags when user enters two tags in the input field', () => {
+    it('should test the query value when typing', () => {
         cy.get(TAG_INPUT_FIELD)
-            .type('One')
+            .type('chick')
+        cy.get(TAG_INPUT_FIELD).should('have.value', 'chick');
+    });/*
+});
+    it('should generate a new tag when user enters a valid tag in the input field', () => {
+        cy.get(TAG_INPUT_FIELD)
+            .type('chicken')
+            .type('{enter}');
+        cy.get(INGREDIENT_TAGS).should('have.length', 1);
+    });
+    it('should generate no tag when user enters an invalid ingredient-name in the input field', () => {
+        cy.get(TAG_INPUT_FIELD)
+            .type('12345')
             .type('{enter}')
-            .type('Two')
-            .type('{enter}');
-        cy.get(TAG_SELECTOR).should('have.length', 2);
+        cy.get(INGREDIENT_TAGS).should('have.length', 0);
     });
-    it('should delete last tag when user presses backspace key', () => {
+    /*it('should delete last tag when user presses backspace key', () => {
         addThreeTags();
         cy.get(TAG_INPUT_FIELD).type('{backspace}');
         cy.get(TAG_SELECTOR).should('have.length', 2);

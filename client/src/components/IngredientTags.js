@@ -5,15 +5,17 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 
 export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
     return (
-        <Wrapper>
+        <Wrapper
+            data-testid="ingredient-tags">
             {ingredients.map((ingredient) =>
             (<TagWrapper
                 key={ingredient.id}
-                data-testid="ingredient-tag"
+
             >
                 <StyledIngredientTag
                     onClick={() => onToggleStatus(ingredient.id)}
                     isActive={ingredient.isActive}
+                    data-testid="ingredient-tag"
                 >
                     {ingredient.name} <CheckMark isActive={ingredient.isActive} />
                 </StyledIngredientTag>
