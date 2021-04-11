@@ -24,6 +24,4 @@ describe("IngredientTag Component", () => {
             />
         )
     })
-
-
 })

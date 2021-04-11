@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^6.6.0",
+    "cypress": "^6.9.1",
     "react-styleguidist": "^11.1.5"
   },
   "proxy": "http://localhost:4000"
