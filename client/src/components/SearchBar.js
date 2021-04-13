@@ -198,5 +198,6 @@ color: var(--clr-accent2);
 
 SearchBar.propTypes = {
     placeholderText: PropTypes.string.isRequired,
+    /** creates an igredient-tag by clicking on the plus-sign or pushing enter */
     onCreateIngredient: PropTypes.func.isRequired
 }

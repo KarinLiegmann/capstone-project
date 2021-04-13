@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export default function IngredientsList({ ingredients }) {
     return (
         <>
@@ -6,4 +8,8 @@ export default function IngredientsList({ ingredients }) {
             ))}
         </>
     )
+}
+
+IngredientsList.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
