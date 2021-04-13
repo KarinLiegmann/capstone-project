@@ -1,7 +1,10 @@
+/// <reference types="Cypress" />
+
 describe('<SearchBar /> Component E2E tested', () => {
     const TAG_INPUT_FIELD = '[data-testid="tag-input"]';
     const FETCHED_INGREDIENTS = '[data-testid="autofill-value"]'
     const ERROR_MESSAGE = '[data-testid="error-message"]'
+    const INGREDIENT_TAGS = '[data-testid="ingredient-tags"]'
 
     beforeEach(() => {
         cy.visit('/');
@@ -45,5 +48,18 @@ describe('<SearchBar /> Component E2E tested', () => {
         cy.get(TAG_INPUT_FIELD)
             .type('chick')
         cy.get(FETCHED_INGREDIENTS).first().contains('chick');
+    });
+    it('should transform value of input field into lowercase-characters', () => {
+        cy.get(TAG_INPUT_FIELD)
+            .type('Mozz')
+        cy.get(TAG_INPUT_FIELD).should('have.value', 'mozz');
+    });
+    it('should render the the first autofill ingredient as tag when clicking on it and pressing enter', () => {
+        cy.get(TAG_INPUT_FIELD)
+            .type('chicken')
+        cy.get(FETCHED_INGREDIENTS).first().click();
+        cy.get(TAG_INPUT_FIELD)
+            .type('{enter}')
+        cy.get(INGREDIENT_TAGS).should('be.visible');
     });
 });

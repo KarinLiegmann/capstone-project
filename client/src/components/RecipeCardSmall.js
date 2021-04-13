@@ -139,4 +139,10 @@ margin-top: 2rem;
 
 RecipeCardSmall.propTypes = {
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** shows the recipe instruction-page by clicking on the 'Cook Me'-Button */
+    onShowRecipePage: PropTypes.func.isRequired,
+    /** function only works when recipe is a favourite recipe. removes the card from favourite recipes. */
+    onDeleteFavourite: PropTypes.func,
+    /** opens the modal with details about the ingredients */
+    onOpenModal: PropTypes.func.isRequired
 }

@@ -157,6 +157,8 @@ justify-self: flex-end;
 
 RecipeCard.propTypes = {
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** deletes the card from the fetched recipes and shows the next card */
     onDeleteRecipe: PropTypes.func.isRequired,
+    /** adds the card to likedRecipes and shows the next card */
     onLikeRecipe: PropTypes.func.isRequired
 }
