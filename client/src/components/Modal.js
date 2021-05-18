@@ -37,8 +37,6 @@ export default function Modal({ recipeData, openModal, onCloseModal }) {
                         <IngredientsList ingredients={recipeData.usedIngredients} />
                     </ul>
                 </ContentDiv>}
-
-
         </ModalDiv>}
 
         </>
@@ -65,7 +63,6 @@ border: 1px solid rgba(0, 0, 0, 0.1);
 border-radius: 1rem;
 cursor: pointer;
 overflow: scroll;
-width: 80%;
 height: auto;
 max-height: 80vmax;
 top: 35%;

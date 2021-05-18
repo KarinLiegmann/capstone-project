@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { AiFillStar } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
-import BackIcon from '../components/BackIcon'
+import BackIcon from '../components/Navigation/BackIcon'
 import { ButtonMain } from '../components/Buttons'
 import IngredientTags from '../components/IngredientTags'
 import IngredientsList from '../components/IngredientsList'
@@ -17,7 +17,7 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
         </Link>
 
         {completeRecipe &&
-            <Wrapper>
+            <Wrapper className="pageWrapper">
                 <header>
                     <img src={completeRecipe.image} alt={completeRecipe.title} />
                     <h2>{completeRecipe.title}</h2>
@@ -34,17 +34,21 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
 
                 <CookingIngredients>
                     <h3>Cooking Ingredients</h3>
-                    <IngredientsList ingredients={completeRecipe.missedIngredients} />
-                    <IngredientsList ingredients={completeRecipe.usedIngredients} />
+                    <div>
+                        <IngredientsList ingredients={completeRecipe.missedIngredients} />
+                        <IngredientsList ingredients={completeRecipe.usedIngredients} />
+                    </div>
                 </CookingIngredients>
 
                 <Instructions>
                     <h3>Cooking Instructions</h3>
-                    {completeRecipe.steps && completeRecipe.steps.length > 0 && completeRecipe.steps[0].map((step, index) => (
-                        <p><span>Step {index + 1}:</span> {step}</p>
-                    ))}
+                    <div>
+                        {completeRecipe.steps && completeRecipe.steps.length > 0 && completeRecipe.steps[0].map((step, index) => (
+                            <p><span>Step {index + 1}:</span> {step}</p>
+                        ))}
+                    </div>
 
-                    {completeRecipe.steps && completeRecipe.steps.length === 0 && <p>We're sorry, but no instructions could be found. Feel free to get creative with your ingredients!</p>}
+                    {completeRecipe.steps && completeRecipe.steps.length === 0 && <div><p>We're sorry, but no instructions could be found. Feel free to get creative with your ingredients!</p></div>}
                 </Instructions>
 
                 <TagWrapper>
@@ -73,13 +77,17 @@ flex-direction: column;
 margin-bottom: 2rem;
 margin-top: 25%;
 
+@media screen and (min-width: 1024px) {
+        margin-top: 5%;
+    }
+
 header {
     padding: 0 2rem;
 
     img {
         border-radius: 20px;
-        width: 90%;
-    }
+        max-width: 500px;      
+}    
 }
 `
 
@@ -87,6 +95,30 @@ const Instructions = styled.ul`
 list-style: none;
 padding: 1.5rem;
 text-align: left;
+
+@media screen and (min-width: 1024px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: space-around;
+
+            h3 {
+                grid-column: 1 / 2;
+                margin-top: 0;
+            }
+
+            
+            div { 
+                grid-column: 2 / 4;
+                display: flex;
+                flex-wrap: wrap;
+                width: 700px; 
+            }
+
+            p {
+                width: 300px;
+                margin-left: 3rem;
+            }
+        }
 
 li {
     margin-top: 1rem;
@@ -99,16 +131,62 @@ span {
 
 const CookingIngredients = styled.ul`
 text-align: left;
+
+@media screen and (min-width: 1024px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: space-around;
+
+            h3 {
+                grid-column: 1 / 2;
+                margin-top: 0;
+            }
+
+            
+            div { 
+                grid-column: 2 / 4;
+                display: flex;
+                flex-wrap: wrap;
+                width: 700px; 
+            }
+
+            li {
+                width: 300px;
+                margin-left: 3rem;
+            }
+        }
 `
 
 const TagWrapper = styled.section`
 padding: 1.5rem;
 text-align: left;
+
+@media screen and (min-width: 1024px) {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: space-around;
+
+            h3, p {
+                grid-column: 1 / 2;
+                margin-top: 0;
+                width: 270px;
+            }
+
+            div {
+                grid-column: 2 / 4;
+                margin-left: 2rem;
+                margin-right: 15rem;
+            }
+        }
 `
 
 const IconWrapper = styled.div`
 display: flex;
 justify-content: ${({ isFavourite }) => isFavourite ? 'space-between' : 'flex-end'};
+
+@media screen and (min-width: 1024px) {
+            margin: 2rem 5rem 4rem 5rem;
+        }
 `
 
 

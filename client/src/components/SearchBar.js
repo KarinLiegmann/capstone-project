@@ -129,12 +129,19 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 }
 
 const FormWrapper = styled.div`
+background: #fff;
 border: 1px solid var(--clr-dark);
 border-radius: 10px;
 box-shadow: var(--bs-dark);
 display: flex;
 align-items: center;
+align-self: center;
 width: 100%;
+
+@media screen and (min-width: 1024px) {
+    align-self: center;
+    width: 60%;
+}
 `
 
 const AddButton = styled.span`

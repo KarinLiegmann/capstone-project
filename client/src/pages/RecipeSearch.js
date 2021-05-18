@@ -12,7 +12,7 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
 
 
     return (
-        <Wrapper>
+        <Wrapper className="pageWrapper">
             <Headline>Hey, what's in your <span>fridge today?</span></Headline>
             <SearchBar
                 placeholderText="Search and add ingredient..."
@@ -40,8 +40,7 @@ display: flex;
 flex-direction: column;
 height: 100vmin;
 margin-top: 20%;
-padding: 0 2rem;
-width: 100vw;
+width: 90vw;
 
 button {
     margin: 2rem 0;
@@ -62,4 +61,12 @@ padding: 1.2rem 2rem;
         font-weight: var(--fw-bold);
     }
 
+    
+    @media screen and (min-width: 380px) {        
+        background-size: auto 128%;
+       }
+
+    @media screen and (min-width: 1024px) {    
+    background-size: auto 130%;
+    }
 `

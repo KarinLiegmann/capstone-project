@@ -119,7 +119,11 @@ header {
     margin-right: .6rem;
     height: 40%;
     width: 40%;
-}
+    }
+
+    h3 {
+        margin-top: 0;
+    }
 
 }
 `

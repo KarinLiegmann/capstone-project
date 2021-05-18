@@ -13,7 +13,8 @@ import RecipeSelection from './pages/RecipeSelection'
 import RecipeInstructions from './pages/RecipeInstructions'
 import FavouriteRecipes from './pages/FavouriteRecipes'
 
-import Header from './components/Header'
+import MobileHeader from './components/Navigation/MobileHeader'
+import DesktopHeader from './components/Navigation/DesktopHeader'
 import Modal from './components/Modal'
 
 
@@ -200,9 +201,11 @@ function App() {
   return (
 
     <div className="App">
-      <Header
+      <MobileHeader
         open={open}
         setOpen={setOpen} />
+
+      <DesktopHeader />
 
       <main>
         <Switch>
@@ -280,3 +283,4 @@ function App() {
 }
 
 export default App;
+

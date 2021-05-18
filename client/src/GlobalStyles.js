@@ -10,8 +10,6 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
 }
 
-
-
 :root {   
     --bs-accent1: 2px 5px 10px rgb(52, 176, 95, .52);
     --bs-accent1-light: 2px 5px 10px rgb(52, 176, 95, .29);
@@ -50,14 +48,22 @@ body {
 /* Typography */
 
 
-
 h1 { font-size: var(--fs-h1) }
 h2 { font-size: var(--fs-h2) }
 h3 { font-size: var(--fs-h3) }
 
+@media screen and (min-width: 1024px) {
+h2 { font-size: var(--fs-h1) }
+h3 { font-size: var(--fs-h2) }
+}
+
+
+
 .App {
     align-items: center;
-    height: 100vh;    
+    background: linear-gradient(#FCFAF8, #fff);
+    min-height: 100vh;
+    min-width: 360px;    
     color: var(--clr-dark);
     display: flex;
     flex-direction: column;
@@ -66,5 +72,8 @@ h3 { font-size: var(--fs-h3) }
     line-height: 1.5;
     text-align: center;
 }
+
+
+
 `
 

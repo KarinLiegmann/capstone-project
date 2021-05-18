@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { FaHeart } from 'react-icons/fa'
 import { AiFillStar } from 'react-icons/ai'
 
-import Logo from '../assets/AppLogo.png'
+import Logo from '../../assets/AppLogo.png'
 
 export default function Menu({ open, setOpen }) {
   return (
@@ -35,7 +35,8 @@ const StyledMenu = styled.nav`
   transition: transform 0.3s ease-in-out;
   z-index: 20;
   
-  @media (max-width: 576px) {
+  @media (max-width: 1024px) {
+    font-size: var(--fs-h1);
     width: 100%;
   }
 
@@ -50,7 +51,7 @@ const StyledMenu = styled.nav`
     transition: color 0.3s linear;
     
     @media (max-width: 576px) {
-      font-size: 1rem;
+      font-size: var(--fs-h3);
     }
 
     &:hover,
@@ -63,7 +64,7 @@ const StyledMenu = styled.nav`
     align-self: center;
     margin-bottom: 3rem;
     margin-top: 1rem;
-    width: 60%;
+    width: 300px;
   }
 `;
 

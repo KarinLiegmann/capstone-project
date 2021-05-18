@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { FaHeart } from 'react-icons/fa'
 
-import BackIcon from '../components/BackIcon'
+import BackIcon from '../components/Navigation/BackIcon'
 import RecipeCards from '../components/RecipeCards'
 import { ButtonMain } from '../components/Buttons'
 
@@ -17,7 +17,7 @@ export default function RecipeResults({ error, loading, recipes, likedRecipes, o
                 <BackIcon />
             </Link>
 
-            <Wrapper>
+            <Wrapper className="pageWrapper">
                 {loading && <LoadingMessage>Loading...</LoadingMessage>}
 
                 {!loading && recipes.length !== 0 &&
@@ -75,7 +75,6 @@ display: flex;
 flex-direction: column;
 margin-bottom: 4rem;
 margin-top: 20%;
-padding: 0 2rem;
 width: 100vw;
 
 button {

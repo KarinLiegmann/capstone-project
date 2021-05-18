@@ -5,7 +5,7 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 
 export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
     return (
-        <Wrapper
+        <IngredientsWrapper
             data-testid="ingredient-tags">
             {ingredients.map((ingredient) =>
             (<TagWrapper
@@ -23,12 +23,12 @@ export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatu
                     onClick={() => onDeleteTag(ingredient.id)} />
             </TagWrapper>
             ))}
-        </Wrapper>
+        </IngredientsWrapper>
     )
 }
 
 
-const Wrapper = styled.section`
+const IngredientsWrapper = styled.section`
 display: flex;
 flex-direction: column;
 margin: 1rem 0 1rem 1.5rem;
