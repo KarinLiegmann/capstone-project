@@ -141,8 +141,7 @@ width: 100%;
 @media screen and (min-width: 1024px) {
     align-self: center;
     width: 60%;
-}
-`
+}`
 
 const AddButton = styled.span`
 color: var(--clr-accent1);
@@ -205,5 +204,6 @@ color: var(--clr-accent2);
 
 SearchBar.propTypes = {
     placeholderText: PropTypes.string.isRequired,
+    /** creates an igredient-tag by clicking on the plus-sign or pushing enter */
     onCreateIngredient: PropTypes.func.isRequired
 }

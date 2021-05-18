@@ -68,6 +68,8 @@ margin-left: .5rem;
 
 IngredientTags.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+    /** Delete an Ingredient-Tag by clicking on the Trash-Icon */
     onDeleteTag: PropTypes.func.isRequired,
+    /** Toggles an ingredient as active or inactive by clicking on the Ingredient-Tag */
     onToggleStatus: PropTypes.func,
 }

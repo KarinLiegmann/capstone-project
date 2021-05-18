@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import IngredientsList from './IngredientsList'
 
 
-export default function Modal({ recipeData, openModal, onCloseModal }) {
+export default function Modal({ recipeData, openModal, onCloseModal, isStatic }) {
 
 
     return (
@@ -10,9 +10,11 @@ export default function Modal({ recipeData, openModal, onCloseModal }) {
         <>{openModal && <ModalDiv
             openModal={openModal}
             recipeData={recipeData}
+            isStatic={isStatic}
         >
             {!recipeData.isFavourite &&
-                <ContentDiv>
+                <ContentDiv
+                    isStatic={isStatic}>
                     <span onClick={onCloseModal}>X</span>
                     <h2>{recipeData.title}</h2>
                     <h3>Missing Ingredients:</h3>
@@ -46,7 +48,7 @@ export default function Modal({ recipeData, openModal, onCloseModal }) {
 
 const ModalDiv = styled.div`
 display: ${p => p.openModal && p.openModal};
-position: fixed;
+position: ${({ isStatic }) => (isStatic ? 'static' : 'fixed')};
 top: 0;
 left: 0;
 height: 100%;
@@ -68,9 +70,9 @@ max-height: 80vmax;
 top: 35%;
 left: 50%;
 padding: 1rem;
-position: fixed;
+position: ${({ isStatic }) => (isStatic ? 'static' : 'fixed')};
 text-align: left;
-transform: translate(-50%, -30%);
+transform: ${({ isStatic }) => (isStatic ? '0' : 'translate(-50%, -30%)')};
 
 h2 {
     margin: 0;
