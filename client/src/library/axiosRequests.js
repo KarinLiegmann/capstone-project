@@ -8,7 +8,7 @@ export async function fetchAutofillSuggestions(searchQuery) {
             await axios.get('/ingredients', {
                 params: {
                     metaInformation: true,
-                    number: 2,
+                    number: 5,
                     query: value
                 },
             })
@@ -38,7 +38,7 @@ export async function getRecipeData(activeIngredients, offsetCounter) {
                 params: {
                     instructionsRequired: true,
                     ranking: 1,
-                    number: 3,
+                    number: 6,
                     offset: offsetNumber,
                     ingredients: queryString
                 },

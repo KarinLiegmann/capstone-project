@@ -172,6 +172,10 @@ function App() {
     }
   }
 
+  function resetOffsetCouter() {
+    setOffsetCounter(0)
+  }
+
   function addToFavouriteRecipes(recipeToAdd) {
     const newRecipe = {
       ...recipeToAdd,
@@ -216,7 +220,8 @@ function App() {
               onGetRecipeResults={getRecipeResults}
               onCreateIngredient={addIngredient}
               onDeleteTag={deleteIngredient}
-              onToggleStatus={toggleActiveState} />
+              onToggleStatus={toggleActiveState}
+              onResetOffsetCounter={resetOffsetCouter} />
           </Route>
 
           <Route path="/results">

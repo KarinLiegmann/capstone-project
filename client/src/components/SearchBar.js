@@ -34,14 +34,14 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (searchQuery.length >= 3 && ingredient.length !== 0 && !isError) {
+        if (searchQuery.length >= 3 && ingredient.length && !isError) {
             await onCreateIngredient(ingredient)
             handleRightSubmit()
         } else {
             handleWrongSubmit()
         }
 
-        if (fetchedIngredients.length !== 0 && fetchedIngredients[0].name.includes(searchQuery)) {
+        if (fetchedIngredients.length) {
             await onCreateIngredient(fetchedIngredients[0])
             handleRightSubmit()
         } else {

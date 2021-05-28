@@ -81,6 +81,10 @@ button {
     margin: 2rem 0;
     width: fit-content;
 }
+
+@media screen and (min-width: 1024px) {    
+    margin-top: 5%;
+    }
 `
 
 
@@ -106,6 +110,8 @@ color: var(--clr-accent2);
 const LoadingMessage = styled.h2`
 color: var(--clr-accent1);
 `
+
+
 
 
 RecipeResults.propTypes = {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -8,12 +9,18 @@ import IngredientTags from '../components/IngredientTags'
 import { ButtonMain } from '../components/Buttons'
 
 
-export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus }) {
+export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus, onResetOffsetCounter }) {
+
+    useEffect(async () => {
+        await onResetOffsetCounter()
+        console.log('test')
+    }, [])
 
 
     return (
         <Wrapper className="pageWrapper">
             <Headline>Hey, what's in your <span>fridge today?</span></Headline>
+
             <SearchBar
                 placeholderText="Search and add ingredient..."
                 onCreateIngredient={onCreateIngredient}

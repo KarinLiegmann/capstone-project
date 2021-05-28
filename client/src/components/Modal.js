@@ -67,6 +67,7 @@ cursor: pointer;
 overflow: scroll;
 height: auto;
 max-height: 80vmax;
+width: 80%;
 top: 35%;
 left: 50%;
 padding: 1rem;
@@ -89,6 +90,7 @@ span {
     &:active {
     transform: scale(1.2);
   }
+
   
 }
 `
