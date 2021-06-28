@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+
 import { AiFillStar } from 'react-icons/ai'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
 import BackIcon from '../components/Navigation/BackIcon'
-import { ButtonMain } from '../components/Buttons'
-import IngredientTags from '../components/IngredientTags'
-import IngredientsList from '../components/IngredientsList'
+import { ButtonMain } from '../components/Navigation/Buttons'
+import IngredientTags from '../components/Ingredients/IngredientTags'
+import IngredientsList from '../components/Ingredients/IngredientsList'
 
 
 export default function RecipeInstructions({ activeIngredients, onDeleteTag, completeRecipe, onLikeRecipe, onToggleStatus, isFavourite, onDeleteFavourite }) {
@@ -57,7 +58,8 @@ export default function RecipeInstructions({ activeIngredients, onDeleteTag, com
                     <IngredientTags
                         ingredients={activeIngredients}
                         onDeleteTag={onDeleteTag}
-                        onToggleStatus={onToggleStatus} />
+                        onToggleStatus={onToggleStatus}
+                    />
                 </TagWrapper>
 
                 <Link to="/" >

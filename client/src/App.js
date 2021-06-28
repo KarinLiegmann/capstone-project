@@ -15,7 +15,7 @@ import FavouriteRecipes from './pages/FavouriteRecipes'
 
 import MobileHeader from './components/Navigation/MobileHeader'
 import DesktopHeader from './components/Navigation/DesktopHeader'
-import Modal from './components/Modal'
+import Modal from './components/Modal/Modal'
 
 
 function App() {
@@ -196,12 +196,6 @@ function App() {
     setOpenModal(false)
   }
 
-  function ignoreStatus() {
-    console.log('test')
-  }
-
-
-
   return (
 
     <div className="App">
@@ -263,7 +257,7 @@ function App() {
               onDeleteFavourite={removeFavouriteRecipe}
               onDeleteTag={deleteIngredient}
               onLikeRecipe={addToFavouriteRecipes}
-              onToggleStatus={ignoreStatus}
+            // onToggleStatus={ignoreStatus}
             />
           </Route>
 

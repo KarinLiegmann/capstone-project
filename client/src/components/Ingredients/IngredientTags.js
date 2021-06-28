@@ -1,24 +1,39 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+
 import { GiCheckMark } from 'react-icons/gi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
-export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus }) {
+export default function IngredientTags({ ingredients, onDeleteTag, onToggleStatus, isToggable }) {
     return (
+
         <IngredientsWrapper
             data-testid="ingredient-tags">
             {ingredients.map((ingredient) =>
             (<TagWrapper
                 key={ingredient.id}
-
             >
-                <StyledIngredientTag
-                    onClick={() => onToggleStatus(ingredient.id)}
-                    isActive={ingredient.isActive}
-                    data-testid="ingredient-tag"
-                >
-                    {ingredient.name} <CheckMark isActive={ingredient.isActive} />
-                </StyledIngredientTag>
+
+                {isToggable &&
+                    <StyledIngredientTag
+                        onClick={() => onToggleStatus(ingredient.id)}
+                        isActive={ingredient.isActive}
+                        data-testid="ingredient-tag"
+                    >
+                        {ingredient.name} < CheckMark isActive={ingredient.isActive} />
+
+                    </StyledIngredientTag>}
+
+                {!isToggable &&
+                    <StyledIngredientTag
+                        isActive={ingredient.isActive}
+                        data-testid="ingredient-tag"
+                    >
+                        {ingredient.name} < CheckMark isActive={ingredient.isActive} />
+
+                    </StyledIngredientTag>
+                }
+
                 <DeleteIcon
                     onClick={() => onDeleteTag(ingredient.id)} />
             </TagWrapper>

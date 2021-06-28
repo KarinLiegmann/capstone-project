@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import header from '../assets/CardSmallHeader.png'
-import footer from '../assets/CardSmallFooter.png'
+import header from '../../assets/CardSmallHeader.png'
+import footer from '../../assets/CardSmallFooter.png'
 import { RiDeleteBinLine } from 'react-icons/ri'
 
-import { ButtonSecondary } from './Buttons'
+import { ButtonSecondary } from '../Navigation/Buttons'
+import { MissingIngredients, UsedIngredients } from '../Ingredients/IngredientsListShort'
 
 export default function RecipeCardSmall({ onDeleteFavourite, onShowRecipePage, onOpenModal, recipes }) {
 
@@ -27,15 +28,14 @@ export default function RecipeCardSmall({ onDeleteFavourite, onShowRecipePage, o
                             onHandleClick={() => onShowRecipePage(recipe)}
                         />
 
-                        {!recipe.isFavourite && recipe.missedIngredients.length > 0 &&
-                            <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}
-                            </p>
+                        {!recipe.isFavourite && recipe.missedIngredients.length &&
+                            <p><MissingIngredients recipe={recipe} /></p>
                         }
 
                         {recipe.isFavourite &&
                             <>
                                 <DeleteIcon onClick={() => onDeleteFavourite(recipe.id)} />
-                                <p><span>Ingredients:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}, {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}
+                                <p><MissingIngredients recipe={recipe} />, <UsedIngredients recipe={recipe} />
                                 </p>
                             </>
                         }
@@ -103,10 +103,6 @@ z-index: 10;
 
 button {
     width: fit-content;
-}
-
-span {
-    font-weight: var(--fw-bold);
 }
 
 header {

@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+
 import { FaHeart } from 'react-icons/fa'
 import { RiDislikeLine } from 'react-icons/ri'
 
-import header from '../assets/CardHeader.png'
-import footer from '../assets/CardFooter.png'
+import header from '../../assets/CardHeader.png'
+import footer from '../../assets/CardFooter.png'
+import { MissingIngredients, UsedIngredients } from '../Ingredients/IngredientsListShort'
 
 export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOpenModal }) {
 
@@ -26,12 +28,11 @@ export default function RecipeCard({ recipes, onDeleteRecipe, onLikeRecipe, onOp
                             </IconsWrapper>
 
                             <IngredientsWrapper>
-                                {recipe.missedIngredients.length > 0 &&
-                                    <p><span>You need:</span> {recipe.missedIngredients.map((missingIngredient => missingIngredient.name.toLowerCase())).join(', ')}</p>
+                                {recipe.missedIngredients &&
+                                    <p><MissingIngredients recipe={recipe} /></p>
                                 }
-
-                                {recipe.usedIngredients.length > 0 &&
-                                    <p><span>You have:</span> {recipe.usedIngredients.map((usedIngredient => usedIngredient.name.toLowerCase())).join(', ')}</p>
+                                {recipe.usedIngredients &&
+                                    <p><UsedIngredients recipe={recipe} /></p>
                                 }
                             </IngredientsWrapper>
 
@@ -104,10 +105,6 @@ flex-wrap: wrap;
 
 p {
     margin-bottom: 0.5rem;
-}
-
-span {
-    font-weight: var(--fw-bold);
 }
 `
 

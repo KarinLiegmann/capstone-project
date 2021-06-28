@@ -4,16 +4,15 @@ import { Link } from 'react-router-dom'
 
 import dots from '../assets/dots.png'
 
-import SearchBar from '../components/SearchBar'
-import IngredientTags from '../components/IngredientTags'
-import { ButtonMain } from '../components/Buttons'
+import SearchBar from '../components/SearchBar/SearchBar'
+import IngredientTags from '../components/Ingredients/IngredientTags'
+import { ButtonMain } from '../components/Navigation/Buttons'
 
 
 export default function RecipeSearch({ ingredients, onCreateIngredient, onDeleteTag, onGetRecipeResults, onToggleStatus, onResetOffsetCounter }) {
 
     useEffect(async () => {
         await onResetOffsetCounter()
-        console.log('test')
     }, [])
 
 
@@ -29,15 +28,18 @@ export default function RecipeSearch({ ingredients, onCreateIngredient, onDelete
             <IngredientTags
                 ingredients={ingredients}
                 onToggleStatus={onToggleStatus}
+                isToggable
                 onDeleteTag={onDeleteTag}
                 data-testid="ingredient-tag"
             />
+
             <Link to="/results">
                 <ButtonMain
                     text="Find Recipes"
                     onHandleClick={onGetRecipeResults}
                     isActive={true} />
             </Link>
+
         </Wrapper>
     )
 }

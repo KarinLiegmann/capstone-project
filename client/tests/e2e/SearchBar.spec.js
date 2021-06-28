@@ -17,10 +17,10 @@ describe('<SearchBar /> Component E2E tested', () => {
             .type('chick')
         cy.get(TAG_INPUT_FIELD).should('have.value', 'chick');
     });
-    it('should fetch two autofill-suggestions from the API when three or more valid characters are typed into the input field', () => {
+    it('should fetch five autofill-suggestions from the API when three or more valid characters are typed into the input field', () => {
         cy.get(TAG_INPUT_FIELD)
             .type('chick')
-        cy.get(FETCHED_INGREDIENTS).should('have.length', 2);
+        cy.get(FETCHED_INGREDIENTS).should('have.length', 5);
     });
     it('should not fetch autofill-suggestions from the API when less than three valid characters are typed into the input field', () => {
         cy.get(TAG_INPUT_FIELD)
@@ -42,7 +42,7 @@ describe('<SearchBar /> Component E2E tested', () => {
             .type('chickkk')
             .type('{backspace}')
             .type('{backspace}')
-        cy.get(FETCHED_INGREDIENTS).should('have.length', 2);
+        cy.get(FETCHED_INGREDIENTS).should('have.length', 5);
     });
     it('should make sure that the first autofill-suggestions contains the value of the input field', () => {
         cy.get(TAG_INPUT_FIELD)

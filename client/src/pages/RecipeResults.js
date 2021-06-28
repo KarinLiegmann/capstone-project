@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import { FaHeart } from 'react-icons/fa'
 
 import BackIcon from '../components/Navigation/BackIcon'
-import RecipeCards from '../components/RecipeCards'
-import { ButtonMain } from '../components/Buttons'
+import RecipeCards from '../components/Cards/RecipeCards'
+import { ButtonMain } from '../components/Navigation/Buttons'
 
 
 

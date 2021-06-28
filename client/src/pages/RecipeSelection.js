@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import BackIcon from '../components/Navigation/BackIcon'
-import RecipeCardSmall from '../components/RecipeCardSmall'
+import RecipeCardSmall from '../components/Cards/RecipeCardSmall'
 
 
 export default function RecipeSelection({ recipes, onShowRecipePage, onHandleClick, onOpenModal, onCloseModal }) {

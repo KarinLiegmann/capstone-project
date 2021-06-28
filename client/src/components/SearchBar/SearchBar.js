@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import { fetchAutofillSuggestions } from '../library/axiosRequests'
+import { fetchAutofillSuggestions } from '../../library/axiosRequests'
 
 
 export default function SearchBar({ placeholderText, onCreateIngredient }) {
@@ -74,7 +74,6 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
         fetchedIngredients.map((item) => {
             if (item.id === idToFind) {
                 const ingredientToReplace = item.name
-                setFetchedIngredients([])
                 setSearchQuery(ingredientToReplace)
                 setIngredient(item)
                 setIsError(false)
@@ -98,7 +97,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
                         data-testid="tag-input"
                         type="text"
                     />
-                    {fetchedIngredients.length >= 1 &&
+                    {fetchedIngredients.length > 1 &&
                         <ul
                             data-test-id="autofill-results">
                             {fetchedIngredients.map(item =>
@@ -122,7 +121,7 @@ export default function SearchBar({ placeholderText, onCreateIngredient }) {
             </FormWrapper>
             {isError &&
                 <ErrorMessage
-                    data-testid="error-message">Sorry, no matching results...</ErrorMessage>
+                    data-testid="error-message">{searchQuery.length ? 'Sorry, no matching results...' : 'Please type in an ingredient...'}</ErrorMessage>
             }
         </>
     )
